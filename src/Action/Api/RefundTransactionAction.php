@@ -3,8 +3,8 @@
 namespace PayumTW\Ecpay\Action\Api;
 
 use Payum\Core\Bridge\Spl\ArrayObject;
-use PayumTW\Ecpay\Request\Api\RefundTransaction;
 use Payum\Core\Exception\RequestNotSupportedException;
+use PayumTW\Ecpay\Request\Api\RefundTransaction;
 
 class RefundTransactionAction extends BaseApiAwareAction
 {

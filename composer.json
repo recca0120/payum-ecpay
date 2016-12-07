@@ -2,7 +2,7 @@
     "name": "payum-tw/ecpay",
     "type": "project",
     "description": "The Payum extension. 綠界金流",
-    "keywords": ["歐付寶", "金流程式", "Payum", "PayumTW"],
+    "keywords": ["綠界", "金流程式", "Payum", "PayumTW"],
     "homepage": "http://payum.org",
     "license": "MIT",
     "authors": [

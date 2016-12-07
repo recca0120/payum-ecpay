@@ -3,8 +3,8 @@
 namespace PayumTW\Ecpay\Action\Api;
 
 use Payum\Core\Bridge\Spl\ArrayObject;
-use PayumTW\Ecpay\Request\Api\GetTransactionData;
 use Payum\Core\Exception\RequestNotSupportedException;
+use PayumTW\Ecpay\Request\Api\GetTransactionData;
 
 class GetTransactionDataAction extends BaseApiAwareAction
 {

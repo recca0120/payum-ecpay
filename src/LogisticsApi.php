@@ -4,10 +4,10 @@ namespace PayumTW\Ecpay;
 
 use Device;
 use Exception;
-use IsCollection;
-use LogisticsType;
-use LogisticsSubType;
 use Http\Message\MessageFactory;
+use IsCollection;
+use LogisticsSubType;
+use LogisticsType;
 use Payum\Core\HttpClientInterface;
 use PayumTW\Ecpay\Bridge\Ecpay\EcpayLogistics;
 
@@ -76,12 +76,12 @@ class LogisticsApi extends BaseApi
     public function prepareMap(array $params)
     {
         $this->api->Send = array_merge($this->api->Send, [
-            'ServerReplyURL' => '',
-            'MerchantTradeNo' => '',
+            'ServerReplyURL'    => '',
+            'MerchantTradeNo'   => '',
             'MerchantTradeDate' => date('Y/m/d H:i:s'),
-            'LogisticsSubType' => LogisticsSubType::UNIMART,
-            'IsCollection' => IsCollection::NO,
-            'Device' => $this->isMobile() ? Device::MOBILE : Device::PC,
+            'LogisticsSubType'  => LogisticsSubType::UNIMART,
+            'IsCollection'      => IsCollection::NO,
+            'Device'            => $this->isMobile() ? Device::MOBILE : Device::PC,
         ]);
 
         $this->api->Send = array_replace(
@@ -93,7 +93,7 @@ class LogisticsApi extends BaseApi
 
         return [
             'apiEndpoint' => $this->api->ServiceURL,
-            'params' => $params,
+            'params'      => $params,
         ];
     }
 
@@ -108,26 +108,26 @@ class LogisticsApi extends BaseApi
     public function preparePayment(array $params)
     {
         $this->api->Send = array_merge($this->api->Send, [
-            'MerchantTradeNo' => '',
-            'MerchantTradeDate' => date('Y/m/d H:i:s'),
-            'LogisticsType' => '',
-            'LogisticsSubType' => LogisticsSubType::UNIMART,
-            'GoodsAmount' => 0,
-            'CollectionAmount' => 0,
-            'IsCollection' => IsCollection::NO,
-            'GoodsName' => '',
-            'SenderName' => '',
-            'SenderPhone' => '',
-            'SenderCellPhone' => '',
-            'ReceiverName' => '',
-            'ReceiverPhone' => '',
-            'ReceiverCellPhone' => '',
-            'ReceiverEmail' => '',
-            'TradeDesc' => '',
-            'ServerReplyURL' => '',
+            'MerchantTradeNo'      => '',
+            'MerchantTradeDate'    => date('Y/m/d H:i:s'),
+            'LogisticsType'        => '',
+            'LogisticsSubType'     => LogisticsSubType::UNIMART,
+            'GoodsAmount'          => 0,
+            'CollectionAmount'     => 0,
+            'IsCollection'         => IsCollection::NO,
+            'GoodsName'            => '',
+            'SenderName'           => '',
+            'SenderPhone'          => '',
+            'SenderCellPhone'      => '',
+            'ReceiverName'         => '',
+            'ReceiverPhone'        => '',
+            'ReceiverCellPhone'    => '',
+            'ReceiverEmail'        => '',
+            'TradeDesc'            => '',
+            'ServerReplyURL'       => '',
             'LogisticsC2CReplyURL' => '',
-            'Remark' => '',
-            'PlatformID' => '',
+            'Remark'               => '',
+            'PlatformID'           => '',
         ]);
 
         $this->api->SendExtend = [];
@@ -155,20 +155,20 @@ class LogisticsApi extends BaseApi
         switch ($this->api->Send['LogisticsType']) {
             case LogisticsType::HOME:
                 $this->api->SendExtend = array_merge($this->api->SendExtend, [
-                    'SenderZipCode' => '',
-                    'SenderAddress' => '',
-                    'ReceiverZipCode' => '',
-                    'ReceiverAddress' => '',
-                    'Temperature' => '',
-                    'Distance' => '',
-                    'Specification' => '',
+                    'SenderZipCode'         => '',
+                    'SenderAddress'         => '',
+                    'ReceiverZipCode'       => '',
+                    'ReceiverAddress'       => '',
+                    'Temperature'           => '',
+                    'Distance'              => '',
+                    'Specification'         => '',
                     'ScheduledDeliveryTime' => '',
                 ]);
                 break;
             case LogisticsType::CVS:
                 $this->api->SendExtend = array_merge($this->api->SendExtend, [
                     'ReceiverStoreID' => '',
-                    'ReturnStoreID' => '',
+                    'ReturnStoreID'   => '',
                 ]);
                 break;
         }

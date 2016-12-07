@@ -1,8 +1,8 @@
 <?php
 
 use Mockery as m;
-use PayumTW\Ecpay\Action\SyncAction;
 use Payum\Core\Bridge\Spl\ArrayObject;
+use PayumTW\Ecpay\Action\SyncAction;
 
 class SyncActionTest extends PHPUnit_Framework_TestCase
 {

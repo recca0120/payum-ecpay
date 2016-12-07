@@ -2,8 +2,8 @@
 
 namespace PayumTW\Ecpay;
 
-use Exception;
 use Detection\MobileDetect;
+use Exception;
 
 abstract class BaseApi
 {

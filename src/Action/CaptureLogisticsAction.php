@@ -2,20 +2,20 @@
 
 namespace PayumTW\Ecpay\Action;
 
-use Payum\Core\ApiAwareTrait;
-use Payum\Core\Request\Capture;
-use Payum\Core\ApiAwareInterface;
-use Payum\Core\GatewayAwareTrait;
-use Payum\Core\GatewayAwareInterface;
 use Payum\Core\Action\ActionInterface;
+use Payum\Core\ApiAwareInterface;
+use Payum\Core\ApiAwareTrait;
 use Payum\Core\Bridge\Spl\ArrayObject;
-use Payum\Core\Reply\HttpPostRedirect;
-use Payum\Core\Request\GetHttpRequest;
-use PayumTW\Ecpay\LogisticsApi as Api;
-use Payum\Core\Exception\UnsupportedApiException;
 use Payum\Core\Exception\RequestNotSupportedException;
-use Payum\Core\Security\GenericTokenFactoryAwareTrait;
+use Payum\Core\Exception\UnsupportedApiException;
+use Payum\Core\GatewayAwareInterface;
+use Payum\Core\GatewayAwareTrait;
+use Payum\Core\Reply\HttpPostRedirect;
+use Payum\Core\Request\Capture;
+use Payum\Core\Request\GetHttpRequest;
 use Payum\Core\Security\GenericTokenFactoryAwareInterface;
+use Payum\Core\Security\GenericTokenFactoryAwareTrait;
+use PayumTW\Ecpay\LogisticsApi as Api;
 
 class CaptureLogisticsAction implements ActionInterface, ApiAwareInterface, GatewayAwareInterface, GenericTokenFactoryAwareInterface
 {

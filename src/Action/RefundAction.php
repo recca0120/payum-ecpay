@@ -2,14 +2,14 @@
 
 namespace PayumTW\Ecpay\Action;
 
-use Payum\Core\Request\Sync;
-use Payum\Core\Request\Refund;
-use Payum\Core\GatewayAwareTrait;
-use Payum\Core\GatewayAwareInterface;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
-use PayumTW\Ecpay\Request\Api\RefundTransaction;
 use Payum\Core\Exception\RequestNotSupportedException;
+use Payum\Core\GatewayAwareInterface;
+use Payum\Core\GatewayAwareTrait;
+use Payum\Core\Request\Refund;
+use Payum\Core\Request\Sync;
+use PayumTW\Ecpay\Request\Api\RefundTransaction;
 
 class RefundAction implements ActionInterface, GatewayAwareInterface
 {

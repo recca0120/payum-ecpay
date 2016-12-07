@@ -48,8 +48,8 @@ class ConvertPaymentActionTest extends PHPUnit_Framework_TestCase
         $request->shouldReceive('setResult')->once()->andReturnUsing(function ($data) {
             $this->assertSame([
                 'MerchantTradeNo' => strtoupper('fooNumber'),
-                'TotalAmount' => 'fooTotalAmount',
-                'TradeDesc' => 'fooDescription',
+                'TotalAmount'     => 'fooTotalAmount',
+                'TradeDesc'       => 'fooDescription',
             ], $data);
         });
 

@@ -2,5 +2,6 @@
 
 namespace PayumTW\Ecpay\Bridge\Ecpay;
 
-abstract class PrintMark extends \ECPay_PrintMark {
+abstract class PrintMark extends \ECPay_PrintMark
+{
 }

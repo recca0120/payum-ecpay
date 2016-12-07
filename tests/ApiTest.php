@@ -2,12 +2,12 @@
 
 use Mockery as m;
 use PayumTW\Ecpay\Api;
-use PayumTW\Ecpay\Bridge\Ecpay\PaymentMethod;
-use PayumTW\Ecpay\Bridge\Ecpay\PaymentMethodItem;
+use PayumTW\Ecpay\Bridge\Ecpay\ActionType;
+use PayumTW\Ecpay\Bridge\Ecpay\EncryptType;
 use PayumTW\Ecpay\Bridge\Ecpay\ExtraPaymentInfo;
 use PayumTW\Ecpay\Bridge\Ecpay\InvoiceState;
-use PayumTW\Ecpay\Bridge\Ecpay\EncryptType;
-use PayumTW\Ecpay\Bridge\Ecpay\ActionType;
+use PayumTW\Ecpay\Bridge\Ecpay\PaymentMethod;
+use PayumTW\Ecpay\Bridge\Ecpay\PaymentMethodItem;
 
 class ApiTest extends PHPUnit_Framework_TestCase
 {
@@ -51,25 +51,25 @@ class ApiTest extends PHPUnit_Framework_TestCase
 
         $options = [
             'MerchantID' => '2000132',
-            'HashKey' => '5294y06JbISpM5x9',
-            'HashIV' => 'v77hoKGq4kWxNNIS',
-            'sandbox' => false,
+            'HashKey'    => '5294y06JbISpM5x9',
+            'HashIV'     => 'v77hoKGq4kWxNNIS',
+            'sandbox'    => false,
         ];
 
         $params = [
-            'ReturnURL' => 'http://www.allpay.com.tw/receive.php',
-            'MerchantTradeNo' => 'Test'.time(),
+            'ReturnURL'         => 'http://www.allpay.com.tw/receive.php',
+            'MerchantTradeNo'   => 'Test'.time(),
             'MerchantTradeDate' => date('Y/m/d H:i:s'),
-            'TotalAmount' => 2000,
-            'TradeDesc' => 'good to drink',
-            'ChoosePayment' => PaymentMethod::ALL,
-            'Items' => [
+            'TotalAmount'       => 2000,
+            'TradeDesc'         => 'good to drink',
+            'ChoosePayment'     => PaymentMethod::ALL,
+            'Items'             => [
                 [
-                    'Name' => '歐付寶黑芝麻豆漿',
-                    'Price' => 2000,
+                    'Name'     => '歐付寶黑芝麻豆漿',
+                    'Price'    => 2000,
                     'Currency' => '元',
                     'Quantity' => 1,
-                    'URL' => 'dedwed',
+                    'URL'      => 'dedwed',
                 ],
             ],
         ];
@@ -111,22 +111,22 @@ class ApiTest extends PHPUnit_Framework_TestCase
 
         $sdk->Action = [
             'MerchantTradeNo' => '',
-            'TradeNo' => '',
-            'Action' => ActionType::C,
-            'TotalAmount' => 0,
+            'TradeNo'         => '',
+            'Action'          => ActionType::C,
+            'TotalAmount'     => 0,
         ];
 
         $options = [
             'MerchantID' => '2000132',
-            'HashKey' => '5294y06JbISpM5x9',
-            'HashIV' => 'v77hoKGq4kWxNNIS',
-            'sandbox' => false,
+            'HashKey'    => '5294y06JbISpM5x9',
+            'HashIV'     => 'v77hoKGq4kWxNNIS',
+            'sandbox'    => false,
         ];
 
         $params = [
             'MerchantTradeNo' => '12345',
-            'TradeNo' => '12345',
-            'TotalAmount' => 0,
+            'TradeNo'         => '12345',
+            'TotalAmount'     => 0,
         ];
 
         /*
@@ -167,24 +167,24 @@ class ApiTest extends PHPUnit_Framework_TestCase
         $sdk = m::spy('PayumTW\Ecpay\Bridge\Ecpay\AllInOne');
 
         $sdk->ChargeBack = [
-            'MerchantTradeNo' => '',
-            'TradeNo' => '',
+            'MerchantTradeNo'       => '',
+            'TradeNo'               => '',
             'ChargeBackTotalAmount' => 0,
-            'Remark' => '',
+            'Remark'                => '',
         ];
 
         $options = [
             'MerchantID' => '2000132',
-            'HashKey' => '5294y06JbISpM5x9',
-            'HashIV' => 'v77hoKGq4kWxNNIS',
-            'sandbox' => false,
+            'HashKey'    => '5294y06JbISpM5x9',
+            'HashIV'     => 'v77hoKGq4kWxNNIS',
+            'sandbox'    => false,
         ];
 
         $params = [
-            'MerchantTradeNo' => '12345',
-            'TradeNo' => '12345',
+            'MerchantTradeNo'       => '12345',
+            'TradeNo'               => '12345',
             'ChargeBackTotalAmount' => 0,
-            'Remark' => '',
+            'Remark'                => '',
         ];
 
         /*
@@ -225,35 +225,35 @@ class ApiTest extends PHPUnit_Framework_TestCase
         $sdk = m::spy('PayumTW\Ecpay\Bridge\Ecpay\AllInOne');
 
         $sdk->ChargeBack = [
-            'MerchantTradeNo' => '',
-            'TradeNo' => '',
+            'MerchantTradeNo'       => '',
+            'TradeNo'               => '',
             'ChargeBackTotalAmount' => 0,
-            'Remark' => '',
+            'Remark'                => '',
         ];
 
         $options = [
             'MerchantID' => '2000132',
-            'HashKey' => '5294y06JbISpM5x9',
-            'HashIV' => 'v77hoKGq4kWxNNIS',
-            'sandbox' => false,
+            'HashKey'    => '5294y06JbISpM5x9',
+            'HashIV'     => 'v77hoKGq4kWxNNIS',
+            'sandbox'    => false,
         ];
 
         $params = [
             'response' => [
-                'MerchantID' => '2000132',
-                'MerchantTradeNo' => '57CBC66A39F82',
-                'PayAmt' => '340',
-                'PaymentDate' => '2016/09/04 15:03:08',
-                'PaymentType' => 'Credit_CreditCard',
+                'MerchantID'           => '2000132',
+                'MerchantTradeNo'      => '57CBC66A39F82',
+                'PayAmt'               => '340',
+                'PaymentDate'          => '2016/09/04 15:03:08',
+                'PaymentType'          => 'Credit_CreditCard',
                 'PaymentTypeChargeFee' => '3',
-                'RedeemAmt' => '0',
-                'RtnCode' => '1',
-                'RtnMsg' => 'Succeeded',
-                'SimulatePaid' => '0',
-                'TradeAmt' => '340',
-                'TradeDate' => '2016/09/04 14:59:13',
-                'TradeNo' => '1609041459136128',
-                'CheckMacValue' => '6812D213BF2C5B9377EBF101607BF2DF',
+                'RedeemAmt'            => '0',
+                'RtnCode'              => '1',
+                'RtnMsg'               => 'Succeeded',
+                'SimulatePaid'         => '0',
+                'TradeAmt'             => '340',
+                'TradeDate'            => '2016/09/04 14:59:13',
+                'TradeNo'              => '1609041459136128',
+                'CheckMacValue'        => '6812D213BF2C5B9377EBF101607BF2DF',
             ],
         ];
 
@@ -290,35 +290,35 @@ class ApiTest extends PHPUnit_Framework_TestCase
         $sdk = m::spy('PayumTW\Ecpay\Bridge\Ecpay\AllInOne');
 
         $sdk->ChargeBack = [
-            'MerchantTradeNo' => '',
-            'TradeNo' => '',
+            'MerchantTradeNo'       => '',
+            'TradeNo'               => '',
             'ChargeBackTotalAmount' => 0,
-            'Remark' => '',
+            'Remark'                => '',
         ];
 
         $options = [
             'MerchantID' => '2000132',
-            'HashKey' => '5294y06JbISpM5x9',
-            'HashIV' => 'v77hoKGq4kWxNNIS',
-            'sandbox' => false,
+            'HashKey'    => '5294y06JbISpM5x9',
+            'HashIV'     => 'v77hoKGq4kWxNNIS',
+            'sandbox'    => false,
         ];
 
         $params = [
             'response' => [
-                'MerchantID' => '2000132',
-                'MerchantTradeNo' => '57CBC66A39F82',
-                'PayAmt' => '340',
-                'PaymentDate' => '2016/09/04 15:03:08',
-                'PaymentType' => 'Credit_CreditCard',
+                'MerchantID'           => '2000132',
+                'MerchantTradeNo'      => '57CBC66A39F82',
+                'PayAmt'               => '340',
+                'PaymentDate'          => '2016/09/04 15:03:08',
+                'PaymentType'          => 'Credit_CreditCard',
                 'PaymentTypeChargeFee' => '3',
-                'RedeemAmt' => '0',
-                'RtnCode' => '1',
-                'RtnMsg' => 'Succeeded',
-                'SimulatePaid' => '0',
-                'TradeAmt' => '340',
-                'TradeDate' => '2016/09/04 14:59:13',
-                'TradeNo' => '1609041459136128',
-                'CheckMacValue' => '',
+                'RedeemAmt'            => '0',
+                'RtnCode'              => '1',
+                'RtnMsg'               => 'Succeeded',
+                'SimulatePaid'         => '0',
+                'TradeAmt'             => '340',
+                'TradeDate'            => '2016/09/04 14:59:13',
+                'TradeNo'              => '1609041459136128',
+                'CheckMacValue'        => '',
             ],
         ];
 
@@ -362,14 +362,14 @@ class ApiTest extends PHPUnit_Framework_TestCase
 
         $sdk->Query = [
             'MerchantTradeNo' => '',
-            'TimeStamp' => '',
+            'TimeStamp'       => '',
         ];
 
         $options = [
             'MerchantID' => '2000132',
-            'HashKey' => '5294y06JbISpM5x9',
-            'HashIV' => 'v77hoKGq4kWxNNIS',
-            'sandbox' => false,
+            'HashKey'    => '5294y06JbISpM5x9',
+            'HashIV'     => 'v77hoKGq4kWxNNIS',
+            'sandbox'    => false,
         ];
 
         $params = [

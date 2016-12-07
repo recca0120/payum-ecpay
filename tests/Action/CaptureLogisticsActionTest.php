@@ -1,8 +1,8 @@
 <?php
 
 use Mockery as m;
-use Payum\Core\Reply\HttpResponse;
 use Payum\Core\Bridge\Spl\ArrayObject;
+use Payum\Core\Reply\HttpResponse;
 use PayumTW\Ecpay\Action\CaptureLogisticsAction;
 
 class CaptureLogisticsActionTest extends PHPUnit_Framework_TestCase
@@ -50,7 +50,7 @@ class CaptureLogisticsActionTest extends PHPUnit_Framework_TestCase
 
         $api->shouldReceive('prepareMap')->once()->andReturn([
             'apiEndpoint' => 'fooApiEndpoint',
-            'params' => [
+            'params'      => [
                 'foo' => 'bar',
             ],
         ]);

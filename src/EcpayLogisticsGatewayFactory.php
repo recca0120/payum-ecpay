@@ -2,11 +2,11 @@
 
 namespace PayumTW\Ecpay;
 
-use Payum\Core\GatewayFactory;
 use Payum\Core\Bridge\Spl\ArrayObject;
-use PayumTW\Ecpay\Action\StatusLogisticsAction;
+use Payum\Core\GatewayFactory;
 use PayumTW\Ecpay\Action\CaptureLogisticsAction;
 use PayumTW\Ecpay\Action\ConvertPaymentLogisticsAction;
+use PayumTW\Ecpay\Action\StatusLogisticsAction;
 
 class EcpayLogisticsGatewayFactory extends GatewayFactory
 {
@@ -16,10 +16,10 @@ class EcpayLogisticsGatewayFactory extends GatewayFactory
     protected function populateConfig(ArrayObject $config)
     {
         $config->defaults([
-            'payum.factory_name' => 'ecpay_logistics',
-            'payum.factory_title' => 'Ecpay Logistics',
-            'payum.action.capture' => new CaptureLogisticsAction(),
-            'payum.action.status' => new StatusLogisticsAction(),
+            'payum.factory_name'           => 'ecpay_logistics',
+            'payum.factory_title'          => 'Ecpay Logistics',
+            'payum.action.capture'         => new CaptureLogisticsAction(),
+            'payum.action.status'          => new StatusLogisticsAction(),
             'payum.action.convert_payment' => new ConvertPaymentLogisticsAction(),
         ]);
 
@@ -34,9 +34,9 @@ class EcpayLogisticsGatewayFactory extends GatewayFactory
         if (false == $config['payum.api']) {
             $config['payum.default_options'] = [
                 'MerchantID' => '2000132',
-                'HashKey' => '5294y06JbISpM5x9',
-                'HashIV' => 'v77hoKGq4kWxNNIS',
-                'sandbox' => true,
+                'HashKey'    => '5294y06JbISpM5x9',
+                'HashIV'     => 'v77hoKGq4kWxNNIS',
+                'sandbox'    => true,
             ];
 
             $config->defaults($config['payum.default_options']);

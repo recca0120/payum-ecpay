@@ -2,10 +2,10 @@
 
 namespace PayumTW\Ecpay\Bridge\Ecpay;
 
+use BadMethodCallException;
 use Device;
 use LogisticsType;
 use ReflectionObject;
-use BadMethodCallException;
 
 class EcpayLogistics extends \ECPayLogistics
 {
@@ -14,13 +14,13 @@ class EcpayLogistics extends \ECPayLogistics
     {
         // 參數初始化
         $ParamList = [
-            'MerchantID' => '',
-            'MerchantTradeNo' => '',
+            'MerchantID'       => '',
+            'MerchantTradeNo'  => '',
             'LogisticsSubType' => '',
-            'IsCollection' => '',
-            'ServerReplyURL' => '',
-            'ExtraData' => '',
-            'Device' => Device::PC,
+            'IsCollection'     => '',
+            'ServerReplyURL'   => '',
+            'ExtraData'        => '',
+            'Device'           => Device::PC,
         ];
         $this->PostParams = $this->parentGetPostParams($this->Send, $ParamList);
         $this->PostParams['LogisticsType'] = LogisticsType::CVS;

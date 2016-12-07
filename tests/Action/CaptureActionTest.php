@@ -68,7 +68,7 @@ class CaptureActionTest extends PHPUnit_Framework_TestCase
         $action->execute($request);
         $this->assertSame([
             'OrderResultURL' => 'fooOrderResultURL',
-            'ReturnURL' => 'fooReturnURL',
+            'ReturnURL'      => 'fooReturnURL',
         ], (array) $details);
     }
 

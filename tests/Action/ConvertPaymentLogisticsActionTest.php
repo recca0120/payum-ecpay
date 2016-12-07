@@ -49,9 +49,9 @@ class ConvertPaymentLogisticsActionTest extends PHPUnit_Framework_TestCase
         $request->shouldReceive('setResult')->once()->andReturnUsing(function ($data) {
             $this->assertSame([
                 'MerchantTradeNo' => strtoupper('fooNumber'),
-                'ReceiverEmail' => 'fooClientEmail',
-                'GoodsAmount' => 0,
-                'TradeDesc' => 'fooDescription',
+                'ReceiverEmail'   => 'fooClientEmail',
+                'GoodsAmount'     => 0,
+                'TradeDesc'       => 'fooDescription',
             ], $data);
         });
 

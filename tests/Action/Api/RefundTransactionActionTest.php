@@ -23,7 +23,7 @@ class RefundTransactionActionTest extends PHPUnit_Framework_TestCase
         $api = m::spy('PayumTW\Ecpay\Api');
         $input = [
             'cust_order_no' => 'foo.cust_order_no',
-            'order_amount' => 'foo.order_amount',
+            'order_amount'  => 'foo.order_amount',
             'refund_amount' => 'foo.refund_amount',
         ];
         $details = new ArrayObject($input);
