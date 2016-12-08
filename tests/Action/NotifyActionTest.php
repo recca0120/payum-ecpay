@@ -2,8 +2,8 @@
 
 use Mockery as m;
 use Payum\Core\Bridge\Spl\ArrayObject;
-use Payum\Core\Reply\HttpResponse;
 use PayumTW\Ecpay\Action\NotifyAction;
+use Payum\Core\Reply\ReplyInterface;
 
 class NotifyActionTest extends PHPUnit_Framework_TestCase
 {
@@ -12,83 +12,119 @@ class NotifyActionTest extends PHPUnit_Framework_TestCase
         m::close();
     }
 
+
     public function test_notify_success()
     {
         /*
         |------------------------------------------------------------
-        | Set
+        | Arrange
         |------------------------------------------------------------
         */
+
+        $request = m::spy('Payum\Core\Request\Notify');
+        $gateway = m::spy('Payum\Core\GatewayInterface');
+        $api = m::spy('PayumTW\Ecpay\Api');
+
+        $returnValue = [];
+
+        $details = new ArrayObject($returnValue);
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $request
+            ->shouldReceive('getModel')->andReturn($details);
+
+        $gateway
+            ->shouldReceive('execute')->with(m::type('Payum\Core\Request\GetHttpRequest'))->andReturnUsing(function($getHttpRequest) use ($returnValue) {
+                $getHttpRequest->request = $returnValue;
+
+                return $getHttpRequest;
+            });
+
+        $api
+            ->shouldReceive('verifyHash')->with($returnValue)->andReturn(true);
 
         $action = new NotifyAction();
-        $gateway = m::mock('Payum\Core\GatewayInterface');
-        $request = m::mock('Payum\Core\Request\Notify');
-        $details = new ArrayObject([
-            'MerchantTradeNo' => 'fooMerchantTradeNo',
-        ]);
-
-        /*
-        |------------------------------------------------------------
-        | Expectation
-        |------------------------------------------------------------
-        */
-
-        $gateway->shouldReceive('execute')->with(m::type('Payum\Core\Request\Sync'));
-
-        $request->shouldReceive('getModel')->twice()->andReturn($details);
-
-        /*
-        |------------------------------------------------------------
-        | Assertion
-        |------------------------------------------------------------
-        */
-
         $action->setGateway($gateway);
+        $action->setApi($api);
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
         try {
             $action->execute($request);
-        } catch (HttpResponse $response) {
-            $this->assertSame('1|OK', $response->getContent());
-            $this->assertSame(200, $response->getStatusCode());
+        } catch (ReplyInterface $e) {
+            $this->assertSame(200, $e->getStatusCode());
+            $this->assertSame('1|OK', $e->getContent());
         }
+
+        $request->shouldHaveReceived('getModel')->twice();
+        $gateway->shouldHaveReceived('execute')->with(m::type('Payum\Core\Request\GetHttpRequest'))->once();
+        $api->shouldHaveReceived('verifyHash')->with($returnValue)->once();
+        $gateway->shouldHaveReceived('execute')->with(m::type('Payum\Core\Request\Sync'))->once();
     }
 
-    public function test_notify_vaild_fail()
+    public function test_notify_when_checksum_fail()
     {
         /*
         |------------------------------------------------------------
-        | Set
+        | Arrange
         |------------------------------------------------------------
         */
+
+        $request = m::spy('Payum\Core\Request\Notify');
+        $gateway = m::spy('Payum\Core\GatewayInterface');
+        $api = m::spy('PayumTW\Ecpay\Api');
+
+        $returnValue = [];
+
+        $details = new ArrayObject($returnValue);
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $request
+            ->shouldReceive('getModel')->andReturn($details);
+
+        $gateway
+            ->shouldReceive('execute')->with(m::type('Payum\Core\Request\GetHttpRequest'))->andReturnUsing(function($getHttpRequest) use ($returnValue) {
+                $getHttpRequest->request = $returnValue;
+
+                return $getHttpRequest;
+            });
+
+        $api
+            ->shouldReceive('verifyHash')->with($returnValue)->andReturn(false);
 
         $action = new NotifyAction();
-        $gateway = m::mock('Payum\Core\GatewayInterface');
-        $request = m::mock('Payum\Core\Request\Notify');
-        $details = new ArrayObject([
-            'RtnCode' => '10400002',
-        ]);
-
-        /*
-        |------------------------------------------------------------
-        | Expectation
-        |------------------------------------------------------------
-        */
-
-        $gateway->shouldReceive('execute')->with(m::type('Payum\Core\Request\Sync'));
-
-        $request->shouldReceive('getModel')->twice()->andReturn($details);
-
-        /*
-        |------------------------------------------------------------
-        | Assertion
-        |------------------------------------------------------------
-        */
-
         $action->setGateway($gateway);
+        $action->setApi($api);
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
         try {
             $action->execute($request);
-        } catch (HttpResponse $response) {
-            $this->assertSame('0|CheckMacValue verify fail.', $response->getContent());
-            $this->assertSame(400, $response->getStatusCode());
+        } catch (ReplyInterface $e) {
+            $this->assertSame(400, $e->getStatusCode());
+            $this->assertSame('0|CheckMacValue verify fail.', $e->getContent());
         }
+
+        $request->shouldHaveReceived('getModel')->twice();
+        $gateway->shouldHaveReceived('execute')->with(m::type('Payum\Core\Request\GetHttpRequest'))->once();
+        $api->shouldHaveReceived('verifyHash')->with($returnValue)->once();
     }
 }

@@ -2,16 +2,18 @@
 
 namespace PayumTW\Ecpay\Action;
 
-use Payum\Core\Action\ActionInterface;
-use Payum\Core\Bridge\Spl\ArrayObject;
-use Payum\Core\Exception\RequestNotSupportedException;
-use Payum\Core\GatewayAwareInterface;
+use Payum\Core\Request\Sync;
+use Payum\Core\Request\Notify;
 use Payum\Core\GatewayAwareTrait;
 use Payum\Core\Reply\HttpResponse;
-use Payum\Core\Request\Notify;
-use Payum\Core\Request\Sync;
+use Payum\Core\GatewayAwareInterface;
+use Payum\Core\Action\ActionInterface;
+use Payum\Core\Request\GetHttpRequest;
+use PayumTW\Ecpay\Action\Api\BaseApiAwareAction;
+use Payum\Core\Bridge\Spl\ArrayObject;
+use Payum\Core\Exception\RequestNotSupportedException;
 
-class NotifyAction implements ActionInterface, GatewayAwareInterface
+class NotifyAction extends BaseApiAwareAction implements ActionInterface, GatewayAwareInterface
 {
     use GatewayAwareTrait;
 
@@ -25,11 +27,14 @@ class NotifyAction implements ActionInterface, GatewayAwareInterface
         RequestNotSupportedException::assertSupports($this, $request);
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
-        $this->gateway->execute(new Sync($details));
+        $httpRequest = new GetHttpRequest();
+        $this->gateway->execute($httpRequest);
 
-        if ($details['RtnCode'] == '10400002') {
+        if ($this->api->verifyHash($httpRequest->request) === false) {
             throw new HttpResponse('0|CheckMacValue verify fail.', 400, ['Content-Type' => 'text/plain']);
         }
+
+        $this->gateway->execute(new Sync($details));
 
         throw new HttpResponse('1|OK', 200, ['Content-Type' => 'text/plain']);
     }
