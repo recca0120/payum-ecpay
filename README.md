@@ -14,11 +14,11 @@ The Payum extension to rapidly build new extensions.
 1. Create new project
 
 ```bash
-$ composer create-project payum-tw/allpay
+$ composer create-project payum-tw/ecpay
 ```
 
 2. Replace all occurrences of `payum` with your vendor name. It may be your github name, for now let's say you choose: `acme`.
-3. Replace all occurrences of `allpay` with a payment gateway name. For example Stripe, Paypal etc. For now let's say you choose: `allpay`.
+3. Replace all occurrences of `ecpay` with a payment gateway name. For example Stripe, Paypal etc. For now let's say you choose: `ecpay`.
 4. Register a gateway factory to the payum's builder and create a gateway:
 
 ```php
@@ -53,13 +53,13 @@ $payum = (new PayumBuilder)
 
 use Payum\Core\Request\Capture;
 
-$allpay = $payum->getGateway('ecpay');
+$ecpay = $payum->getGateway('ecpay');
 
 $model = new \ArrayObject([
   // ...
 ]);
 
-$allpay->execute(new Capture($model));
+$ecpay->execute(new Capture($model));
 ```
 
 ## Resources
