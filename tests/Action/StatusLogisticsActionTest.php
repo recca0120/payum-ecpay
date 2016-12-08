@@ -11,133 +11,71 @@ class StatusLogisticsActionTest extends PHPUnit_Framework_TestCase
         m::close();
     }
 
-    public function test_request_mark_new()
-    {
-        /*
-        |------------------------------------------------------------
-        | Set
-        |------------------------------------------------------------
-        */
-
-        $action = new StatusLogisticsAction();
-        $request = m::mock('Payum\Core\Request\GetStatusInterface');
-        $model = new ArrayObject();
-
-        /*
-        |------------------------------------------------------------
-        | Expectation
-        |------------------------------------------------------------
-        */
-
-        $request
-            ->shouldReceive('getModel')->andReturn($model)->twice()
-            ->shouldReceive('markNew')->once();
-
-        /*
-        |------------------------------------------------------------
-        | Assertion
-        |------------------------------------------------------------
-        */
-
-        $action->execute($request);
+    public function test_mark_captured_when_rtn_code_is_300() {
+        $this->validate(['RtnCode' => '300'], 'markCaptured');
     }
 
-    public function test_request_mark_captured()
-    {
-        /*
-        |------------------------------------------------------------
-        | Set
-        |------------------------------------------------------------
-        */
-
-        $action = new StatusLogisticsAction();
-        $request = m::mock('Payum\Core\Request\GetStatusInterface');
-        $model = new ArrayObject([
-            'RtnCode' => '300',
-        ]);
-
-        /*
-        |------------------------------------------------------------
-        | Expectation
-        |------------------------------------------------------------
-        */
-
-        $request
-            ->shouldReceive('getModel')->andReturn($model)->twice()
-            ->shouldReceive('markCaptured')->once();
-
-        /*
-        |------------------------------------------------------------
-        | Assertion
-        |------------------------------------------------------------
-        */
-
-        $action->execute($request);
+    public function test_mark_captured_when_rtn_code_is_310() {
+        $this->validate(['RtnCode' => '310'], 'markCaptured');
     }
 
-    public function test_request_mark_failed()
-    {
-        /*
-        |------------------------------------------------------------
-        | Set
-        |------------------------------------------------------------
-        */
-
-        $action = new StatusLogisticsAction();
-        $request = m::mock('Payum\Core\Request\GetStatusInterface');
-        $model = new ArrayObject([
-            'RtnCode' => '-1',
-        ]);
-
-        /*
-        |------------------------------------------------------------
-        | Expectation
-        |------------------------------------------------------------
-        */
-
-        $request
-            ->shouldReceive('getModel')->andReturn($model)->twice()
-            ->shouldReceive('markFailed')->once();
-
-        /*
-        |------------------------------------------------------------
-        | Assertion
-        |------------------------------------------------------------
-        */
-
-        $action->execute($request);
+    public function test_mark_captured_when_rtn_code_is_311() {
+        $this->validate(['RtnCode' => '311'], 'markCaptured');
     }
 
-    public function test_request_store_mark_captured()
+    public function test_mark_captured_when_rtn_code_is_325() {
+        $this->validate(['RtnCode' => '325'], 'markCaptured');
+    }
+
+    public function test_mark_captured_when_rtn_code_is_2000() {
+        $this->validate(['RtnCode' => '2000'], 'markCaptured');
+    }
+
+    public function test_mark_captured_when_rtn_code_is_2001() {
+        $this->validate(['RtnCode' => '2001'], 'markCaptured');
+    }
+
+    public function test_mark_failed_when_rtn_code_is_other() {
+        $this->validate(['RtnCode' => '3000'], 'markFailed');
+    }
+
+    public function test_mark_captured_when_cvs_store_id_exists() {
+        $this->validate(['CVSStoreID' => '1'], 'markCaptured');
+    }
+
+    public function test_mark_new() {
+        $this->validate([], 'markNew');
+    }
+
+    protected function validate($input, $type)
     {
         /*
         |------------------------------------------------------------
-        | Set
+        | Arrange
         |------------------------------------------------------------
         */
+
+        $request = m::spy('Payum\Core\Request\GetStatusInterface');
+        $details = new ArrayObject($input);
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $request->shouldReceive('getModel')->andReturn($details);
 
         $action = new StatusLogisticsAction();
-        $request = m::mock('Payum\Core\Request\GetStatusInterface');
-        $model = new ArrayObject([
-            'CVSStoreID' => '1',
-        ]);
-
-        /*
-        |------------------------------------------------------------
-        | Expectation
-        |------------------------------------------------------------
-        */
-
-        $request
-            ->shouldReceive('getModel')->andReturn($model)->twice()
-            ->shouldReceive('markCaptured')->once();
-
-        /*
-        |------------------------------------------------------------
-        | Assertion
-        |------------------------------------------------------------
-        */
-
         $action->execute($request);
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $request->shouldHaveReceived('getModel')->twice();
+        $request->shouldHaveReceived($type)->once();
     }
 }

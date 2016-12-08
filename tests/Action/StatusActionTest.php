@@ -11,100 +11,55 @@ class StatusActionTest extends PHPUnit_Framework_TestCase
         m::close();
     }
 
-    public function test_request_mark_new()
+    public function test_mark_new()
     {
-        /*
-        |------------------------------------------------------------
-        | Set
-        |------------------------------------------------------------
-        */
-
-        $action = new StatusAction();
-        $request = m::mock('Payum\Core\Request\GetStatusInterface');
-        $model = new ArrayObject();
-
-        /*
-        |------------------------------------------------------------
-        | Expectation
-        |------------------------------------------------------------
-        */
-
-        $request
-            ->shouldReceive('getModel')->andReturn($model)->twice()
-            ->shouldReceive('markNew')->once();
-
-        /*
-        |------------------------------------------------------------
-        | Assertion
-        |------------------------------------------------------------
-        */
-
-        $action->execute($request);
+        $this->validate([], 'markNew');
     }
 
-    public function test_request_mark_captured()
+    public function test_mark_captured_when_rtn_code_is_1()
     {
-        /*
-        |------------------------------------------------------------
-        | Set
-        |------------------------------------------------------------
-        */
-
-        $action = new StatusAction();
-        $request = m::mock('Payum\Core\Request\GetStatusInterface');
-        $model = new ArrayObject([
-            'RtnCode' => '1',
-        ]);
-
-        /*
-        |------------------------------------------------------------
-        | Expectation
-        |------------------------------------------------------------
-        */
-
-        $request
-            ->shouldReceive('getModel')->andReturn($model)->twice()
-            ->shouldReceive('markCaptured')->once();
-
-        /*
-        |------------------------------------------------------------
-        | Assertion
-        |------------------------------------------------------------
-        */
-
-        $action->execute($request);
+        $this->validate(['RtnCode' => '1'], 'markCaptured');
     }
 
-    public function test_request_mark_failed()
+    public function test_mark_captured_when_rtn_code_is_3()
+    {
+        $this->validate(['RtnCode' => '3'], 'markCaptured');
+    }
+
+    public function test_mark_failed_when_rtn_code_is_not_3()
+    {
+        $this->validate(['RtnCode' => '5'], 'markFailed');
+    }
+
+    protected function validate($input, $type)
     {
         /*
         |------------------------------------------------------------
-        | Set
+        | Arrange
         |------------------------------------------------------------
         */
+
+        $request = m::spy('Payum\Core\Request\GetStatusInterface');
+        $details = new ArrayObject($input);
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $request->shouldReceive('getModel')->andReturn($details);
 
         $action = new StatusAction();
-        $request = m::mock('Payum\Core\Request\GetStatusInterface');
-        $model = new ArrayObject([
-            'RtnCode' => '-1',
-        ]);
-
-        /*
-        |------------------------------------------------------------
-        | Expectation
-        |------------------------------------------------------------
-        */
-
-        $request
-            ->shouldReceive('getModel')->andReturn($model)->twice()
-            ->shouldReceive('markFailed')->once();
-
-        /*
-        |------------------------------------------------------------
-        | Assertion
-        |------------------------------------------------------------
-        */
-
         $action->execute($request);
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $request->shouldHaveReceived('getModel')->twice();
+        $request->shouldHaveReceived($type)->once();
     }
 }

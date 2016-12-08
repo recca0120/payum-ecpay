@@ -2,11 +2,11 @@
 
 namespace PayumTW\Ecpay\Action;
 
+use Payum\Core\Request\Convert;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
-use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Model\PaymentInterface;
-use Payum\Core\Request\Convert;
+use Payum\Core\Exception\RequestNotSupportedException;
 
 class ConvertPaymentLogisticsAction implements ActionInterface
 {

@@ -64,7 +64,6 @@ class Api extends BaseApi
     public function getApiEndpoint($name = 'AioCheckOut')
     {
         $map = [
-
             'AioCheckOut'                    => 'https://payment.ecpay.com.tw/Cashier/AioCheckOut/V2 ',
             'QueryTradeInfo'                 => 'https://payment.ecpay.com.tw/Cashier/QueryTradeInfo/V2',
             'QueryPeriodCreditCardTradeInfo' => 'https://payment.ecpay.com.tw/Cashier/QueryCreditCardPeriodInfo',
@@ -107,7 +106,7 @@ class Api extends BaseApi
         /*
         $api->Send['InvoiceMark'] = InvoiceState::Yes;
         $api->SendExtend['RelateNumber'] = $MerchantTradeNo;
-        $api->SendExtend['CustomerEmail'] = 'test@allpay.com.tw';
+        $api->SendExtend['CustomerEmail'] = 'test@ecpay.com.tw';
         $api->SendExtend['CustomerPhone'] = '0911222333';
         $api->SendExtend['TaxType'] = TaxType::Dutiable;
         $api->SendExtend['CustomerAddr'] = '台北市南港區三重路19-2號5樓D棟';
@@ -129,7 +128,7 @@ class Api extends BaseApi
     /**
      * cancelTransaction.
      *
-     * @param array $params
+     * @param  array $params
      *
      * @return array
      */
@@ -147,7 +146,7 @@ class Api extends BaseApi
     /**
      * refundTransaction.
      *
-     * @param array $params
+     * @param  array $params
      *
      * @return array
      */

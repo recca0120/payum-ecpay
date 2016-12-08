@@ -4,10 +4,10 @@ namespace PayumTW\Ecpay;
 
 use Device;
 use Exception;
-use Http\Message\MessageFactory;
 use IsCollection;
-use LogisticsSubType;
 use LogisticsType;
+use LogisticsSubType;
+use Http\Message\MessageFactory;
 use Payum\Core\HttpClientInterface;
 use PayumTW\Ecpay\Bridge\Ecpay\EcpayLogistics;
 
@@ -65,23 +65,32 @@ class LogisticsApi extends BaseApi
     }
 
     /**
-     * prepareMap.
+     * getApiEndpoint.
      *
-     * @method prepareMap
+     * @return string
+     */
+    public function getApiEndpoint($name = 'AioCheckOut')
+    {
+        return $this->api->ServiceURL;
+    }
+
+    /**
+     * createTransaction.
      *
      * @param array $params
+     * @param mixed $request
      *
      * @return array
      */
-    public function prepareMap(array $params)
+    public function createCvsMapTransaction(array $params)
     {
         $this->api->Send = array_merge($this->api->Send, [
-            'ServerReplyURL'    => '',
-            'MerchantTradeNo'   => '',
+            'ServerReplyURL' => '',
+            'MerchantTradeNo' => '',
             'MerchantTradeDate' => date('Y/m/d H:i:s'),
-            'LogisticsSubType'  => LogisticsSubType::UNIMART,
-            'IsCollection'      => IsCollection::NO,
-            'Device'            => $this->isMobile() ? Device::MOBILE : Device::PC,
+            'LogisticsSubType' => LogisticsSubType::UNIMART,
+            'IsCollection' => IsCollection::NO,
+            'Device' => $this->isMobile() ? Device::MOBILE : Device::PC,
         ]);
 
         $this->api->Send = array_replace(
@@ -89,45 +98,44 @@ class LogisticsApi extends BaseApi
             array_intersect_key($params, $this->api->Send)
         );
 
-        $params = $this->api->CvsMap();
-
-        return [
-            'apiEndpoint' => $this->api->ServiceURL,
-            'params'      => $params,
-        ];
+        return $this->api->CvsMap();
     }
 
     /**
-     * payment.
+     * createTransaction.
      *
      * @param array $params
      * @param mixed $request
      *
      * @return array
      */
-    public function preparePayment(array $params)
+    public function createTransaction(array $params)
     {
+        if ($params['GoodsAmount'] === 0) {
+            return $this->createCvsMapTransaction($params);
+        }
+
         $this->api->Send = array_merge($this->api->Send, [
-            'MerchantTradeNo'      => '',
-            'MerchantTradeDate'    => date('Y/m/d H:i:s'),
-            'LogisticsType'        => '',
-            'LogisticsSubType'     => LogisticsSubType::UNIMART,
-            'GoodsAmount'          => 0,
-            'CollectionAmount'     => 0,
-            'IsCollection'         => IsCollection::NO,
-            'GoodsName'            => '',
-            'SenderName'           => '',
-            'SenderPhone'          => '',
-            'SenderCellPhone'      => '',
-            'ReceiverName'         => '',
-            'ReceiverPhone'        => '',
-            'ReceiverCellPhone'    => '',
-            'ReceiverEmail'        => '',
-            'TradeDesc'            => '',
-            'ServerReplyURL'       => '',
+            'MerchantTradeNo' => '',
+            'MerchantTradeDate' => date('Y/m/d H:i:s'),
+            'LogisticsType' => '',
+            'LogisticsSubType' => LogisticsSubType::UNIMART,
+            'GoodsAmount' => 0,
+            'CollectionAmount' => 0,
+            'IsCollection' => IsCollection::NO,
+            'GoodsName' => '',
+            'SenderName' => '',
+            'SenderPhone' => '',
+            'SenderCellPhone' => '',
+            'ReceiverName' => '',
+            'ReceiverPhone' => '',
+            'ReceiverCellPhone' => '',
+            'ReceiverEmail' => '',
+            'TradeDesc' => '',
+            'ServerReplyURL' => '',
             'LogisticsC2CReplyURL' => '',
-            'Remark'               => '',
-            'PlatformID'           => '',
+            'Remark' => '',
+            'PlatformID' => '',
         ]);
 
         $this->api->SendExtend = [];
@@ -155,20 +163,20 @@ class LogisticsApi extends BaseApi
         switch ($this->api->Send['LogisticsType']) {
             case LogisticsType::HOME:
                 $this->api->SendExtend = array_merge($this->api->SendExtend, [
-                    'SenderZipCode'         => '',
-                    'SenderAddress'         => '',
-                    'ReceiverZipCode'       => '',
-                    'ReceiverAddress'       => '',
-                    'Temperature'           => '',
-                    'Distance'              => '',
-                    'Specification'         => '',
+                    'SenderZipCode' => '',
+                    'SenderAddress' => '',
+                    'ReceiverZipCode' => '',
+                    'ReceiverAddress' => '',
+                    'Temperature' => '',
+                    'Distance' => '',
+                    'Specification' => '',
                     'ScheduledDeliveryTime' => '',
                 ]);
                 break;
             case LogisticsType::CVS:
                 $this->api->SendExtend = array_merge($this->api->SendExtend, [
                     'ReceiverStoreID' => '',
-                    'ReturnStoreID'   => '',
+                    'ReturnStoreID' => '',
                 ]);
                 break;
         }
@@ -182,41 +190,21 @@ class LogisticsApi extends BaseApi
     }
 
     /**
-     * Verify if the hash of the given parameter is correct.
-     *
-     * @param array $params
-     *
-     * @return bool
-     */
-    public function verifyHash(array $params)
-    {
-        $result = false;
-        try {
-            $this->api->CheckOutFeedback($params);
-            $result = true;
-        } catch (Exception $e) {
-        }
-
-        return $result;
-    }
-
-    /**
-     * parseResult.
+     * getTransactionData.
      *
      * @param mixed $params
      *
      * @return array
      */
-    public function parseResult($params)
+    public function getTransactionData($params)
     {
-        if (isset($params['CVSStoreID']) === true) {
-            return $params;
+        $details = [];
+        if (empty($params['response']) === false) {
+            $details = $params['response'];
+        } else {
+            $details = $params;
         }
 
-        if ($this->verifyHash($params) === false) {
-            $params['RtnCode'] = '10400002';
-        }
-
-        return $params;
+        return $details;
     }
 }
