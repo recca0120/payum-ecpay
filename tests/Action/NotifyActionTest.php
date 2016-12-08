@@ -1,8 +1,8 @@
 <?php
 
 use Mockery as m;
-use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Reply\ReplyInterface;
+use Payum\Core\Bridge\Spl\ArrayObject;
 use PayumTW\Ecpay\Action\NotifyAction;
 
 class NotifyActionTest extends PHPUnit_Framework_TestCase
