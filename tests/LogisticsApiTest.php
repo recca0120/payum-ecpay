@@ -1,10 +1,10 @@
 <?php
 
-use PayumTW\Ecpay\Bridge\Ecpay\IsCollection;
 use Mockery as m;
+use PayumTW\Ecpay\LogisticsApi;
+use PayumTW\Ecpay\Bridge\Ecpay\IsCollection;
 use PayumTW\Ecpay\Bridge\Ecpay\LogisticsType;
 use PayumTW\Ecpay\Bridge\Ecpay\LogisticsSubType;
-use PayumTW\Ecpay\LogisticsApi;
 
 class LogisticsApiTest extends PHPUnit_Framework_TestCase
 {
