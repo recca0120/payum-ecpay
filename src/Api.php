@@ -173,7 +173,7 @@ class Api extends BaseApi
     {
         $details = [];
         if (empty($params['response']) === false) {
-            if ($this->verifyHash($params) === false) {
+            if ($this->verifyHash($params['response']) === false) {
                 $details['RtnCode'] = '10400002';
             } else {
                 $details = $params['response'];
