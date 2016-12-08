@@ -517,7 +517,7 @@
             ];
 
             // 幕後物流訂單建立不可設定Client端回覆網址(ClientReplyURL)
-            if (!empty($this->Send['ClientReplyURL'])) {
+            if (! empty($this->Send['ClientReplyURL'])) {
                 throw new Exception('ClientReplyURL should be null.');
             }
 
@@ -693,7 +693,7 @@
                 throw new Exception('Feedback is required.');
             }
 
-            if (!isset($Feedback['CheckMacValue'])) {
+            if (! isset($Feedback['CheckMacValue'])) {
                 throw new Exception('Feedback CheckMacValue is required.');
             } else {
                 $FeedbackCheckMacValue = $Feedback['CheckMacValue'];
@@ -890,19 +890,19 @@
             $QuantityNumber = count(explode('#', $this->PostParams['Quantity']));
             $CostNumber = count(explode('#', $this->PostParams['Cost']));
 
-            if (!empty($this->PostParams['GoodsName']) and !empty($this->PostParams['Quantity'])) {
+            if (! empty($this->PostParams['GoodsName']) and ! empty($this->PostParams['Quantity'])) {
                 if ($GoodsNameNumber != $QuantityNumber) {
                     throw new Exception('GoodsName number and Quantity number do not match.');
                 }
             }
 
-            if (!empty($this->PostParams['Quantity']) and !empty($this->PostParams['Cost'])) {
+            if (! empty($this->PostParams['Quantity']) and ! empty($this->PostParams['Cost'])) {
                 if ($GoodsNameNumber != $CostNumber) {
                     throw new Exception('Quantity number and Cost number do not match.');
                 }
             }
 
-            if (!empty($this->PostParams['Cost']) and !empty($this->PostParams['GoodsName'])) {
+            if (! empty($this->PostParams['Cost']) and ! empty($this->PostParams['GoodsName'])) {
                 if ($GoodsNameNumber != $CostNumber) {
                     throw new Exception('Cost number and GoodsName number do not match.');
                 }
@@ -1893,7 +1893,7 @@
          */
         private function IsAllowEmpty($Name, $AllowEmpty)
         {
-            if (!$AllowEmpty) {
+            if (! $AllowEmpty) {
                 throw new Exception($Name.' is required.');
             }
         }
@@ -1933,8 +1933,8 @@
          */
         private function IsValidFormat($Name, $Pattern, $Value)
         {
-            if (!empty($Value)) {
-                if (!preg_match($Pattern, $Value)) {
+            if (! empty($Value)) {
+                if (! preg_match($Pattern, $Value)) {
                     throw new Exception('Invalid '.$Name.'.');
                 }
             }
@@ -1954,7 +1954,7 @@
          */
         private function IsInteger($Name, $Value)
         {
-            if (!is_int($Value)) {
+            if (! is_int($Value)) {
                 throw new Exception($Name.' type should be integer.');
             }
         }
@@ -1980,7 +1980,7 @@
             unset($ReflectionObject);
 
             // 檢查是否為合法資料
-            if (!in_array($Value, $ContentList)) {
+            if (! in_array($Value, $ContentList)) {
                 throw new Exception('Illegal '.$Name.'.');
             }
         }
@@ -2129,7 +2129,7 @@
             foreach ($this->PostParams as $Name => $Value) {
                 $PostHTML .= $this->AddNextLine('    <input type="hidden" name="'.$Name.'" value="'.$Value.'" />');
             }
-            if (!empty($ButtonDesc)) {
+            if (! empty($ButtonDesc)) {
                 // 手動
                 $PostHTML .= $this->AddNextLine('    <input type="submit" id="__paymentButton" value="'.$ButtonDesc.'" />');
             } else {

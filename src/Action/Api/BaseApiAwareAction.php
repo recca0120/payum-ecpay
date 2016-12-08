@@ -4,7 +4,6 @@ namespace PayumTW\Ecpay\Action\Api;
 
 use PayumTW\Ecpay\Api;
 use PayumTW\Ecpay\LogisticsApi;
-
 use Payum\Core\ApiAwareInterface;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\Exception\UnsupportedApiException;

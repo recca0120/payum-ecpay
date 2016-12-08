@@ -23,7 +23,7 @@ class CreateTransactionActionTest extends PHPUnit_Framework_TestCase
         $api = m::spy('PayumTW\Ecpay\Api');
         $request = m::spy('PayumTW\Ecpay\Request\Api\CreateTransaction');
         $details = new ArrayObject([
-            'foo' => 'bar'
+            'foo' => 'bar',
         ]);
         $endpoint = 'foo.endpoint';
 
@@ -71,7 +71,7 @@ class CreateTransactionActionTest extends PHPUnit_Framework_TestCase
         $api = m::spy('PayumTW\Ecpay\LogisticsApi');
         $request = m::spy('PayumTW\Ecpay\Request\Api\CreateTransaction');
         $details = new ArrayObject([
-            'foo' => 'bar'
+            'foo' => 'bar',
         ]);
         $endpoint = 'foo.endpoint';
 
@@ -144,7 +144,6 @@ class CreateTransactionActionTest extends PHPUnit_Framework_TestCase
         try {
             $action->execute($request);
         } catch (HttpResponse $response) {
-
         }
 
         $request->shouldHaveReceived('getModel')->twice();

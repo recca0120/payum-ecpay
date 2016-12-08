@@ -1,7 +1,6 @@
 <?php
 
 use Mockery as m;
-use Payum\Core\Reply\HttpResponse;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use PayumTW\Ecpay\Action\CaptureLogisticsAction;
 
@@ -24,7 +23,7 @@ class CaptureLogisticsActionTest extends PHPUnit_Framework_TestCase
         $tokenFactory = m::spy('Payum\Core\Security\GenericTokenFactoryInterface');
         $request = m::spy('Payum\Core\Request\Capture');
         $details = new ArrayObject([
-            'GoodsAmount' => 0
+            'GoodsAmount' => 0,
         ]);
         $token = m::spy('Payum\Core\Security\TokenInterface');
         $targetUrl = 'foo.target_url';
@@ -71,7 +70,7 @@ class CaptureLogisticsActionTest extends PHPUnit_Framework_TestCase
         $tokenFactory = m::spy('Payum\Core\Security\GenericTokenFactoryInterface');
         $request = m::spy('Payum\Core\Request\Capture');
         $details = new ArrayObject([
-            'GoodsAmount' => 1
+            'GoodsAmount' => 1,
         ]);
         $token = m::spy('Payum\Core\Security\TokenInterface');
         $targetUrl = 'foo.target_url';
@@ -150,7 +149,7 @@ class CaptureLogisticsActionTest extends PHPUnit_Framework_TestCase
             ->shouldReceive('getToken')->andReturn($token);
 
         $gateway
-            ->shouldReceive('execute')->with(m::type('Payum\Core\Request\GetHttpRequest'))->andReturnUsing(function($GetHttpRequest) use ($details) {
+            ->shouldReceive('execute')->with(m::type('Payum\Core\Request\GetHttpRequest'))->andReturnUsing(function ($GetHttpRequest) use ($details) {
                 $GetHttpRequest->request = (array) $details;
 
                 return $GetHttpRequest;

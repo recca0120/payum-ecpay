@@ -3,7 +3,6 @@
 namespace PayumTW\Ecpay;
 
 use Device;
-use Exception;
 use IsCollection;
 use LogisticsType;
 use LogisticsSubType;
