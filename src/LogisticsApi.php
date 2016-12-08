@@ -2,10 +2,10 @@
 
 namespace PayumTW\Ecpay;
 
-use Device;
-use IsCollection;
-use LogisticsType;
-use LogisticsSubType;
+use PayumTW\Ecpay\Bridge\Ecpay\Device;
+use PayumTW\Ecpay\Bridge\Ecpay\IsCollection;
+use PayumTW\Ecpay\Bridge\Ecpay\LogisticsType;
+use PayumTW\Ecpay\Bridge\Ecpay\LogisticsSubType;
 use Http\Message\MessageFactory;
 use Payum\Core\HttpClientInterface;
 use PayumTW\Ecpay\Bridge\Ecpay\EcpayLogistics;
