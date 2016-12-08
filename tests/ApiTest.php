@@ -4,9 +4,9 @@ use Mockery as m;
 use PayumTW\Ecpay\Api;
 use PayumTW\Ecpay\Bridge\Ecpay\ActionType;
 use PayumTW\Ecpay\Bridge\Ecpay\EncryptType;
-use PayumTW\Ecpay\Bridge\Ecpay\ExtraPaymentInfo;
 use PayumTW\Ecpay\Bridge\Ecpay\InvoiceState;
 use PayumTW\Ecpay\Bridge\Ecpay\PaymentMethod;
+use PayumTW\Ecpay\Bridge\Ecpay\ExtraPaymentInfo;
 use PayumTW\Ecpay\Bridge\Ecpay\PaymentMethodItem;
 
 class ApiTest extends PHPUnit_Framework_TestCase

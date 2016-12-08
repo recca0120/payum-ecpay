@@ -1,8 +1,8 @@
 <?php
 
 use Mockery as m;
-use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Reply\HttpResponse;
+use Payum\Core\Bridge\Spl\ArrayObject;
 use PayumTW\Ecpay\Action\Api\CreateTransactionAction;
 
 class CreateTransactionActionTest extends PHPUnit_Framework_TestCase
