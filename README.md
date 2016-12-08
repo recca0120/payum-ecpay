@@ -1,13 +1,13 @@
-# Allpay
+# Ecpay
 
-[![StyleCI](https://styleci.io/repos/63962833/shield?style=flat)](https://styleci.io/repos/63962833)
-[![Build Status](https://travis-ci.org/recca0120/payum-allpay.svg)](https://travis-ci.org/recca0120/payum-allpay)
-[![Total Downloads](https://poser.pugx.org/payum-tw/allpay/d/total.svg)](https://packagist.org/packages/payum-tw/allpay)
-[![Latest Stable Version](https://poser.pugx.org/payum-tw/allpay/v/stable.svg)](https://packagist.org/packages/payum-tw/allpay)
-[![Latest Unstable Version](https://poser.pugx.org/payum-tw/allpay/v/unstable.svg)](https://packagist.org/packages/payum-tw/allpay)
-[![License](https://poser.pugx.org/payum-tw/allpay/license.svg)](https://packagist.org/packages/payum-tw/allpay)
-[![Monthly Downloads](https://poser.pugx.org/payum-tw/allpay/d/monthly)](https://packagist.org/packages/payum-tw/allpay)
-[![Daily Downloads](https://poser.pugx.org/payum-tw/allpay/d/daily)](https://packagist.org/packages/payum-tw/allpay)
+[![StyleCI](https://styleci.io/repos/75879524/shield?style=flat)](https://styleci.io/repos/63962833)
+[![Build Status](https://travis-ci.org/recca0120/payum-ecpay.svg)](https://travis-ci.org/recca0120/payum-ecpay)
+[![Total Downloads](https://poser.pugx.org/payum-tw/ecpay/d/total.svg)](https://packagist.org/packages/payum-tw/ecpay)
+[![Latest Stable Version](https://poser.pugx.org/payum-tw/ecpay/v/stable.svg)](https://packagist.org/packages/payum-tw/ecpay)
+[![Latest Unstable Version](https://poser.pugx.org/payum-tw/ecpay/v/unstable.svg)](https://packagist.org/packages/payum-tw/ecpay)
+[![License](https://poser.pugx.org/payum-tw/ecpay/license.svg)](https://packagist.org/packages/payum-tw/ecpay)
+[![Monthly Downloads](https://poser.pugx.org/payum-tw/ecpay/d/monthly)](https://packagist.org/packages/payum-tw/ecpay)
+[![Daily Downloads](https://poser.pugx.org/payum-tw/ecpay/d/daily)](https://packagist.org/packages/payum-tw/ecpay)
 
 The Payum extension to rapidly build new extensions.
 
@@ -30,12 +30,12 @@ use Payum\Core\GatewayFactoryInterface;
 $defaultConfig = [];
 
 $payum = (new PayumBuilder)
-    ->addGatewayFactory('allpay', function(array $config, GatewayFactoryInterface $coreGatewayFactory) {
-        return new \PayumTW\Allpay\AllpayGatewayFactory($config, $coreGatewayFactory);
+    ->addGatewayFactory('ecpay', function(array $config, GatewayFactoryInterface $coreGatewayFactory) {
+        return new \PayumTW\Ecpay\EcpayGatewayFactory($config, $coreGatewayFactory);
     })
 
-    ->addGateway('allpay', [
-        'factory'     => 'allpay',
+    ->addGateway('ecpay', [
+        'factory'     => 'ecpay',
         'MerchantID'  => '2000132',
         'HashKey'     => '5294y06JbISpM5x9',
         'HashIV'      => 'v77hoKGq4kWxNNIS',
@@ -53,7 +53,7 @@ $payum = (new PayumBuilder)
 
 use Payum\Core\Request\Capture;
 
-$allpay = $payum->getGateway('allpay');
+$allpay = $payum->getGateway('ecpay');
 
 $model = new \ArrayObject([
   // ...
