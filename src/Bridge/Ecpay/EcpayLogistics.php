@@ -2,10 +2,10 @@
 
 namespace PayumTW\Ecpay\Bridge\Ecpay;
 
-use BadMethodCallException;
 use Device;
 use LogisticsType;
 use ReflectionObject;
+use BadMethodCallException;
 
 class EcpayLogistics extends \ECPayLogistics
 {

@@ -4,10 +4,10 @@ namespace PayumTW\Ecpay;
 
 use Device;
 use Exception;
-use Http\Message\MessageFactory;
 use IsCollection;
-use LogisticsSubType;
 use LogisticsType;
+use LogisticsSubType;
+use Http\Message\MessageFactory;
 use Payum\Core\HttpClientInterface;
 use PayumTW\Ecpay\Bridge\Ecpay\EcpayLogistics;
 
