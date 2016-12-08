@@ -2,11 +2,11 @@
 
 namespace PayumTW\Ecpay;
 
-use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\GatewayFactory;
+use Payum\Core\Bridge\Spl\ArrayObject;
+use PayumTW\Ecpay\Action\StatusLogisticsAction;
 use PayumTW\Ecpay\Action\CaptureLogisticsAction;
 use PayumTW\Ecpay\Action\ConvertPaymentLogisticsAction;
-use PayumTW\Ecpay\Action\StatusLogisticsAction;
 
 class EcpayLogisticsGatewayFactory extends GatewayFactory
 {

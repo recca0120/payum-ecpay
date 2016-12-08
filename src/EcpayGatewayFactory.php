@@ -2,19 +2,19 @@
 
 namespace PayumTW\Ecpay;
 
-use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\GatewayFactory;
-use PayumTW\Ecpay\Action\Api\CancelTransactionAction;
-use PayumTW\Ecpay\Action\Api\CreateTransactionAction;
-use PayumTW\Ecpay\Action\Api\GetTransactionDataAction;
-use PayumTW\Ecpay\Action\Api\RefundTransactionAction;
+use PayumTW\Ecpay\Action\SyncAction;
+use Payum\Core\Bridge\Spl\ArrayObject;
 use PayumTW\Ecpay\Action\CancelAction;
-use PayumTW\Ecpay\Action\CaptureAction;
-use PayumTW\Ecpay\Action\ConvertPaymentAction;
 use PayumTW\Ecpay\Action\NotifyAction;
 use PayumTW\Ecpay\Action\RefundAction;
 use PayumTW\Ecpay\Action\StatusAction;
-use PayumTW\Ecpay\Action\SyncAction;
+use PayumTW\Ecpay\Action\CaptureAction;
+use PayumTW\Ecpay\Action\ConvertPaymentAction;
+use PayumTW\Ecpay\Action\Api\CancelTransactionAction;
+use PayumTW\Ecpay\Action\Api\CreateTransactionAction;
+use PayumTW\Ecpay\Action\Api\RefundTransactionAction;
+use PayumTW\Ecpay\Action\Api\GetTransactionDataAction;
 
 class EcpayGatewayFactory extends GatewayFactory
 {
