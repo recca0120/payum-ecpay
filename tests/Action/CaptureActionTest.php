@@ -99,7 +99,7 @@ class CaptureActionTest extends PHPUnit_Framework_TestCase
             ->shouldReceive('getToken')->andReturn($token);
 
         $gateway
-            ->shouldReceive('execute')->with(m::type('Payum\Core\Request\GetHttpRequest'))->andReturnUsing(function($GetHttpRequest) use ($details) {
+            ->shouldReceive('execute')->with(m::type('Payum\Core\Request\GetHttpRequest'))->andReturnUsing(function ($GetHttpRequest) use ($details) {
                 $GetHttpRequest->request = (array) $details;
 
                 return $GetHttpRequest;

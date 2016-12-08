@@ -3,13 +3,13 @@
 namespace PayumTW\Ecpay;
 
 use Payum\Core\GatewayFactory;
+use PayumTW\Ecpay\Action\SyncAction;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use PayumTW\Ecpay\Action\StatusLogisticsAction;
 use PayumTW\Ecpay\Action\CaptureLogisticsAction;
-use PayumTW\Ecpay\Action\ConvertPaymentLogisticsAction;
 use PayumTW\Ecpay\Action\Api\CreateTransactionAction;
 use PayumTW\Ecpay\Action\Api\GetTransactionDataAction;
-use PayumTW\Ecpay\Action\SyncAction;
+use PayumTW\Ecpay\Action\ConvertPaymentLogisticsAction;
 
 class EcpayLogisticsGatewayFactory extends GatewayFactory
 {
