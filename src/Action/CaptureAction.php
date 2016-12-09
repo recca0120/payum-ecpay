@@ -2,17 +2,17 @@
 
 namespace PayumTW\Ecpay\Action;
 
+use Payum\Core\Request\Sync;
+use Payum\Core\Request\Capture;
+use Payum\Core\GatewayAwareTrait;
+use Payum\Core\GatewayAwareInterface;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
-use Payum\Core\Exception\RequestNotSupportedException;
-use Payum\Core\GatewayAwareInterface;
-use Payum\Core\GatewayAwareTrait;
-use Payum\Core\Request\Capture;
 use Payum\Core\Request\GetHttpRequest;
-use Payum\Core\Request\Sync;
-use Payum\Core\Security\GenericTokenFactoryAwareInterface;
-use Payum\Core\Security\GenericTokenFactoryAwareTrait;
 use PayumTW\Ecpay\Request\Api\CreateTransaction;
+use Payum\Core\Exception\RequestNotSupportedException;
+use Payum\Core\Security\GenericTokenFactoryAwareTrait;
+use Payum\Core\Security\GenericTokenFactoryAwareInterface;
 
 class CaptureAction implements ActionInterface, GatewayAwareInterface, GenericTokenFactoryAwareInterface
 {
@@ -45,7 +45,7 @@ class CaptureAction implements ActionInterface, GatewayAwareInterface, GenericTo
             $details['OrderResultURL'] = $targetUrl;
         }
 
-        if (empty($details['ReturnURL']) === true && $token && $this->tokenFactory) {
+        if (empty($details['ReturnURL']) === true) {
             $notifyToken = $this->tokenFactory->createNotifyToken(
                 $token->getGatewayName(),
                 $token->getDetails()

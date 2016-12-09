@@ -3,9 +3,9 @@
 namespace PayumTW\Ecpay\Action\Api;
 
 use Payum\Core\Bridge\Spl\ArrayObject;
-use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Reply\HttpPostRedirect;
 use PayumTW\Ecpay\Request\Api\CreateTransaction;
+use Payum\Core\Exception\RequestNotSupportedException;
 
 class CreateTransactionAction extends BaseApiAwareAction
 {
@@ -20,9 +20,19 @@ class CreateTransactionAction extends BaseApiAwareAction
 
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
+        $result = $this->api->createTransaction((array) $details);
+
+        if (isset($result['RtnCode']) === true) {
+            $details->replace($result);
+
+            return;
+        }
+
+        $endpoint = $this->api->getApiEndpoint();
+
         throw new HttpPostRedirect(
-            $this->api->getApiEndpoint(),
-            $this->api->createTransaction((array) $details)
+            $endpoint,
+            $result
         );
     }
 

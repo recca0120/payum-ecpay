@@ -1,9 +1,9 @@
 <?php
 
 use Mockery as m;
+use Payum\Core\Reply\ReplyInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use PayumTW\Ecpay\Action\NotifyAction;
-use Payum\Core\Reply\ReplyInterface;
 
 class NotifyActionTest extends PHPUnit_Framework_TestCase
 {
@@ -11,7 +11,6 @@ class NotifyActionTest extends PHPUnit_Framework_TestCase
     {
         m::close();
     }
-
 
     public function test_notify_success()
     {
@@ -39,7 +38,7 @@ class NotifyActionTest extends PHPUnit_Framework_TestCase
             ->shouldReceive('getModel')->andReturn($details);
 
         $gateway
-            ->shouldReceive('execute')->with(m::type('Payum\Core\Request\GetHttpRequest'))->andReturnUsing(function($getHttpRequest) use ($returnValue) {
+            ->shouldReceive('execute')->with(m::type('Payum\Core\Request\GetHttpRequest'))->andReturnUsing(function ($getHttpRequest) use ($returnValue) {
                 $getHttpRequest->request = $returnValue;
 
                 return $getHttpRequest;
@@ -97,7 +96,7 @@ class NotifyActionTest extends PHPUnit_Framework_TestCase
             ->shouldReceive('getModel')->andReturn($details);
 
         $gateway
-            ->shouldReceive('execute')->with(m::type('Payum\Core\Request\GetHttpRequest'))->andReturnUsing(function($getHttpRequest) use ($returnValue) {
+            ->shouldReceive('execute')->with(m::type('Payum\Core\Request\GetHttpRequest'))->andReturnUsing(function ($getHttpRequest) use ($returnValue) {
                 $getHttpRequest->request = $returnValue;
 
                 return $getHttpRequest;

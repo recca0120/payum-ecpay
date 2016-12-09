@@ -11,111 +11,113 @@ class CaptureActionTest extends PHPUnit_Framework_TestCase
         m::close();
     }
 
-    public function test_redirect_to_allpay()
+    public function test_execute_get_transcation()
     {
         /*
         |------------------------------------------------------------
-        | Set
+        | Arrange
         |------------------------------------------------------------
         */
 
-        $action = new CaptureAction();
-        $gateway = m::mock('Payum\Core\GatewayInterface');
-        $request = m::mock('Payum\Core\Request\Capture');
-        $tokenFactory = m::mock('Payum\Core\Security\GenericTokenFactoryInterface');
-        $token = m::mock('stdClass');
-        $notifyToken = m::mock('stdClass');
-        $api = m::mock('PayumTW\Ecpay\Api');
+        $gateway = m::spy('Payum\Core\GatewayInterface');
+        $tokenFactory = m::spy('Payum\Core\Security\GenericTokenFactoryInterface');
+        $request = m::spy('Payum\Core\Request\Capture');
         $details = new ArrayObject([]);
-        $getHttpRequest = m::mock('Payum\Core\Request\GetHttpRequest');
+        $token = m::spy('Payum\Core\Security\TokenInterface');
+        $targetUrl = 'foo.target_url';
+        $gatewayName = 'foo.gateway';
+        $notifyToken = m::spy('Payum\Core\Security\TokenInterface');
 
         /*
         |------------------------------------------------------------
-        | Expectation
+        | Act
         |------------------------------------------------------------
         */
 
-        $gateway
-            ->shouldReceive('execute')->with(m::type('Payum\Core\Request\GetHttpRequest'))->once()->andReturnUsing(function () use ($getHttpRequest) {
-                return $getHttpRequest;
-            })
-            ->shouldReceive('execute')->with(m::type('PayumTW\Ecpay\Request\Api\CreateTransaction'))->once();
-
         $request
-            ->shouldReceive('getModel')->twice()->andReturn($details)
-            ->shouldReceive('getToken')->once()->andReturn($token);
+            ->shouldReceive('getModel')->andReturn($details)
+            ->shouldReceive('getToken')->andReturn($token);
 
         $token
-            ->shouldReceive('getTargetUrl')->andReturn('fooOrderResultURL')
-            ->shouldReceive('getGatewayName')->andReturn('fooGatewayName')
-            ->shouldReceive('getDetails')->andReturn([
-                'foo' => 'bar',
-            ]);
-
-        $notifyToken->shouldReceive('getTargetUrl')->andReturn('fooReturnURL');
+            ->shouldReceive('getTargetUrl')->andReturn($targetUrl)
+            ->shouldReceive('getGatewayName')->andReturn($gatewayName)
+            ->shouldReceive('getDetails')->andReturn($details);
 
         $tokenFactory
-            ->shouldReceive('createNotifyToken')->once()->andReturn($notifyToken);
+            ->shouldReceive('createNotifyToken')->andReturn($notifyToken);
 
-        /*
-        |------------------------------------------------------------
-        | Assertion
-        |------------------------------------------------------------
-        */
+        $notifyToken
+            ->shouldReceive('getTargetUrl')->andReturn($targetUrl);
 
+        $action = new CaptureAction();
         $action->setGateway($gateway);
         $action->setGenericTokenFactory($tokenFactory);
         $action->execute($request);
-        $this->assertSame([
-            'OrderResultURL' => 'fooOrderResultURL',
-            'ReturnURL'      => 'fooReturnURL',
-        ], (array) $details);
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $request->shouldHaveReceived('getModel')->twice();
+        $gateway->shouldHaveReceived('execute')->with(m::type('Payum\Core\Request\GetHttpRequest'))->once();
+        $request->shouldHaveReceived('getToken')->once();
+        $token->shouldHaveReceived('getTargetUrl')->once();
+        $token->shouldHaveReceived('getGatewayName')->once();
+        $token->shouldHaveReceived('getDetails')->once();
+        $tokenFactory->shouldHaveReceived('createNotifyToken')->with($gatewayName, $details)->once();
+        $notifyToken->shouldHaveReceived('getTargetUrl')->once();
+        $gateway->shouldHaveReceived('execute')->with(m::type('PayumTW\Ecpay\Request\Api\CreateTransaction'))->once();
     }
 
-    public function test_allpay_response()
+    public function test_execute_when_rtn_code_exists()
     {
         /*
         |------------------------------------------------------------
-        | Set
+        | Arrange
         |------------------------------------------------------------
         */
 
-        $action = new CaptureAction();
-        $gateway = m::mock('Payum\Core\GatewayInterface');
-        $request = m::mock('Payum\Core\Request\Capture');
-        $tokenFactory = m::mock('Payum\Core\Security\GenericTokenFactoryInterface');
-        $token = m::mock('stdClass');
-        $notifyToken = m::mock('stdClass');
-        $api = m::mock('PayumTW\Ecpay\Api');
-        $details = new ArrayObject([]);
+        $gateway = m::spy('Payum\Core\GatewayInterface');
+        $tokenFactory = m::spy('Payum\Core\Security\GenericTokenFactoryInterface');
+        $request = m::spy('Payum\Core\Request\Capture');
+        $details = new ArrayObject(['RtnCode' => '1']);
+        $token = m::spy('Payum\Core\Security\TokenInterface');
+        $targetUrl = 'foo.target_url';
+        $gatewayName = 'foo.gateway';
+        $notifyToken = m::spy('Payum\Core\Security\TokenInterface');
 
         /*
         |------------------------------------------------------------
-        | Expectation
+        | Act
         |------------------------------------------------------------
         */
-
-        $expected = [
-            'RtnCode' => '1',
-        ];
-
-        $gateway
-            ->shouldReceive('execute')->with(m::type('Payum\Core\Request\GetHttpRequest'))->once()->andReturnUsing(function ($httpRequest) use ($api, $expected) {
-                $httpRequest->request = $expected;
-            })
-            ->shouldReceive('execute')->with(m::type('Payum\Core\Request\Sync'))->once();
 
         $request
-            ->shouldReceive('getModel')->twice()->andReturn($details);
+            ->shouldReceive('getModel')->andReturn($details)
+            ->shouldReceive('getToken')->andReturn($token);
 
-        /*
-        |------------------------------------------------------------
-        | Assertion
-        |------------------------------------------------------------
-        */
+        $gateway
+            ->shouldReceive('execute')->with(m::type('Payum\Core\Request\GetHttpRequest'))->andReturnUsing(function ($GetHttpRequest) use ($details) {
+                $GetHttpRequest->request = (array) $details;
 
+                return $GetHttpRequest;
+            });
+
+        $action = new CaptureAction();
         $action->setGateway($gateway);
         $action->setGenericTokenFactory($tokenFactory);
         $action->execute($request);
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $request->shouldHaveReceived('getModel')->twice();
+        $gateway->shouldHaveReceived('execute')->with(m::type('Payum\Core\Request\GetHttpRequest'))->once();
+        $gateway->shouldHaveReceived('execute')->with(m::type('Payum\Core\Request\Sync'))->once();
     }
 }

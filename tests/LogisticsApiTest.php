@@ -2,6 +2,9 @@
 
 use Mockery as m;
 use PayumTW\Ecpay\LogisticsApi;
+use PayumTW\Ecpay\Bridge\Ecpay\IsCollection;
+use PayumTW\Ecpay\Bridge\Ecpay\LogisticsType;
+use PayumTW\Ecpay\Bridge\Ecpay\LogisticsSubType;
 
 class LogisticsApiTest extends PHPUnit_Framework_TestCase
 {
@@ -10,155 +13,176 @@ class LogisticsApiTest extends PHPUnit_Framework_TestCase
         m::close();
     }
 
-    public function test_prepare_payment()
+    public function test_create_cvs_map_transaction()
     {
         /*
         |------------------------------------------------------------
-        | Set
+        | Arrange
         |------------------------------------------------------------
         */
 
+        $httpClient = m::spy('Payum\Core\HttpClientInterface');
+        $message = m::spy('Http\Message\MessageFactory');
+        $sdk = m::spy('PayumTW\Ecpay\Bridge\Ecpay\EcpayLogistics');
         $options = [
             'MerchantID' => '2000132',
-            'HashKey'    => '5294y06JbISpM5x9',
-            'HashIV'     => 'v77hoKGq4kWxNNIS',
-            'sandbox'    => false,
+            'HashKey' => '5294y06JbISpM5x9',
+            'HashIV' => 'v77hoKGq4kWxNNIS',
+            'sandbox' => false,
         ];
+
+        $MerchantTradeDate = date('Y/m/d H:i:s');
 
         $params = [
-            'MerchantTradeNo'   => uniqid(),
-            'GoodsName'         => 'fooGoods',
-            'SenderName'        => 'fooSender',
-            'SenderPhone'       => '0912345678',
-            'SenderCellPhone'   => '0912345678',
-            'ReceiverName'      => 'foo',
-            'ReceiverCellPhone' => '0912345678',
-            'Remark'            => 'fooRemark',
-            'PlatformID'        => '',
-            'LogisticsSubType'  => LogisticsSubType::UNIMART,
-            'IsCollection'      => IsCollection::NO,
-            'ReceiverStoreID'   => '010268',
-            'ReturnStoreID'     => '010268',
-            'ReceiverEmail'     => 'recca0120@gmail.com',
-            'GoodsAmount'       => 340,
-            'TradeDesc'         => 'fooTradeDesc',
-            'ServerReplyURL'    => 'http://fooServerReplyURL',
+            'GoodsAmount' => 0,
+            'ServerReplyURL' => 'ServerReplyURL',
+            'MerchantTradeNo' => 'MerchantTradeNo',
+            'MerchantTradeDate' => 'MerchantTradeDate',
+            'LogisticsSubType' => 'LogisticsSubType',
+            'IsCollection' => 'IsCollection',
         ];
 
-        $httpClient = m::mock('Payum\Core\HttpClientInterface');
-        $message = m::mock('Http\Message\MessageFactory');
-
         /*
         |------------------------------------------------------------
-        | Expectation
+        | Act
         |------------------------------------------------------------
         */
 
-        $api = new LogisticsApi($options, $httpClient, $message);
+        $api = new LogisticsApi($options, $httpClient, $message, $sdk);
 
         /*
         |------------------------------------------------------------
-        | Assertion
+        | Assert
         |------------------------------------------------------------
         */
 
-        // $params = $api->preparePayment($params);
+        $api->createTransaction($params);
+        $this->assertSame($params['ServerReplyURL'], $sdk->Send['ServerReplyURL']);
+        $this->assertSame($params['MerchantTradeNo'], $sdk->Send['MerchantTradeNo']);
+        $this->assertSame($params['MerchantTradeDate'], $sdk->Send['MerchantTradeDate']);
+        $this->assertSame($params['LogisticsSubType'], $sdk->Send['LogisticsSubType']);
+        $this->assertSame($params['IsCollection'], $sdk->Send['IsCollection']);
+        $sdk->shouldHaveReceived('CvsMap')->once();
     }
 
-    public function test_parse_result()
+    public function test_create_transaction()
     {
         /*
         |------------------------------------------------------------
-        | Set
+        | Arrange
         |------------------------------------------------------------
         */
 
+        $httpClient = m::spy('Payum\Core\HttpClientInterface');
+        $message = m::spy('Http\Message\MessageFactory');
+        $sdk = m::spy('PayumTW\Ecpay\Bridge\Ecpay\EcpayLogistics');
         $options = [
             'MerchantID' => '2000132',
-            'HashKey'    => '5294y06JbISpM5x9',
-            'HashIV'     => 'v77hoKGq4kWxNNIS',
-            'sandbox'    => false,
+            'HashKey' => '5294y06JbISpM5x9',
+            'HashIV' => 'v77hoKGq4kWxNNIS',
+            'sandbox' => false,
         ];
 
         $params = [
-            'ResCode'           => '1',
-            'AllPayLogisticsID' => '25077',
-            'BookingNote'       => '',
-            'CheckMacValue'     => '256226145F96A320C7503E550C77700F',
-            'CVSPaymentNo'      => '',
-            'CVSValidationNo'   => '',
-            'GoodsAmount'       => '340',
-            'LogisticsSubType'  => 'FAMI',
-            'LogisticsType'     => 'CVS',
-            'MerchantID'        => '2000132',
-            'MerchantTradeNo'   => '57CBEEF7D3489',
-            'ReceiverAddress'   => '',
-            'ReceiverCellPhone' => '0922261866',
-            'ReceiverEmail'     => 'recca0120@gmail.com',
-            'ReceiverName'      => 'Recca Tsai',
-            'ReceiverPhone'     => '',
-            'RtnCode'           => '300',
-            'RtnMsg'            => '訂單處理中(已收到訂單資料)',
-            'UpdateStatusDate'  => '2016/09/04 17:52:00',
+            'GoodsAmount' => 1,
+            'MerchantTradeNo' => 'MerchantTradeNo',
+            'MerchantTradeDate' => 'MerchantTradeDate',
+            'LogisticsType' => 'LogisticsType',
+            'LogisticsSubType' => 'LogisticsSubType',
+            'GoodsAmount' => 'GoodsAmount',
+            'CollectionAmount' => 'CollectionAmount',
+            'IsCollection' => 'IsCollection',
+            'GoodsName' => 'GoodsName',
+            'SenderName' => 'SenderName',
+            'SenderPhone' => 'SenderPhone',
+            'SenderCellPhone' => 'SenderCellPhone',
+            'ReceiverName' => 'ReceiverName',
+            'ReceiverPhone' => 'ReceiverPhone',
+            'ReceiverCellPhone' => 'ReceiverCellPhone',
+            'ReceiverEmail' => 'ReceiverEmail',
+            'TradeDesc' => 'TradeDesc',
+            'ServerReplyURL' => 'ServerReplyURL',
+            'LogisticsC2CReplyURL' => 'LogisticsC2CReplyURL',
+            'Remark' => 'Remark',
+            'PlatformID' => 'PlatformID',
         ];
 
-        $httpClient = m::mock('Payum\Core\HttpClientInterface');
-        $message = m::mock('Http\Message\MessageFactory');
-
         /*
         |------------------------------------------------------------
-        | Expectation
+        | Act
         |------------------------------------------------------------
         */
 
-        $api = new LogisticsApi($options, $httpClient, $message);
+        $api = new LogisticsApi($options, $httpClient, $message, $sdk);
 
         /*
         |------------------------------------------------------------
-        | Assertion
+        | Assert
         |------------------------------------------------------------
         */
 
-        $params = $api->parseResult($params);
+        $api->createTransaction($params);
+        $this->assertSame($params['MerchantTradeNo'], $sdk->Send['MerchantTradeNo']);
+        $this->assertSame($params['MerchantTradeDate'], $sdk->Send['MerchantTradeDate']);
+        $this->assertSame($params['LogisticsType'], $sdk->Send['LogisticsType']);
+        $this->assertSame($params['LogisticsSubType'], $sdk->Send['LogisticsSubType']);
+        $this->assertSame($params['GoodsAmount'], $sdk->Send['GoodsAmount']);
+        $this->assertSame($params['CollectionAmount'], $sdk->Send['CollectionAmount']);
+        $this->assertSame($params['IsCollection'], $sdk->Send['IsCollection']);
+        $this->assertSame($params['GoodsName'], $sdk->Send['GoodsName']);
+        $this->assertSame($params['SenderName'], $sdk->Send['SenderName']);
+        $this->assertSame($params['SenderPhone'], $sdk->Send['SenderPhone']);
+        $this->assertSame($params['SenderCellPhone'], $sdk->Send['SenderCellPhone']);
+        $this->assertSame($params['ReceiverName'], $sdk->Send['ReceiverName']);
+        $this->assertSame($params['ReceiverPhone'], $sdk->Send['ReceiverPhone']);
+        $this->assertSame($params['ReceiverCellPhone'], $sdk->Send['ReceiverCellPhone']);
+        $this->assertSame($params['ReceiverEmail'], $sdk->Send['ReceiverEmail']);
+        $this->assertSame($params['TradeDesc'], $sdk->Send['TradeDesc']);
+        $this->assertSame($params['ServerReplyURL'], $sdk->Send['ServerReplyURL']);
+        $this->assertSame($params['LogisticsC2CReplyURL'], $sdk->Send['LogisticsC2CReplyURL']);
+        $this->assertSame($params['Remark'], $sdk->Send['Remark']);
+        $this->assertSame($params['PlatformID'], $sdk->Send['PlatformID']);
+
+        $sdk->shouldHaveReceived('BGCreateShippingOrder')->once();
     }
 
-    public function test_prepare_map()
+    public function test_get_transaction_data()
     {
         /*
         |------------------------------------------------------------
-        | Set
+        | Arrange
         |------------------------------------------------------------
         */
 
+        $httpClient = m::spy('Payum\Core\HttpClientInterface');
+        $message = m::spy('Http\Message\MessageFactory');
+        $sdk = m::spy('PayumTW\Ecpay\Bridge\Ecpay\EcpayLogistics');
         $options = [
             'MerchantID' => '2000132',
-            'HashKey'    => '5294y06JbISpM5x9',
-            'HashIV'     => 'v77hoKGq4kWxNNIS',
-            'sandbox'    => false,
+            'HashKey' => '5294y06JbISpM5x9',
+            'HashIV' => 'v77hoKGq4kWxNNIS',
+            'sandbox' => false,
         ];
 
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $api = new LogisticsApi($options, $httpClient, $message, $sdk);
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $params = ['foo' => 'bar'];
+        $this->assertSame($params, $api->getTransactionData($params));
         $params = [
-            'MerchantTradeNo' => uniqid(),
-            'ServerReplyURL'  => 'http://fooServerReplyURL',
+            'response' => ['foo' => 'bar'],
         ];
-
-        $httpClient = m::mock('Payum\Core\HttpClientInterface');
-        $message = m::mock('Http\Message\MessageFactory');
-
-        /*
-        |------------------------------------------------------------
-        | Expectation
-        |------------------------------------------------------------
-        */
-
-        $api = new LogisticsApi($options, $httpClient, $message);
-
-        /*
-        |------------------------------------------------------------
-        | Assertion
-        |------------------------------------------------------------
-        */
-
-        $params = $api->prepareMap($params);
+        $this->assertSame($params['response'], $api->getTransactionData($params));
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
 use Mockery as m;
-use Payum\Core\Bridge\Spl\ArrayObject;
 use PayumTW\Ecpay\Action\SyncAction;
+use Payum\Core\Bridge\Spl\ArrayObject;
 
 class SyncActionTest extends PHPUnit_Framework_TestCase
 {
@@ -11,38 +11,38 @@ class SyncActionTest extends PHPUnit_Framework_TestCase
         m::close();
     }
 
-    public function test_execute()
+    public function test_sync()
     {
         /*
         |------------------------------------------------------------
-        | Set
+        | Arrange
         |------------------------------------------------------------
         */
+
+        $request = m::spy('Payum\Core\Request\Sync');
+        $gateway = m::spy('Payum\Core\GatewayInterface');
+        $details = new ArrayObject([]);
+
+        /*
+        |------------------------------------------------------------
+        | Act
+        |------------------------------------------------------------
+        */
+
+        $request
+            ->shouldReceive('getModel')->andReturn($details);
 
         $action = new SyncAction();
-        $gateway = m::mock('Payum\Core\GatewayInterface');
-        $request = m::mock('Payum\Core\Request\Sync');
-        $details = new ArrayObject();
-
-        /*
-        |------------------------------------------------------------
-        | Expectation
-        |------------------------------------------------------------
-        */
-
-        $request->shouldReceive('getModel')->andReturn($details)->twice();
-
-        $gateway
-            ->shouldReceive('execute')->with(m::type('Payum\Core\Request\GetHttpRequest'))
-            ->shouldReceive('execute')->with(m::type('PayumTW\Ecpay\Request\Api\GetTransactionData'));
-
-        /*
-        |------------------------------------------------------------
-        | Assertion
-        |------------------------------------------------------------
-        */
-
         $action->setGateway($gateway);
         $action->execute($request);
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
+        $request->shouldHaveReceived('getModel')->twice();
+        $gateway->shouldHaveReceived('execute')->with(m::type('PayumTW\Ecpay\Request\Api\GetTransactionData'))->once();
     }
 }
