@@ -37,6 +37,9 @@
         "classmap": [
             "src/Bridge/Ecpay/Sdk"
         ],
+        "files": [
+            "src/Bridge/helpers.php"
+        ],
         "psr-4": {
             "PayumTW\\Ecpay\\": "src/"
         }

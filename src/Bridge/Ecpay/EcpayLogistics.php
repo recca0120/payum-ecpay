@@ -2,8 +2,6 @@
 
 namespace PayumTW\Ecpay\Bridge\Ecpay;
 
-use Device;
-use LogisticsType;
 use ReflectionObject;
 use BadMethodCallException;
 
