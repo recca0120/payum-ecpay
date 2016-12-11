@@ -15,7 +15,7 @@ class EcpayGatewayFactoryTest extends PHPUnit_Framework_TestCase
     {
         /*
         |------------------------------------------------------------
-        | Set
+        | Arrange
         |------------------------------------------------------------
         */
 
@@ -24,13 +24,7 @@ class EcpayGatewayFactoryTest extends PHPUnit_Framework_TestCase
 
         /*
         |------------------------------------------------------------
-        | Expectation
-        |------------------------------------------------------------
-        */
-
-        /*
-        |------------------------------------------------------------
-        | Assertion
+        | Act
         |------------------------------------------------------------
         */
 
@@ -47,6 +41,13 @@ class EcpayGatewayFactoryTest extends PHPUnit_Framework_TestCase
         ]);
 
         $api = call_user_func($config['payum.api'], ArrayObject::ensureArrayObject($config));
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
         $this->assertInstanceOf('PayumTW\Ecpay\Api', $api);
     }
 }

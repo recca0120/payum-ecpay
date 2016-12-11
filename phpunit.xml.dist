@@ -20,6 +20,9 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./src</directory>
+            <exclude>
+                <directory>./src/Bridge/Ecpay/Sdk</directory>
+            </exclude>
         </whitelist>
     </filter>
     <logging>

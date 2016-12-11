@@ -15,22 +15,16 @@ class EcpayLogisticsGatewayFactoryTest extends PHPUnit_Framework_TestCase
     {
         /*
         |------------------------------------------------------------
-        | Set
+        | Arrange
         |------------------------------------------------------------
         */
 
-        $httpClient = m::mock('Payum\Core\HttpClientInterface');
-        $message = m::mock('Http\Message\MessageFactory');
+        $httpClient = m::spy('Payum\Core\HttpClientInterface');
+        $message = m::spy('Http\Message\MessageFactory');
 
         /*
         |------------------------------------------------------------
-        | Expectation
-        |------------------------------------------------------------
-        */
-
-        /*
-        |------------------------------------------------------------
-        | Assertion
+        | Act
         |------------------------------------------------------------
         */
 
@@ -45,8 +39,14 @@ class EcpayLogisticsGatewayFactoryTest extends PHPUnit_Framework_TestCase
             'HashIV' => 'v77hoKGq4kWxNNIS',
             'sandbox' => true,
         ]);
-
         $api = call_user_func($config['payum.api'], ArrayObject::ensureArrayObject($config));
+
+        /*
+        |------------------------------------------------------------
+        | Assert
+        |------------------------------------------------------------
+        */
+
         $this->assertInstanceOf('PayumTW\Ecpay\LogisticsApi', $api);
     }
 }
