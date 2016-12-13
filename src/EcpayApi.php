@@ -64,20 +64,20 @@ class EcpayApi extends Api
     public function getApiEndpoint($name = 'AioCheckOut')
     {
         $map = [
-            'AioCheckOut'                    => 'https://payment.ecpay.com.tw/Cashier/AioCheckOut/V2 ',
-            'QueryTradeInfo'                 => 'https://payment.ecpay.com.tw/Cashier/QueryTradeInfo/V2',
+            'AioCheckOut' => 'https://payment.ecpay.com.tw/Cashier/AioCheckOut/V2 ',
+            'QueryTradeInfo' => 'https://payment.ecpay.com.tw/Cashier/QueryTradeInfo/V2',
             'QueryPeriodCreditCardTradeInfo' => 'https://payment.ecpay.com.tw/Cashier/QueryCreditCardPeriodInfo',
-            'DoAction'                       => 'https://payment.ecpay.com.tw/CreditDetail/DoAction',
-            'AioChargeback'                  => 'https://payment.ecpay.com.tw/Cashier/AioChargeback',
+            'DoAction' => 'https://payment.ecpay.com.tw/CreditDetail/DoAction',
+            'AioChargeback' => 'https://payment.ecpay.com.tw/Cashier/AioChargeback',
         ];
 
         if ($this->options['sandbox'] === true) {
             $map = [
-                'AioCheckOut'                    => 'https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V2',
-                'QueryTradeInfo'                 => 'https://payment-stage.ecpay.com.tw/Cashier/QueryTradeInfo/V2',
+                'AioCheckOut' => 'https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V2',
+                'QueryTradeInfo' => 'https://payment-stage.ecpay.com.tw/Cashier/QueryTradeInfo/V2',
                 'QueryPeriodCreditCardTradeInfo' => 'https://payment-stage.ecpay.com.tw/Cashier/QueryCreditCardPeriodInfo',
-                'DoAction'                       => null,
-                'AioChargeback'                  => 'https://payment-stage.ecpay.com.tw/Cashier/AioChargeback',
+                'DoAction' => null,
+                'AioChargeback' => 'https://payment-stage.ecpay.com.tw/Cashier/AioChargeback',
             ];
         }
 
