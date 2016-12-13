@@ -1,7 +1,7 @@
 <?php
 
 use Mockery as m;
-use PayumTW\Ecpay\Api;
+use PayumTW\Ecpay\EcpayApi;
 use PayumTW\Ecpay\Bridge\Ecpay\ActionType;
 use PayumTW\Ecpay\Bridge\Ecpay\EncryptType;
 use PayumTW\Ecpay\Bridge\Ecpay\InvoiceState;
@@ -9,7 +9,7 @@ use PayumTW\Ecpay\Bridge\Ecpay\PaymentMethod;
 use PayumTW\Ecpay\Bridge\Ecpay\ExtraPaymentInfo;
 use PayumTW\Ecpay\Bridge\Ecpay\PaymentMethodItem;
 
-class ApiTest extends PHPUnit_Framework_TestCase
+class EcpayApiTest extends PHPUnit_Framework_TestCase
 {
     public function tearDown()
     {
@@ -80,7 +80,7 @@ class ApiTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $api = new Api($options, $httpClient, $message, $sdk);
+        $api = new EcpayApi($options, $httpClient, $message, $sdk);
 
         /*
         |------------------------------------------------------------
@@ -135,7 +135,7 @@ class ApiTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $api = new Api($options, $httpClient, $message, $sdk);
+        $api = new EcpayApi($options, $httpClient, $message, $sdk);
 
         /*
         |------------------------------------------------------------
@@ -193,7 +193,7 @@ class ApiTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $api = new Api($options, $httpClient, $message, $sdk);
+        $api = new EcpayApi($options, $httpClient, $message, $sdk);
 
         /*
         |------------------------------------------------------------
@@ -263,7 +263,7 @@ class ApiTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $api = new Api($options, $httpClient, $message, $sdk);
+        $api = new EcpayApi($options, $httpClient, $message, $sdk);
 
         /*
         |------------------------------------------------------------
@@ -330,7 +330,7 @@ class ApiTest extends PHPUnit_Framework_TestCase
 
         $sdk->shouldReceive('CheckOutFeedback')->andThrow('Exception');
 
-        $api = new Api($options, $httpClient, $message, $sdk);
+        $api = new EcpayApi($options, $httpClient, $message, $sdk);
 
         /*
         |------------------------------------------------------------
@@ -382,7 +382,7 @@ class ApiTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $api = new Api($options, $httpClient, $message, $sdk);
+        $api = new EcpayApi($options, $httpClient, $message, $sdk);
 
         /*
         |------------------------------------------------------------

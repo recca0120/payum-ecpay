@@ -1,12 +1,12 @@
 <?php
 
 use Mockery as m;
-use PayumTW\Ecpay\LogisticsApi;
+use PayumTW\Ecpay\EcpayLogisticsApi;
 use PayumTW\Ecpay\Bridge\Ecpay\IsCollection;
 use PayumTW\Ecpay\Bridge\Ecpay\LogisticsType;
 use PayumTW\Ecpay\Bridge\Ecpay\LogisticsSubType;
 
-class LogisticsApiTest extends PHPUnit_Framework_TestCase
+class EcpayLogisticsApiTest extends PHPUnit_Framework_TestCase
 {
     public function tearDown()
     {
@@ -48,7 +48,7 @@ class LogisticsApiTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $api = new LogisticsApi($options, $httpClient, $message, $sdk);
+        $api = new EcpayLogisticsApi($options, $httpClient, $message, $sdk);
 
         /*
         |------------------------------------------------------------
@@ -113,7 +113,7 @@ class LogisticsApiTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $api = new LogisticsApi($options, $httpClient, $message, $sdk);
+        $api = new EcpayLogisticsApi($options, $httpClient, $message, $sdk);
 
         /*
         |------------------------------------------------------------
@@ -170,7 +170,7 @@ class LogisticsApiTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $api = new LogisticsApi($options, $httpClient, $message, $sdk);
+        $api = new EcpayLogisticsApi($options, $httpClient, $message, $sdk);
 
         /*
         |------------------------------------------------------------

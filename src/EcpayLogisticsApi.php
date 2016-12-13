@@ -10,7 +10,7 @@ use PayumTW\Ecpay\Bridge\Ecpay\LogisticsType;
 use PayumTW\Ecpay\Bridge\Ecpay\EcpayLogistics;
 use PayumTW\Ecpay\Bridge\Ecpay\LogisticsSubType;
 
-class LogisticsApi extends BaseApi
+class EcpayLogisticsApi extends Api
 {
     /**
      * $client.

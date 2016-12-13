@@ -1,6 +1,6 @@
 # Ecpay
 
-[![StyleCI](https://styleci.io/repos/75879524/shield?style=flat)](https://styleci.io/repos/63962833)
+[![StyleCI](https://styleci.io/repos/75879524/shield?style=flat)](https://styleci.io/repos/75879524)
 [![Build Status](https://travis-ci.org/recca0120/payum-ecpay.svg)](https://travis-ci.org/recca0120/payum-ecpay)
 [![Total Downloads](https://poser.pugx.org/payum-tw/ecpay/d/total.svg)](https://packagist.org/packages/payum-tw/ecpay)
 [![Latest Stable Version](https://poser.pugx.org/payum-tw/ecpay/v/stable.svg)](https://packagist.org/packages/payum-tw/ecpay)

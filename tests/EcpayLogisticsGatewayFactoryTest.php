@@ -47,6 +47,6 @@ class EcpayLogisticsGatewayFactoryTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $this->assertInstanceOf('PayumTW\Ecpay\LogisticsApi', $api);
+        $this->assertInstanceOf('PayumTW\Ecpay\EcpayLogisticsApi', $api);
     }
 }
