@@ -31,6 +31,21 @@ class StatusActionTest extends PHPUnit_Framework_TestCase
         $this->validate(['RtnCode' => '5'], 'markFailed');
     }
 
+    public function test_mark_refund_when_rtn_code_is_1_and_action_is_r()
+    {
+        $this->validate(['RtnCode' => '1', 'Action' => 'R'], 'markRefunded');
+    }
+
+    public function test_mark_cancel_when_rtn_code_is_1_and_action_is_e()
+    {
+        $this->validate(['RtnCode' => '1', 'Action' => 'E'], 'markCanceled');
+    }
+
+    public function test_mark_cancel_when_rtn_code_is_1_and_action_is_n()
+    {
+        $this->validate(['RtnCode' => '1', 'Action' => 'N'], 'markCanceled');
+    }
+
     protected function validate($input, $type)
     {
         /*

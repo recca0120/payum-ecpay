@@ -9,6 +9,10 @@ use PayumTW\Ecpay\Bridge\Ecpay\IsCollection;
 use PayumTW\Ecpay\Bridge\Ecpay\LogisticsType;
 use PayumTW\Ecpay\Bridge\Ecpay\EcpayLogistics;
 use PayumTW\Ecpay\Bridge\Ecpay\LogisticsSubType;
+use PayumTW\Ecpay\Bridge\Ecpay\Temperature;
+use PayumTW\Ecpay\Bridge\Ecpay\Distance;
+use PayumTW\Ecpay\Bridge\Ecpay\Specification;
+use PayumTW\Ecpay\Bridge\Ecpay\ScheduledPickupTime;
 
 class EcpayLogisticsApi extends Api
 {
@@ -186,6 +190,81 @@ class EcpayLogisticsApi extends Api
         );
 
         return $this->api->BGCreateShippingOrder();
+    }
+
+    /**
+     * refundTransaction.
+     *
+     * @param  array $params
+     *
+     * @return array
+     */
+    public function refundTransaction($params)
+    {
+        if ($params['LogisticsSubType'] === LogisticsSubType::TCAT) {
+            // 宅配逆物流訂單產生
+            $method = 'CreateHomeReturnOrder';
+            $supportedParams = [
+                'AllPayLogisticsID'     => '',
+                'LogisticsSubType'      => '',
+                'ServerReplyURL'        => '',
+                'SenderName'            => '',
+                'SenderPhone'           => '',
+                'SenderCellPhone'       => '',
+                'SenderZipCode'         => '',
+                'SenderAddress'         => '',
+                'ReceiverName'          => '',
+                'ReceiverPhone'         => '',
+                'ReceiverCellPhone'     => '',
+                'ReceiverZipCode'       => '',
+                'ReceiverAddress'       => '',
+                'GoodsAmount'           => '',
+                'GoodsName'             => '',
+                'Temperature'           => Temperature::ROOM,
+                'Distance'              => Distance::SAME,
+                'Specification'         => Specification::CM_60,
+                'ScheduledPickupTime'   => ScheduledPickupTime::UNLIMITED,
+                'ScheduledDeliveryTime' => '',
+                'Remark'                => '',
+                'PlatformID'            => '',
+            ];
+        } else if (isset($params['LogisticsSubType']) === true){
+            // LogisticsSubType::FAMILY = 'FAMI'; // 全家
+            // LogisticsSubType::UNIMART = 'UNIMART'; // 統一超商
+            // LogisticsSubType::FAMILY_C2C = 'FAMIC2C'; // 全家店到店
+            // LogisticsSubType::UNIMART_C2C = 'UNIMARTC2C'; // 統一超商寄貨便
+
+            // 超商取貨逆物流訂單(全家超商B2C).
+            $method = 'CreateFamilyB2CReturnOrder';
+            $supportedParams = [
+                'AllPayLogisticsID' => '',
+                'ServerReplyURL'    => '',
+                'GoodsName'         => '',
+                'GoodsAmount'       => 0,
+                'SenderName'        => '',
+                'SenderPhone'       => '',
+                'Remark'            => '',
+                'Quantity'          => '',
+                'Cost'              => '',
+                'PlatformID'        => '',
+            ];
+        } else {
+            // 全家逆物流核帳(全家超商B2C).
+            $method = 'CheckFamilyB2CLogistics';
+            $supportedParams = [
+                'RtnMerchantTradeNo' => '',
+                'PlatformID'         => '',
+            ];
+        }
+
+        $this->api->Send = array_merge($this->api->Send, $supportedParams);
+
+        $this->api->Send = array_replace(
+            $this->api->Send,
+            array_intersect_key($params, $this->api->Send)
+        );
+
+        return call_user_func_array([$this->api, $method]);
     }
 
     /**

@@ -11,49 +11,44 @@ class StatusLogisticsActionTest extends PHPUnit_Framework_TestCase
         m::close();
     }
 
-    public function test_mark_captured_when_rtn_code_is_300()
+    public function test_mark_unknown()
     {
-        $this->validate(['RtnCode' => '300'], 'markCaptured');
+        $this->validate([], 'markUnknown');
     }
 
-    public function test_mark_captured_when_rtn_code_is_310()
+    public function test_mark_failed_when_error_message_exists()
     {
-        $this->validate(['RtnCode' => '310'], 'markCaptured');
+        $this->validate(['ErrorMessage' => '1'], 'markFailed');
     }
 
-    public function test_mark_captured_when_rtn_code_is_311()
+    public function test_mark_refunded_when_rtn_code_is_1_and_all_pay_logistics_id_exists()
     {
-        $this->validate(['RtnCode' => '311'], 'markCaptured');
+        $this->validate(['RtnCode' => '1', 'RtnMerchantTradeNo' => '1'], 'markRefunded');
     }
 
-    public function test_mark_captured_when_rtn_code_is_325()
+    public function test_mark_failed_when_rtn_code_is_1()
     {
-        $this->validate(['RtnCode' => '325'], 'markCaptured');
+        $this->validate(['RtnCode' => '1'], 'markCaptured');
     }
 
-    public function test_mark_captured_when_rtn_code_is_2000()
+    public function test_mark_failed_when_rtn_code_is_0()
     {
-        $this->validate(['RtnCode' => '2000'], 'markCaptured');
+        $this->validate(['RtnCode' => '0'], 'markFailed');
     }
 
-    public function test_mark_captured_when_rtn_code_is_2001()
+    public function test_mark_captured_when_res_code_is_1()
     {
-        $this->validate(['RtnCode' => '2001'], 'markCaptured');
+        $this->validate(['ResCode' => '1'], 'markCaptured');
     }
 
-    public function test_mark_failed_when_rtn_code_is_other()
+    public function test_mark_failed_when_res_code_is_1()
     {
-        $this->validate(['RtnCode' => '3000'], 'markFailed');
+        $this->validate(['ResCode' => '0'], 'markFailed');
     }
 
     public function test_mark_captured_when_cvs_store_id_exists()
     {
         $this->validate(['CVSStoreID' => '1'], 'markCaptured');
-    }
-
-    public function test_mark_new()
-    {
-        $this->validate([], 'markNew');
     }
 
     protected function validate($input, $type)

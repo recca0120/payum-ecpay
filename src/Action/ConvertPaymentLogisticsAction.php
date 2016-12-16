@@ -24,10 +24,13 @@ class ConvertPaymentLogisticsAction implements ActionInterface
 
         $details = ArrayObject::ensureArrayObject($payment->getDetails());
 
-        $details['MerchantTradeNo'] = strtoupper($payment->getNumber());
+        $details['MerchantTradeNo'] = $payment->getNumber();
         $details['ReceiverEmail'] = $payment->getClientEmail();
         $details['GoodsAmount'] = (int) $payment->getTotalAmount();
         $details['TradeDesc'] = $payment->getDescription();
+
+        $details['AllPayLogisticsID'] = $details['MerchantTradeNo'];
+
         $request->setResult((array) $details);
     }
 

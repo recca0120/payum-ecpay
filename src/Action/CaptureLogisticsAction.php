@@ -57,7 +57,11 @@ class CaptureLogisticsAction implements ActionInterface, GatewayAwareInterface, 
                 $token->getDetails()
             );
 
-            $details['ServerReplyURL'] = $details['LogisticsC2CReplyURL'] = $notifyToken->getTargetUrl();
+            $details['ServerReplyURL'] = $notifyToken->getTargetUrl();
+        }
+
+        if (empty($details['LogisticsC2CReplyURL']) === true) {
+            $details['LogisticsC2CReplyURL'] = $details['ServerReplyURL'];
         }
 
         if (empty($details['ClientReplyURL']) === true) {

@@ -24,7 +24,7 @@ class ConvertPaymentAction implements ActionInterface
 
         $details = ArrayObject::ensureArrayObject($payment->getDetails());
 
-        $details['MerchantTradeNo'] = strtoupper($payment->getNumber());
+        $details['MerchantTradeNo'] = $payment->getNumber();
         $details['TotalAmount'] = $payment->getTotalAmount();
         $details['TradeDesc'] = $payment->getDescription();
 

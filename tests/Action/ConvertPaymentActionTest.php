@@ -59,7 +59,7 @@ class ConvertPaymentActionTest extends PHPUnit_Framework_TestCase
         $source->shouldHaveReceived('getTotalAmount')->once();
         $source->shouldHaveReceived('getDescription')->once();
         $request->shouldHaveReceived('setResult')->with([
-            'MerchantTradeNo' => strtoupper($number),
+            'MerchantTradeNo' => $number,
             'TotalAmount' => $totalAmount,
             'TradeDesc' => $description,
         ])->once();
