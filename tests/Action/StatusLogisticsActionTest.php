@@ -23,17 +23,35 @@ class StatusLogisticsActionTest extends PHPUnit_Framework_TestCase
 
     public function test_mark_refunded_when_rtn_code_is_1_and_rtn_merchant_trade_no_exists()
     {
+        $this->validate(['RtnCode' => '1', 'AllPayLogisticsID' => '1'], 'markRefunded');
+    }
+
+    public function test_mark_refunded_when_refund_b2c()
+    {
         $this->validate(['RtnCode' => '1', 'RtnMerchantTradeNo' => '1'], 'markRefunded');
     }
 
-    public function test_mark_cancel_when_rtn_code_is_1_and_cvs_payment_no_exists()
+    public function test_mark_refunded_when_refund_b2c_confirm()
     {
-        $this->validate(['RtnCode' => '1', 'CVSPaymentNo' => '1'], 'markCancel');
+        $this->validate(['RtnCode' => '1', 'RtnMerchantTradeNo' => '1'], 'markRefunded');
     }
 
-    public function test_mark_failed_when_rtn_code_is_1()
+    public function test_mark_cancel_when_cancel_c2c()
     {
-        $this->validate(['RtnCode' => '1'], 'markCaptured');
+        $this->validate(['RtnCode' => '1', 'CVSPaymentNo' => '1'], 'markCanceled');
+    }
+
+    public function test_mark_captured_when_rtn_code_is_1()
+    {
+        $this->validate([
+            'RtnCode' => '1',
+            'CVSPaymentNo' => '1',
+            'AllPayLogisticsID' => '1',
+            'MerchantTradeNo' => '1',
+            'LogisticsSubType' => '1',
+            'MerchantTradeDate' => '1',
+            'TradeDesc' => '1',
+        ], 'markCaptured');
     }
 
     public function test_mark_failed_when_rtn_code_is_0()

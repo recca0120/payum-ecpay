@@ -34,14 +34,23 @@ class StatusLogisticsAction implements ActionInterface
             }
 
             if ($details['RtnCode'] === '1') {
+                // 超商取貨逆物流訂單(全家超商B2C).
                 if (isset($details['RtnMerchantTradeNo']) === true) {
                     $request->markRefunded();
 
                     return;
                 }
 
-                if (isset($details['CVSPaymentNo']) === true) {
-                    $request->markCancel();
+                // 取消訂單(統一超商C2C).
+                if (isset($details['CVSPaymentNo']) === true && isset($details['MerchantTradeDate']) === false) {
+                    $request->markCanceled();
+
+                    return;
+                }
+
+                // 宅配逆物流訂單產生
+                if (isset($details['AllPayLogisticsID']) === true && isset($details['MerchantTradeDate']) === false) {
+                    $request->markRefunded();
 
                     return;
                 }
