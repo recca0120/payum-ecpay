@@ -105,6 +105,75 @@ class EcpayLogisticsApi extends Api
     }
 
     /**
+     * 產生托運單(宅配)/一段標(超商取貨).
+     *
+     * @param  array  $params [description]
+     * @return [type]         [description]
+     */
+    public function createPrintTradeTransaction(array $params)
+    {
+        // 參數初始化
+        $this->api->Send = array_merge($this->api->Send, [
+            'AllPayLogisticsID' => '',
+            'PlatformID'        => '',
+        ]);
+
+        $this->api->Send = array_replace(
+            $this->api->Send,
+            array_intersect_key($params, $this->api->Send)
+        );
+
+        return $this->api->PrintTradeDoc();
+    }
+
+    /**
+     * 列印繳款單(統一超商C2C).
+     *
+     * @param  array  $params
+     * @return array
+     */
+    public function createPrintUnimartC2CBillTransaction(array $params)
+    {
+        // 參數初始化
+        $this->api->Send = array_merge($this->api->Send, [
+            'AllPayLogisticsID' => '',
+            'CVSPaymentNo'      => '',
+            'CVSValidationNo'   => '',
+            'PlatformID'        => '',
+        ]);
+
+        $this->api->Send = array_replace(
+            $this->api->Send,
+            array_intersect_key($params, $this->api->Send)
+        );
+
+        return $this->api->PrintUnimartC2CBill();
+    }
+
+    /**
+     * 全家列印小白單(全家超商C2C).
+     *
+     * @param  array  $params
+     * @return array
+     */
+    public function createPrintFamilyC2CBillTransaction(array $params)
+    {
+        // 參數初始化
+        $this->api->Send = array_merge($this->api->Send, [
+            'AllPayLogisticsID' => '',
+            'CVSPaymentNo'      => '',
+            'PlatformID'        => '',
+        ]);
+
+        $this->api->Send = array_replace(
+            $this->api->Send,
+            array_intersect_key($params, $this->api->Send)
+        );
+
+        return $this->api->PrintUnimartC2CBill();
+    }
+
+    /**
      * createTransaction.
      *
      * @param array $params

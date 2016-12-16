@@ -77,6 +77,12 @@ class StatusLogisticsAction implements ActionInterface
             return;
         }
 
+        if (isset($details['RtnCode']) === false) {
+            $request->markNew();
+
+            return;
+        }
+
         $request->markUnknown();
     }
 

@@ -7,50 +7,67 @@ use BadMethodCallException;
 
 class EcpayLogistics extends \ECPayLogistics
 {
-    // 電子地圖
+    /**
+     * 電子地圖.
+     *
+     * @param string $ButtonDesc
+     * @param string $Target
+     */
     public function CvsMap($ButtonDesc = '電子地圖', $Target = '_self')
     {
-        // 參數初始化
-        $ParamList = [
-            'MerchantID'       => '',
-            'MerchantTradeNo'  => '',
-            'LogisticsSubType' => '',
-            'IsCollection'     => '',
-            'ServerReplyURL'   => '',
-            'ExtraData'        => '',
-            'Device'           => Device::PC,
-        ];
-        $this->PostParams = $this->parentGetPostParams($this->Send, $ParamList);
-        $this->PostParams['LogisticsType'] = LogisticsType::CVS;
-
-        // 參數檢查
-        $this->parentValidateID('MerchantID', $this->PostParams['MerchantID'], 10);
-        $this->ServiceURL = $this->parentGetURL('CVS_MAP');
-        $this->parentValidateMerchantTradeNo();
-        $this->parentValidateLogisticsSubType();
-        $this->parentValidateIsCollection();
-        $this->parentValidateURL('ServerReplyURL', $this->PostParams['ServerReplyURL']);
-        $this->parentValidateString('ExtraData', $this->PostParams['ExtraData'], 20, true);
-        $this->parentValidateDevice(true);
-
-        return $this->PostParams;
+        return $this->formToArray(parent::CvsMap($ButtonDesc, $Target));
     }
 
-    protected function callParentPrivateMethod($method, array $parameters = [])
+    /**
+     * 產生托運單(宅配)/一段標(超商取貨).
+     *
+     * @param string $ButtonDesc
+     * @param string $Target
+     */
+    public function PrintTradeDoc($ButtonDesc = '產生托運單/一段標', $Target = '_blank')
     {
-        $reflectionObject = new ReflectionObject($this);
-        $reflectionMethod = $reflectionObject->getMethod($method);
-        $reflectionMethod->setAccessible(true);
-
-        return $reflectionMethod->invokeArgs($this, $parameters);
+        return $this->formToArray(parent::PrintTradeDoc($ButtonDesc, $Target));
     }
 
-    public function __call($method, $parameters)
+    /**
+     * 列印繳款單(統一超商C2C).
+     *
+     * @param string $ButtonDesc
+     * @param string $Target
+     */
+    public function PrintUnimartC2CBill($ButtonDesc = '列印繳款單(統一超商C2C)', $Target = '_blank')
     {
-        if (strpos($method, 'parent') === 0) {
-            return $this->callParentPrivateMethod(substr($method, 6), $parameters);
+        return $this->formToArray(parent::PrintUnimartC2CBill($ButtonDesc, $Target));
+    }
+
+    /**
+     * 全家列印小白單(全家超商C2C).
+     *
+     * @param string $ButtonDesc
+     * @param string $Target
+     */
+    public function PrintFamilyC2CBill($ButtonDesc = '全家列印小白單(全家超商C2C)', $Target = '_blank')
+    {
+        return $this->formToArray(parent::PrintFamilyC2CBill($ButtonDesc, $Target));
+    }
+
+    /**
+     * formTOArray.
+     *
+     * @param string $form
+     */
+    public function formToArray($form) {
+        $result = [];
+        if (preg_match_all('/<input[^>]*>/sm', $form, $inputs) !== false) {
+            foreach ($inputs[0] as $input) {
+                if (preg_match('/name="([^"]+)"\s+value="([^"]+)"/', $input, $match) !== false) {
+                    if (count($match) === 3) {
+                        $result[$match[1]] = $match[2];
+                    }
+                }
+            }
         }
 
-        throw new BadMethodCallException("Method [$method] does not exist.");
+        return $result;
     }
 }
