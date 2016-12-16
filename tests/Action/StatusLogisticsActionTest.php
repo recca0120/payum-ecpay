@@ -16,6 +16,11 @@ class StatusLogisticsActionTest extends PHPUnit_Framework_TestCase
         $this->validate([], 'markNew');
     }
 
+    public function test_mark_unknown()
+    {
+        $this->validate(['RtnCode' => '300'], 'markUnknown');
+    }
+
     public function test_mark_failed_when_error_message_exists()
     {
         $this->validate(['ErrorMessage' => '1'], 'markFailed');

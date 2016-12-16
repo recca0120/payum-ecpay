@@ -60,6 +60,7 @@ class EcpayLogisticsApiTest extends PHPUnit_Framework_TestCase
         $this->assertSame($params['LogisticsSubType'], $sdk->Send['LogisticsSubType']);
         $this->assertSame($params['IsCollection'], $sdk->Send['IsCollection']);
         $sdk->shouldHaveReceived('CvsMap')->once();
+        $sdk->shouldHaveReceived('formToArray')->once();
     }
 
     public function test_create_transaction()

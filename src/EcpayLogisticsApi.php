@@ -101,7 +101,7 @@ class EcpayLogisticsApi extends Api
             array_intersect_key($params, $this->api->Send)
         );
 
-        return $this->api->CvsMap();
+        return $this->api->formToArray($this->api->CvsMap());
     }
 
     /**
@@ -123,7 +123,7 @@ class EcpayLogisticsApi extends Api
             array_intersect_key($params, $this->api->Send)
         );
 
-        return $this->api->PrintTradeDoc();
+        return $this->api->formToArray($this->api->PrintTradeDoc());
     }
 
     /**
@@ -147,7 +147,7 @@ class EcpayLogisticsApi extends Api
             array_intersect_key($params, $this->api->Send)
         );
 
-        return $this->api->PrintUnimartC2CBill();
+        return $this->api->formToArray($this->api->PrintUnimartC2CBill());
     }
 
     /**
@@ -170,7 +170,7 @@ class EcpayLogisticsApi extends Api
             array_intersect_key($params, $this->api->Send)
         );
 
-        return $this->api->PrintUnimartC2CBill();
+        return $this->api->formToArray($this->api->PrintUnimartC2CBill());
     }
 
     /**

@@ -3,11 +3,13 @@
 $classes = [
     'ECPay_ActionType',
     'ECPay_CarruerType',
+    'ECPay_CheckMacValue',
     'ECPay_ClearanceMark',
     'ECPay_DeviceType',
     'ECPay_Donation',
     'ECPay_EncryptType',
     'ECPay_ExtraPaymentInfo',
+    'ECPay_CheckOutFeedback',
     'ECPay_InvoiceState',
     'ECPay_InvType',
     'ECPay_PaymentMethod',

@@ -122,7 +122,7 @@ class EcpayApi extends Api
         $api->SendExtend['InvType'] = InvType::General;
         */
 
-        return $this->api->CheckOut();
+        return $this->api->formToArray($this->api->CheckOutString());
     }
 
     /**
