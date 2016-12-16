@@ -16,6 +16,7 @@ $classes = [
     'ECPay_PaymentMethodItem',
     'ECPay_PeriodType',
     'ECPay_PrintMark',
+    'ECPay_Send',
     'ECPay_TaxType',
     'ScheduledDeliveryTime',
     'IsCollection',
