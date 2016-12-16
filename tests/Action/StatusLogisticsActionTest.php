@@ -61,12 +61,12 @@ class StatusLogisticsActionTest extends PHPUnit_Framework_TestCase
 
     public function test_mark_captured_when_res_code_is_1()
     {
-        $this->validate(['ResCode' => '1'], 'markCaptured');
+        $this->validate(['ResCode' => '1', 'RtnCode' => '300'], 'markCaptured');
     }
 
     public function test_mark_failed_when_res_code_is_0()
     {
-        $this->validate(['ResCode' => '0'], 'markFailed');
+        $this->validate(['ResCode' => '0', 'RtnCode' => '300'], 'markFailed');
     }
 
     public function test_mark_captured_when_cvs_store_id_exists()

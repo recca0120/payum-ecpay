@@ -26,6 +26,18 @@ class StatusLogisticsAction implements ActionInterface
             return;
         }
 
+        if (isset($details['ResCode']) === true) {
+            if ($details['ResCode'] === '0') {
+                $request->markFailed();
+
+                return;
+            }
+
+            $request->markCaptured();
+
+            return;
+        }
+
         if (isset($details['RtnCode']) === true) {
             if ($details['RtnCode'] === '0') {
                 $request->markFailed();
@@ -61,18 +73,6 @@ class StatusLogisticsAction implements ActionInterface
             }
 
             $request->markUnknown();
-
-            return;
-        }
-
-        if (isset($details['ResCode']) === true) {
-            if ($details['ResCode'] === '0') {
-                $request->markFailed();
-
-                return;
-            }
-
-            $request->markCaptured();
 
             return;
         }
