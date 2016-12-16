@@ -268,6 +268,41 @@ class EcpayLogisticsApi extends Api
     }
 
     /**
+     * cancelTransaction.
+     *
+     * @param  array $params
+     *
+     * @return array
+     */
+    public function cancelTransaction($params)
+    {
+        if (isset($params['LogisticsSubType']) === true){
+            // LogisticsSubType::FAMILY = 'FAMI'; // 全家
+            // LogisticsSubType::UNIMART = 'UNIMART'; // 統一超商
+            // LogisticsSubType::FAMILY_C2C = 'FAMIC2C'; // 全家店到店
+            // LogisticsSubType::UNIMART_C2C = 'UNIMARTC2C'; // 統一超商寄貨便
+
+            // 取消訂單(統一超商C2C).
+            $method = 'CancelUnimartLogisticsOrder';
+            $supportedParams = [
+                'AllPayLogisticsID' => '',
+                'CVSPaymentNo'      => '',
+                'CVSValidationNo'   => '',
+                'PlatformID'        => '',
+            ];
+        }
+
+        $this->api->Send = array_merge($this->api->Send, $supportedParams);
+
+        $this->api->Send = array_replace(
+            $this->api->Send,
+            array_intersect_key($params, $this->api->Send)
+        );
+
+        return call_user_func_array([$this->api, $method]);
+    }
+
+    /**
      * getTransactionData.
      *
      * @param mixed $params

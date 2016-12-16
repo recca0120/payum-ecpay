@@ -21,9 +21,14 @@ class StatusLogisticsActionTest extends PHPUnit_Framework_TestCase
         $this->validate(['ErrorMessage' => '1'], 'markFailed');
     }
 
-    public function test_mark_refunded_when_rtn_code_is_1_and_all_pay_logistics_id_exists()
+    public function test_mark_refunded_when_rtn_code_is_1_and_rtn_merchant_trade_no_exists()
     {
         $this->validate(['RtnCode' => '1', 'RtnMerchantTradeNo' => '1'], 'markRefunded');
+    }
+
+    public function test_mark_cancel_when_rtn_code_is_1_and_cvs_payment_no_exists()
+    {
+        $this->validate(['RtnCode' => '1', 'CVSPaymentNo' => '1'], 'markCancel');
     }
 
     public function test_mark_failed_when_rtn_code_is_1()

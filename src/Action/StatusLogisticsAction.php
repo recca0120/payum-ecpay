@@ -40,6 +40,12 @@ class StatusLogisticsAction implements ActionInterface
                     return;
                 }
 
+                if (isset($details['CVSPaymentNo']) === true) {
+                    $request->markCancel();
+
+                    return;
+                }
+
                 $request->markCaptured();
 
                 return;
