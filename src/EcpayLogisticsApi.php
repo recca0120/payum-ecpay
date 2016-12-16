@@ -5,13 +5,13 @@ namespace PayumTW\Ecpay;
 use Http\Message\MessageFactory;
 use Payum\Core\HttpClientInterface;
 use PayumTW\Ecpay\Bridge\Ecpay\Device;
+use PayumTW\Ecpay\Bridge\Ecpay\Distance;
+use PayumTW\Ecpay\Bridge\Ecpay\Temperature;
 use PayumTW\Ecpay\Bridge\Ecpay\IsCollection;
 use PayumTW\Ecpay\Bridge\Ecpay\LogisticsType;
+use PayumTW\Ecpay\Bridge\Ecpay\Specification;
 use PayumTW\Ecpay\Bridge\Ecpay\EcpayLogistics;
 use PayumTW\Ecpay\Bridge\Ecpay\LogisticsSubType;
-use PayumTW\Ecpay\Bridge\Ecpay\Temperature;
-use PayumTW\Ecpay\Bridge\Ecpay\Distance;
-use PayumTW\Ecpay\Bridge\Ecpay\Specification;
 use PayumTW\Ecpay\Bridge\Ecpay\ScheduledPickupTime;
 
 class EcpayLogisticsApi extends Api
@@ -88,11 +88,11 @@ class EcpayLogisticsApi extends Api
     public function createCvsMapTransaction(array $params)
     {
         $this->api->Send = array_merge($this->api->Send, [
-            'ServerReplyURL' => '',
             'MerchantTradeNo' => '',
-            'MerchantTradeDate' => date('Y/m/d H:i:s'),
             'LogisticsSubType' => LogisticsSubType::UNIMART,
             'IsCollection' => IsCollection::NO,
+            'ServerReplyURL' => '',
+            'ExtraData' => '',
             'Device' => $this->isMobile() ? Device::MOBILE : Device::PC,
         ]);
 
@@ -297,7 +297,7 @@ class EcpayLogisticsApi extends Api
                 'Remark'                => '',
                 'PlatformID'            => '',
             ];
-        } else if (isset($params['LogisticsSubType']) === true){
+        } elseif (isset($params['LogisticsSubType']) === true) {
             // LogisticsSubType::FAMILY = 'FAMI'; // 全家
             // LogisticsSubType::UNIMART = 'UNIMART'; // 統一超商
             // LogisticsSubType::FAMILY_C2C = 'FAMIC2C'; // 全家店到店
@@ -345,7 +345,7 @@ class EcpayLogisticsApi extends Api
      */
     public function cancelTransaction($params)
     {
-        if (isset($params['LogisticsSubType']) === true){
+        if (isset($params['LogisticsSubType']) === true) {
             // LogisticsSubType::FAMILY = 'FAMI'; // 全家
             // LogisticsSubType::UNIMART = 'UNIMART'; // 統一超商
             // LogisticsSubType::FAMILY_C2C = 'FAMIC2C'; // 全家店到店

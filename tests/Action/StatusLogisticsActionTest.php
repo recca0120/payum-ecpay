@@ -11,9 +11,9 @@ class StatusLogisticsActionTest extends PHPUnit_Framework_TestCase
         m::close();
     }
 
-    public function test_mark_unknown()
+    public function test_mark_new()
     {
-        $this->validate([], 'markUnknown');
+        $this->validate([], 'markNew');
     }
 
     public function test_mark_failed_when_error_message_exists()
@@ -64,7 +64,7 @@ class StatusLogisticsActionTest extends PHPUnit_Framework_TestCase
         $this->validate(['ResCode' => '1'], 'markCaptured');
     }
 
-    public function test_mark_failed_when_res_code_is_1()
+    public function test_mark_failed_when_res_code_is_0()
     {
         $this->validate(['ResCode' => '0'], 'markFailed');
     }

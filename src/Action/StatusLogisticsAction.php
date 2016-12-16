@@ -59,14 +59,20 @@ class StatusLogisticsAction implements ActionInterface
 
                 return;
             }
+
+            $request->markUnknown();
+
+            return;
         }
 
         if (isset($details['ResCode']) === true) {
             if ($details['ResCode'] === '0') {
                 $request->markFailed();
-            } else {
-                $request->markCaptured();
+
+                return;
             }
+
+            $request->markCaptured();
 
             return;
         }
@@ -77,13 +83,7 @@ class StatusLogisticsAction implements ActionInterface
             return;
         }
 
-        if (isset($details['RtnCode']) === false) {
-            $request->markNew();
-
-            return;
-        }
-
-        $request->markUnknown();
+        $request->markNew();
     }
 
     /**

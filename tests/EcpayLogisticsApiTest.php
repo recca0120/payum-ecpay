@@ -31,8 +31,6 @@ class EcpayLogisticsApiTest extends PHPUnit_Framework_TestCase
             'sandbox' => false,
         ];
 
-        $MerchantTradeDate = date('Y/m/d H:i:s');
-
         $params = [
             'GoodsAmount' => 0,
             'ServerReplyURL' => 'ServerReplyURL',
@@ -59,7 +57,6 @@ class EcpayLogisticsApiTest extends PHPUnit_Framework_TestCase
         $api->createTransaction($params);
         $this->assertSame($params['ServerReplyURL'], $sdk->Send['ServerReplyURL']);
         $this->assertSame($params['MerchantTradeNo'], $sdk->Send['MerchantTradeNo']);
-        $this->assertSame($params['MerchantTradeDate'], $sdk->Send['MerchantTradeDate']);
         $this->assertSame($params['LogisticsSubType'], $sdk->Send['LogisticsSubType']);
         $this->assertSame($params['IsCollection'], $sdk->Send['IsCollection']);
         $sdk->shouldHaveReceived('CvsMap')->once();

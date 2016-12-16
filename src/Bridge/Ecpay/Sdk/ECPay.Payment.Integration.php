@@ -1168,7 +1168,7 @@ class ECPay_CVS extends ECPay_Verification
                             'Desc_3'           => '',
                             'Desc_4'           => '',
                             'PaymentInfoURL'   => '',
-                            'ClientRedirectURL'=> '',
+                            'ClientRedirectURL' => '',
                             'StoreExpireDate'  => '',
                         ];
 
@@ -1258,7 +1258,7 @@ class ECPay_BARCODE extends ECPay_Verification
                             'Desc_3'           => '',
                             'Desc_4'           => '',
                             'PaymentInfoURL'   => '',
-                            'ClientRedirectURL'=> '',
+                            'ClientRedirectURL' => '',
                             'StoreExpireDate'  => '',
                         ];
 
@@ -1345,7 +1345,7 @@ class ECPay_ATM extends ECPay_Verification
     public $arPayMentExtend = [
                             'ExpireDate'       => 3,
                             'PaymentInfoURL'   => '',
-                            'ClientRedirectURL'=> '',
+                            'ClientRedirectURL' => '',
                         ];
 
     //檢查共同參數

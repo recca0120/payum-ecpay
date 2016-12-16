@@ -2,9 +2,6 @@
 
 namespace PayumTW\Ecpay\Bridge\Ecpay;
 
-use ReflectionObject;
-use BadMethodCallException;
-
 class EcpayLogistics extends \ECPayLogistics
 {
     /**
@@ -56,7 +53,8 @@ class EcpayLogistics extends \ECPayLogistics
      *
      * @param string $form
      */
-    public function formToArray($form) {
+    public function formToArray($form)
+    {
         $result = [];
         if (preg_match_all('/<input[^>]*>/sm', $form, $inputs) !== false) {
             foreach ($inputs[0] as $input) {

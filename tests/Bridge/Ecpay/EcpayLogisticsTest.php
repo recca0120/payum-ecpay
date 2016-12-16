@@ -1,10 +1,11 @@
 <?php
 
 use Mockery as m;
-use PayumTW\Ecpay\Bridge\Ecpay\EcpayLogistics;
 use PayumTW\Ecpay\Bridge\Ecpay\Device;
-use PayumTW\Ecpay\Bridge\Ecpay\LogisticsSubType;
 use PayumTW\Ecpay\Bridge\Ecpay\IsCollection;
+use PayumTW\Ecpay\Bridge\Ecpay\EcpayLogistics;
+use PayumTW\Ecpay\Bridge\Ecpay\LogisticsSubType;
+
 class EcpayLogisticsTest extends PHPUnit_Framework_TestCase
 {
     public function tearDown()
@@ -19,7 +20,6 @@ class EcpayLogisticsTest extends PHPUnit_Framework_TestCase
         | Arrange
         |------------------------------------------------------------
         */
-
 
         /*
         |------------------------------------------------------------
