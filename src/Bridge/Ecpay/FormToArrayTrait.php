@@ -14,7 +14,7 @@ trait FormToArrayTrait
         $result = [];
         if (preg_match_all('/<input[^>]*>/sm', $form, $inputs) !== false) {
             foreach ($inputs[0] as $input) {
-                if (preg_match('/name="([^"]+)"\s+value="([^"]+)"/', $input, $match) !== false) {
+                if (preg_match('/name=["\']([^"\']*)["\']\s+value=["\']([^"\']*)["\']/', $input, $match) !== false) {
                     if (count($match) === 3) {
                         $result[$match[1]] = $match[2];
                     }
