@@ -38,6 +38,13 @@ class StatusLogisticsAction implements ActionInterface
             return;
         }
 
+        // 超商取貨逆物流訂單(全家超商B2C).
+        if (isset($details['RtnMerchantTradeNo']) === true && isset($details['RtnOrderNo']) === true) {
+            $request->markRefunded();
+
+            return;
+        }
+
         if (isset($details['RtnCode']) === true) {
             if ($details['RtnCode'] === '0') {
                 $request->markFailed();
@@ -46,15 +53,13 @@ class StatusLogisticsAction implements ActionInterface
             }
 
             if ($details['RtnCode'] === '1') {
-                // 超商取貨逆物流訂單(全家超商B2C).
                 if (isset($details['RtnMerchantTradeNo']) === true) {
                     $request->markRefunded();
 
                     return;
                 }
-
                 // 取消訂單(統一超商C2C).
-                if (isset($details['CVSPaymentNo']) === true && isset($details['MerchantTradeDate']) === false) {
+                if (isset($details['CVSPaymentNo']) === true) {
                     $request->markCanceled();
 
                     return;
