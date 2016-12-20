@@ -20,7 +20,7 @@ class StatusLogisticsAction implements ActionInterface
 
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
-        if (empty($details['ErrorMessage']) === false) {
+        if (isset($details['ErrorMessage']) === true) {
             $request->markFailed();
 
             return;
@@ -34,13 +34,6 @@ class StatusLogisticsAction implements ActionInterface
             }
 
             $request->markCaptured();
-
-            return;
-        }
-
-        // 超商取貨逆物流訂單(全家超商B2C).
-        if (isset($details['RtnMerchantTradeNo']) === true && isset($details['RtnOrderNo']) === true) {
-            $request->markRefunded();
 
             return;
         }
@@ -59,7 +52,7 @@ class StatusLogisticsAction implements ActionInterface
                     return;
                 }
                 // 取消訂單(統一超商C2C).
-                if (isset($details['CVSPaymentNo']) === true) {
+                if (isset($details['CVSPaymentNo']) === true && isset($details['MerchantTradeDate']) === false) {
                     $request->markCanceled();
 
                     return;
@@ -78,6 +71,13 @@ class StatusLogisticsAction implements ActionInterface
             }
 
             $request->markUnknown();
+
+            return;
+        }
+
+        // 超商取貨逆物流訂單(全家超商B2C).
+        if (isset($details['RtnMerchantTradeNo']) === true && isset($details['RtnOrderNo']) === true) {
+            $request->markRefunded();
 
             return;
         }

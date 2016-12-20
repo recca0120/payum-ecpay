@@ -40,6 +40,30 @@ class StatusActionTest extends PHPUnit_Framework_TestCase
         ], 'markCaptured');
     }
 
+    public function test_mark_fail_when_rtn_code_is_0()
+    {
+        $this->validate([
+            'MerchantID' => '2000132',
+            'MerchantTradeNo' => '123456abc',
+            'MerchantTradeDate' => '2012/03/15 17:40:58',
+            'TotalAmount' => '22000',
+            'TradeDesc' => '',
+            'ItemName' => '',
+            'ReturnURL' => '',
+            'ChoosePayment' => '',
+
+            'RtnCode' => '0',
+            'RtnMsg' => 'paid',
+            'TradeNo' => '201203151740582564',
+            'TradeAmt' => '22000',
+            'PaymentDate' => '2012/03/15 17:40:58',
+            'PaymentType' => 'Credit_CreditCard',
+            'PaymentTypeChargeFee' => '25',
+            'TradeDate' => '2012/03/15 17:40:58',
+            'SimulatePaid' => '0',
+        ], 'markFailed');
+    }
+
     public function test_mark_pending_when_atm_created_and_success()
     {
         $this->validate([

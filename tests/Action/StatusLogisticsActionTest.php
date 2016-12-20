@@ -21,7 +21,7 @@ class StatusLogisticsActionTest extends PHPUnit_Framework_TestCase
         $this->validate(['ErrorMessage' => '1'], 'markFailed');
     }
 
-    public function test_make_captured_when_cvs_is_success()
+    public function test_mark_captured_when_cvs_is_success()
     {
         $this->validate([
             'MerchantID' => '123456789',
@@ -82,6 +82,64 @@ class StatusLogisticsActionTest extends PHPUnit_Framework_TestCase
             'ServerReplyURL' => '',
 
             'ResCode' => '0',
+            'RtnCode' => '0',
+            'RtnMsg' => 'paid',
+            'AllPayLogisticsID' => '10035',
+            'UpdateStatusDate' => 'yyyy/MM/dd HH:mm:ss',
+            'ReceiverName' => '收件人姓名',
+            'ReceiverPhone' => '收件人電話',
+            'ReceiverCellPhone' => '0987654321',
+            'ReceiverEmail' => '收件人 email',
+            'ReceiverAddress' => '收件人地址',
+            'CVSPaymentNo' => '寄貨編號',
+            'CVSValidationNo' => '驗證碼',
+            'BookingNote' => '托運單號',
+            'CheckMacValue' => '檢查碼',
+        ], 'markFailed');
+    }
+
+    public function test_mark_captured_when_order_create_success_and_without_res_code()
+    {
+        $this->validate([
+            'MerchantID' => '123456789',
+            'MerchantTradeNo' => 'Ecpay_1234',
+            'MerchantTradeDate' => '2012/03/21 15:40:18',
+            'LogisticsType' => 'CVS',
+            'LogisticsSubType' => 'FAMI',
+            'GoodsAmount' => '5000',
+            'SenderName' => 'foo',
+            'ReceiverName' => '',
+            'ServerReplyURL' => '',
+
+            'RtnCode' => '1',
+            'RtnMsg' => 'paid',
+            'AllPayLogisticsID' => '10035',
+            'UpdateStatusDate' => 'yyyy/MM/dd HH:mm:ss',
+            'ReceiverName' => '收件人姓名',
+            'ReceiverPhone' => '收件人電話',
+            'ReceiverCellPhone' => '0987654321',
+            'ReceiverEmail' => '收件人 email',
+            'ReceiverAddress' => '收件人地址',
+            'CVSPaymentNo' => '寄貨編號',
+            'CVSValidationNo' => '驗證碼',
+            'BookingNote' => '托運單號',
+            'CheckMacValue' => '檢查碼',
+         ], 'markCaptured');
+    }
+
+    public function test_mark_failed_when_order_create_fail_and_without_res_code()
+    {
+        $this->validate([
+            'MerchantID' => '123456789',
+            'MerchantTradeNo' => 'Ecpay_1234',
+            'MerchantTradeDate' => '2012/03/21 15:40:18',
+            'LogisticsType' => 'CVS',
+            'LogisticsSubType' => 'FAMI',
+            'GoodsAmount' => '5000',
+            'SenderName' => 'foo',
+            'ReceiverName' => '',
+            'ServerReplyURL' => '',
+
             'RtnCode' => '0',
             'RtnMsg' => 'paid',
             'AllPayLogisticsID' => '10035',
