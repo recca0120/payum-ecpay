@@ -16,34 +16,118 @@ class StatusActionTest extends PHPUnit_Framework_TestCase
         $this->validate([], 'markNew');
     }
 
-    public function test_mark_captured_when_rtn_code_is_1()
+    public function test_mark_captured_when_creditcard_created_and_success()
     {
-        $this->validate(['RtnCode' => '1'], 'markCaptured');
+        $this->validate([
+            'MerchantID' => '2000132',
+            'MerchantTradeNo' => '123456abc',
+            'MerchantTradeDate' => '2012/03/15 17:40:58',
+            'TotalAmount' => '22000',
+            'TradeDesc' => '',
+            'ItemName' => '',
+            'ReturnURL' => '',
+            'ChoosePayment' => '',
+
+            'RtnCode' => '1',
+            'RtnMsg' => 'paid',
+            'TradeNo' => '201203151740582564',
+            'TradeAmt' => '22000',
+            'PaymentDate' => '2012/03/15 17:40:58',
+            'PaymentType' => 'Credit_CreditCard',
+            'PaymentTypeChargeFee' => '25',
+            'TradeDate' => '2012/03/15 17:40:58',
+            'SimulatePaid' => '0',
+        ], 'markCaptured');
     }
 
-    public function test_mark_captured_when_rtn_code_is_3()
+    public function test_mark_pending_when_atm_created_and_success()
     {
-        $this->validate(['RtnCode' => '3'], 'markCaptured');
+        $this->validate([
+            'MerchantID' => '2000132',
+            'MerchantTradeNo' => '123456abc',
+            'MerchantTradeDate' => '2012/03/15 17:40:58',
+            'TotalAmount' => '22000',
+            'TradeDesc' => '',
+            'ItemName' => '',
+            'ReturnURL' => '',
+            'ChoosePayment' => '',
+
+            'RtnCode' => '2',
+            'RtnMsg' => 'Get VirtualAccount 730_阿狗的環遊世界',
+            'TradeNo' => '201203151740582564',
+            'TradeAmt' => '22000',
+            'PaymentDate' => '2012/03/15 17:40:58',
+            'PaymentType' => 'WEBTM_TAISHI',
+            'TradeDate' => '2012/03/15 17:40:58',
+
+            // ATM
+            'BankCode' => '',
+            'vAccount' => '',
+            'ExpireDate' => '',
+
+            // CVS, BARCODE
+            'PaymentNo' => '',
+            'ExpireDate' => '',
+            'Barcode1' => '',
+            'Barcode2' => '',
+            'Barcode3' => '',
+        ], 'markPending');
     }
 
-    public function test_mark_failed_when_rtn_code_is_not_3()
+    public function test_mark_captured_when_action_is_c()
     {
-        $this->validate(['RtnCode' => '5'], 'markFailed');
+        $this->validate([
+            'MerchantID' => '2000132',
+            'MerchantTradeNo' => '123456abc',
+            'TradeNo' => '201203151740582564',
+            'Action' => 'C',
+            'TotalAmount' => '22000',
+
+            'RtnCode' => '1',
+            'RtnMsg' => '',
+        ], 'markCaptured');
     }
 
-    public function test_mark_refund_when_rtn_code_is_1_and_action_is_r()
+    public function test_mark_refunded_when_action_is_r()
     {
-        $this->validate(['RtnCode' => '1', 'Action' => 'R'], 'markRefunded');
+        $this->validate([
+            'MerchantID' => '2000132',
+            'MerchantTradeNo' => '123456abc',
+            'TradeNo' => '201203151740582564',
+            'Action' => 'R',
+            'TotalAmount' => '22000',
+
+            'RtnCode' => '1',
+            'RtnMsg' => '',
+        ], 'markRefunded');
     }
 
-    public function test_mark_cancel_when_rtn_code_is_1_and_action_is_e()
+    public function test_mark_canceled_when_action_is_e()
     {
-        $this->validate(['RtnCode' => '1', 'Action' => 'E'], 'markCanceled');
+        $this->validate([
+            'MerchantID' => '2000132',
+            'MerchantTradeNo' => '123456abc',
+            'TradeNo' => '201203151740582564',
+            'Action' => 'E',
+            'TotalAmount' => '22000',
+
+            'RtnCode' => '1',
+            'RtnMsg' => '',
+        ], 'markCanceled');
     }
 
-    public function test_mark_cancel_when_rtn_code_is_1_and_action_is_n()
+    public function test_mark_canceled_when_action_is_n()
     {
-        $this->validate(['RtnCode' => '1', 'Action' => 'N'], 'markCanceled');
+        $this->validate([
+            'MerchantID' => '2000132',
+            'MerchantTradeNo' => '123456abc',
+            'TradeNo' => '201203151740582564',
+            'Action' => 'N',
+            'TotalAmount' => '22000',
+
+            'RtnCode' => '1',
+            'RtnMsg' => '',
+        ], 'markCanceled');
     }
 
     protected function validate($input, $type)

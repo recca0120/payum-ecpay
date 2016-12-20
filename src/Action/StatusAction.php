@@ -26,24 +26,33 @@ class StatusAction implements ActionInterface
             return;
         }
 
-        $isSuccess = in_array($details['RtnCode'], ['1', '3']);
+        if ($details['RtnCode'] === '2') {
+            $request->markPending();
 
-        if ($isSuccess === true && isset($details['Action']) === true) {
-            switch ($details['Action']) {
-                case 'R':
-                    $request->markRefunded();
-                    break;
-                case 'E':
-                case 'N':
-                    $request->markCanceled();
-                    break;
+            return;
+        }
+
+        if ($details['RtnCode'] === '1') {
+            if (isset($details['Action']) === true) {
+                switch ($details['Action']) {
+                    case 'C':
+                        $request->markCaptured();
+                        break;
+                    case 'R':
+                        $request->markRefunded();
+                        break;
+                    case 'E':
+                    case 'N':
+                        $request->markCanceled();
+                        break;
+                }
+
+                return;
+            } else {
+                $request->markCaptured();
+
+                return;
             }
-
-            return;
-        } elseif ($isSuccess === true) {
-            $request->markCaptured();
-
-            return;
         }
 
         $request->markFailed();
