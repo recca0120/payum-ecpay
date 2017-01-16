@@ -90,6 +90,6 @@ class GetTransactionDataActionTest extends PHPUnit_Framework_TestCase
 
         $request->shouldHaveReceived('getModel')->twice();
         $api->shouldHaveReceived('getTransactionData')->once();
-        $details->shouldNotHaveReceived('replace');
+        $details->shouldHaveReceived('replace');
     }
 }
