@@ -27,8 +27,6 @@ class RefundAction implements ActionInterface, GatewayAwareInterface
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
         $this->gateway->execute(new RefundTransaction($details));
-
-        $this->gateway->execute(new Sync($details));
     }
 
     /**

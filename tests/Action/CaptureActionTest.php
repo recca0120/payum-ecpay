@@ -79,6 +79,7 @@ class CaptureActionTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
+        $api = m::spy('PayumTW\Ecpay\Api');
         $gateway = m::spy('Payum\Core\GatewayInterface');
         $tokenFactory = m::spy('Payum\Core\Security\GenericTokenFactoryInterface');
         $request = m::spy('Payum\Core\Request\Capture');
@@ -106,6 +107,7 @@ class CaptureActionTest extends PHPUnit_Framework_TestCase
             });
 
         $action = new CaptureAction();
+        $action->setApi($api);
         $action->setGateway($gateway);
         $action->setGenericTokenFactory($tokenFactory);
         $action->execute($request);
@@ -118,6 +120,5 @@ class CaptureActionTest extends PHPUnit_Framework_TestCase
 
         $request->shouldHaveReceived('getModel')->twice();
         $gateway->shouldHaveReceived('execute')->with(m::type('Payum\Core\Request\GetHttpRequest'))->once();
-        $gateway->shouldHaveReceived('execute')->with(m::type('Payum\Core\Request\Sync'))->once();
     }
 }

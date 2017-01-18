@@ -26,13 +26,6 @@ class SyncAction implements ActionInterface, GatewayAwareInterface
 
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
-        $httpRequest = new GetHttpRequest();
-        $this->gateway->execute($httpRequest);
-
-        $details->replace([
-            'response' => $httpRequest->request,
-        ]);
-
         $this->gateway->execute(new GetTransactionData($details));
     }
 

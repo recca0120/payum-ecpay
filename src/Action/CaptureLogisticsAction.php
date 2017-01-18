@@ -13,8 +13,9 @@ use PayumTW\Ecpay\Request\Api\CreateTransaction;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Security\GenericTokenFactoryAwareTrait;
 use Payum\Core\Security\GenericTokenFactoryAwareInterface;
+use PayumTW\Ecpay\Action\Api\BaseApiAwareAction;
 
-class CaptureLogisticsAction implements ActionInterface, GatewayAwareInterface, GenericTokenFactoryAwareInterface
+class CaptureLogisticsAction extends BaseApiAwareAction implements ActionInterface, GatewayAwareInterface, GenericTokenFactoryAwareInterface
 {
     use GatewayAwareTrait;
     use GenericTokenFactoryAwareTrait;
@@ -32,8 +33,9 @@ class CaptureLogisticsAction implements ActionInterface, GatewayAwareInterface, 
         $httpRequest = new GetHttpRequest();
         $this->gateway->execute($httpRequest);
 
+        // CVS
         if (isset($httpRequest->request['CVSStoreID']) === true) {
-            $this->gateway->execute(new Sync($details));
+            $details->replace($httpRequest->request);
 
             return;
         }
@@ -41,7 +43,7 @@ class CaptureLogisticsAction implements ActionInterface, GatewayAwareInterface, 
         $token = $request->getToken();
         $targetUrl = $token->getTargetUrl();
 
-        if ($details['GoodsAmount'] === 0) {
+        if (empty($details['GoodsAmount']) === true) {
             if (empty($details['ServerReplyURL']) === true) {
                 $details['ServerReplyURL'] = $targetUrl;
             }

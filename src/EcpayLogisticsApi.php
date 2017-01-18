@@ -183,10 +183,6 @@ class EcpayLogisticsApi extends Api
      */
     public function createTransaction(array $params)
     {
-        if ($params['GoodsAmount'] === 0) {
-            return $this->createCvsMapTransaction($params);
-        }
-
         $this->api->Send = array_merge($this->api->Send, [
             'MerchantTradeNo' => '',
             'MerchantTradeDate' => date('Y/m/d H:i:s'),
@@ -216,6 +212,9 @@ class EcpayLogisticsApi extends Api
             $this->api->Send,
             array_intersect_key($params, $this->api->Send)
         );
+
+        $this->api->Send['GoodsAmount'] = (int) $this->api->Send['GoodsAmount'];
+        $this->api->Send['CollectionAmount'] = (int) $this->api->Send['CollectionAmount'];
 
         if (empty($this->api->Send['LogisticsType']) === true) {
             $this->api->Send['LogisticsType'] = LogisticsType::CVS;
@@ -380,13 +379,18 @@ class EcpayLogisticsApi extends Api
      */
     public function getTransactionData($params)
     {
-        $details = [];
-        if (empty($params['response']) === false) {
-            $details = $params['response'];
-        } else {
-            $details = $params;
-        }
+        $supportedParams = [
+            'AllPayLogisticsID' => '',
+            'PlatformID' => '',
+        ];
 
-        return $details;
+        $this->api->Send = array_merge($this->api->Send, $supportedParams);
+
+        $this->api->Send = array_replace(
+            $this->api->Send,
+            array_intersect_key($params, $this->api->Send)
+        );
+
+        return $this->api->QueryLogisticsInfo();
     }
 }

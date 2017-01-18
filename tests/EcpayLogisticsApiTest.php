@@ -54,7 +54,7 @@ class EcpayLogisticsApiTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
 
-        $api->createTransaction($params);
+        $api->createCvsMapTransaction($params);
         $this->assertSame($params['ServerReplyURL'], $sdk->Send['ServerReplyURL']);
         $this->assertSame($params['MerchantTradeNo'], $sdk->Send['MerchantTradeNo']);
         $this->assertSame($params['LogisticsSubType'], $sdk->Send['LogisticsSubType']);
@@ -82,13 +82,12 @@ class EcpayLogisticsApiTest extends PHPUnit_Framework_TestCase
         ];
 
         $params = [
-            'GoodsAmount' => 1,
             'MerchantTradeNo' => 'MerchantTradeNo',
             'MerchantTradeDate' => 'MerchantTradeDate',
             'LogisticsType' => 'LogisticsType',
             'LogisticsSubType' => 'LogisticsSubType',
-            'GoodsAmount' => 'GoodsAmount',
-            'CollectionAmount' => 'CollectionAmount',
+            'GoodsAmount' => 1,
+            'CollectionAmount' => 1,
             'IsCollection' => 'IsCollection',
             'GoodsName' => 'GoodsName',
             'SenderName' => 'SenderName',
@@ -142,45 +141,5 @@ class EcpayLogisticsApiTest extends PHPUnit_Framework_TestCase
         $this->assertSame($params['PlatformID'], $sdk->Send['PlatformID']);
 
         $sdk->shouldHaveReceived('BGCreateShippingOrder')->once();
-    }
-
-    public function test_get_transaction_data()
-    {
-        /*
-        |------------------------------------------------------------
-        | Arrange
-        |------------------------------------------------------------
-        */
-
-        $httpClient = m::spy('Payum\Core\HttpClientInterface');
-        $message = m::spy('Http\Message\MessageFactory');
-        $sdk = m::spy('PayumTW\Ecpay\Bridge\Ecpay\EcpayLogistics');
-        $options = [
-            'MerchantID' => '2000132',
-            'HashKey' => '5294y06JbISpM5x9',
-            'HashIV' => 'v77hoKGq4kWxNNIS',
-            'sandbox' => false,
-        ];
-
-        /*
-        |------------------------------------------------------------
-        | Act
-        |------------------------------------------------------------
-        */
-
-        $api = new EcpayLogisticsApi($options, $httpClient, $message, $sdk);
-
-        /*
-        |------------------------------------------------------------
-        | Assert
-        |------------------------------------------------------------
-        */
-
-        $params = ['foo' => 'bar'];
-        $this->assertSame($params, $api->getTransactionData($params));
-        $params = [
-            'response' => ['foo' => 'bar'],
-        ];
-        $this->assertSame($params['response'], $api->getTransactionData($params));
     }
 }

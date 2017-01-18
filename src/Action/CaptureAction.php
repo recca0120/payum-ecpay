@@ -13,8 +13,9 @@ use PayumTW\Ecpay\Request\Api\CreateTransaction;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Security\GenericTokenFactoryAwareTrait;
 use Payum\Core\Security\GenericTokenFactoryAwareInterface;
+use PayumTW\Ecpay\Action\Api\BaseApiAwareAction;
 
-class CaptureAction implements ActionInterface, GatewayAwareInterface, GenericTokenFactoryAwareInterface
+class CaptureAction extends BaseApiAwareAction implements ActionInterface, GatewayAwareInterface, GenericTokenFactoryAwareInterface
 {
     use GatewayAwareTrait;
     use GenericTokenFactoryAwareTrait;
@@ -33,7 +34,10 @@ class CaptureAction implements ActionInterface, GatewayAwareInterface, GenericTo
         $this->gateway->execute($httpRequest);
 
         if (isset($httpRequest->request['RtnCode']) === true) {
-            $this->gateway->execute(new Sync($details));
+            if ($this->api->verifyHash($httpRequest->request) === false) {
+                $httpRequest->request['RtnCode'] = '10400002';
+            }
+            $details->replace($httpRequest->request);
 
             return;
         }

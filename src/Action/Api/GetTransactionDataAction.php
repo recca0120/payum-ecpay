@@ -19,9 +19,7 @@ class GetTransactionDataAction extends BaseApiAwareAction
 
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
-        $result = $this->api->getTransactionData((array) $details);
-
-        $details->replace($result);
+        $details->replace($this->api->getTransactionData((array) $details));
     }
 
     /**

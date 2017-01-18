@@ -27,8 +27,6 @@ class CancelAction implements ActionInterface, GatewayAwareInterface
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
         $this->gateway->execute(new CancelTransaction($details));
-
-        $this->gateway->execute(new Sync($details));
     }
 
     /**

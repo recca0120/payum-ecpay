@@ -24,6 +24,7 @@ class CreateTransactionActionTest extends PHPUnit_Framework_TestCase
         $request = m::spy('PayumTW\Ecpay\Request\Api\CreateTransaction');
         $details = new ArrayObject([
             'foo' => 'bar',
+            'GoodsAmount' => 1
         ]);
         $endpoint = 'foo.endpoint';
 
@@ -57,7 +58,6 @@ class CreateTransactionActionTest extends PHPUnit_Framework_TestCase
 
         $request->shouldHaveReceived('getModel')->twice();
         $api->shouldHaveReceived('createTransaction')->with((array) $details)->once();
-        $api->shouldHaveReceived('getApiEndpoint')->once();
     }
 
     public function test_logistics_api_http_post_redirect()
@@ -85,7 +85,7 @@ class CreateTransactionActionTest extends PHPUnit_Framework_TestCase
             ->shouldReceive('getModel')->andReturn($details);
 
         $api
-            ->shouldReceive('createTransaction')->andReturn((array) $details)
+            ->shouldReceive('createCvsMapTransaction')->andReturn((array) $details)
             ->shouldReceive('getApiEndpoint')->andReturn($endpoint);
 
         $action = new CreateTransactionAction();
@@ -104,7 +104,7 @@ class CreateTransactionActionTest extends PHPUnit_Framework_TestCase
         }
 
         $request->shouldHaveReceived('getModel')->twice();
-        $api->shouldHaveReceived('createTransaction')->with((array) $details)->once();
+        $api->shouldHaveReceived('createCvsMapTransaction')->with((array) $details)->once();
         $api->shouldHaveReceived('getApiEndpoint')->once();
     }
 
@@ -118,7 +118,10 @@ class CreateTransactionActionTest extends PHPUnit_Framework_TestCase
 
         $api = m::spy('PayumTW\Ecpay\Api');
         $request = m::spy('PayumTW\Ecpay\Request\Api\CreateTransaction');
-        $details = new ArrayObject(['RtnCode' => '300']);
+        $details = new ArrayObject([
+            'RtnCode' => '300',
+            'GoodsAmount' => 1
+        ]);
 
         /*
         |------------------------------------------------------------

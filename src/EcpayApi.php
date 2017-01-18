@@ -170,19 +170,10 @@ class EcpayApi extends Api
      */
     public function getTransactionData($params)
     {
-        $details = [];
-        if (empty($params['response']) === false) {
-            if ($this->verifyHash($params['response']) === false) {
-                $details['RtnCode'] = '10400002';
-            } else {
-                $details = $params['response'];
-            }
-        } else {
-            $this->api->ServiceURL = $this->getApiEndpoint('QueryTradeInfo');
-            $this->api->Query['MerchantTradeNo'] = $params['MerchantTradeNo'];
-            $details = $this->api->QueryTradeInfo();
-            $details['RtnCode'] = $details['TradeStatus'] === '1' ? '1' : '2';
-        }
+        $this->api->ServiceURL = $this->getApiEndpoint('QueryTradeInfo');
+        $this->api->Query['MerchantTradeNo'] = $params['MerchantTradeNo'];
+        $details = $this->api->QueryTradeInfo();
+        $details['RtnCode'] = $details['TradeStatus'] === '1' ? '1' : '2';
 
         return $details;
     }
