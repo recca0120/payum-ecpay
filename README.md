@@ -17,7 +17,7 @@ The Payum extension to rapidly build new extensions.
 $ composer create-project payum-tw/ecpay
 ```
 
-2. Replace all occurrences of `payum` with your vendor name. It may be your github name, for now let's say you choose: `acme`.
+2. Replace all occurrences of `payum` with your vendor name. It may be your github name, for now let's say you choose: `ecpay`.
 3. Replace all occurrences of `ecpay` with a payment gateway name. For example Stripe, Paypal etc. For now let's say you choose: `ecpay`.
 4. Register a gateway factory to the payum's builder and create a gateway:
 
@@ -42,8 +42,7 @@ $payum = (new PayumBuilder)
         'sandbox'     => true,
     ])
 
-    ->getPayum()
-;
+    ->getPayum();
 ```
 
 5. While using the gateway implement all method where you get `Not implemented` exception:

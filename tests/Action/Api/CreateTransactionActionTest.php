@@ -24,7 +24,7 @@ class CreateTransactionActionTest extends PHPUnit_Framework_TestCase
         $request = m::spy('PayumTW\Ecpay\Request\Api\CreateTransaction');
         $details = new ArrayObject([
             'foo' => 'bar',
-            'GoodsAmount' => 1
+            'GoodsAmount' => 1,
         ]);
         $endpoint = 'foo.endpoint';
 
@@ -120,7 +120,7 @@ class CreateTransactionActionTest extends PHPUnit_Framework_TestCase
         $request = m::spy('PayumTW\Ecpay\Request\Api\CreateTransaction');
         $details = new ArrayObject([
             'RtnCode' => '300',
-            'GoodsAmount' => 1
+            'GoodsAmount' => 1,
         ]);
 
         /*

@@ -2,7 +2,6 @@
 
 namespace PayumTW\Ecpay\Action;
 
-use Payum\Core\Request\Sync;
 use Payum\Core\Request\Notify;
 use Payum\Core\GatewayAwareTrait;
 use Payum\Core\Reply\HttpResponse;

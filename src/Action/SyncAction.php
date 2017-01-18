@@ -7,7 +7,6 @@ use Payum\Core\GatewayAwareTrait;
 use Payum\Core\GatewayAwareInterface;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
-use Payum\Core\Request\GetHttpRequest;
 use PayumTW\Ecpay\Request\Api\GetTransactionData;
 use Payum\Core\Exception\RequestNotSupportedException;
 

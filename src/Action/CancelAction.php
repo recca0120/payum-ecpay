@@ -2,7 +2,6 @@
 
 namespace PayumTW\Ecpay\Action;
 
-use Payum\Core\Request\Sync;
 use Payum\Core\Request\Cancel;
 use Payum\Core\GatewayAwareTrait;
 use Payum\Core\GatewayAwareInterface;

@@ -9,11 +9,11 @@ use Payum\Core\GatewayAwareInterface;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Request\GetHttpRequest;
+use PayumTW\Ecpay\Action\Api\BaseApiAwareAction;
 use PayumTW\Ecpay\Request\Api\CreateTransaction;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Security\GenericTokenFactoryAwareTrait;
 use Payum\Core\Security\GenericTokenFactoryAwareInterface;
-use PayumTW\Ecpay\Action\Api\BaseApiAwareAction;
 
 class CaptureLogisticsAction extends BaseApiAwareAction implements ActionInterface, GatewayAwareInterface, GenericTokenFactoryAwareInterface
 {
