@@ -2,7 +2,6 @@
 
 namespace PayumTW\Ecpay\Action;
 
-use Payum\Core\Request\Sync;
 use Payum\Core\Request\Capture;
 use Payum\Core\GatewayAwareTrait;
 use Payum\Core\GatewayAwareInterface;
@@ -71,7 +70,6 @@ class CaptureLogisticsAction extends BaseApiAwareAction implements ActionInterfa
         }
 
         $this->gateway->execute(new CreateTransaction($details));
-        $this->gateway->execute(new Sync($details));
     }
 
     /**

@@ -118,7 +118,6 @@ class CaptureLogisticsActionTest extends PHPUnit_Framework_TestCase
         $tokenFactory->shouldHaveReceived('createNotifyToken')->with($gatewayName, $details)->once();
         $notifyToken->shouldHaveReceived('getTargetUrl')->once();
         $gateway->shouldHaveReceived('execute')->with(m::type('PayumTW\Ecpay\Request\Api\CreateTransaction'))->once();
-        $gateway->shouldHaveReceived('execute')->with(m::type('Payum\Core\Request\Sync'))->once();
     }
 
     public function test_execute_when_csv_store_id_exists()
