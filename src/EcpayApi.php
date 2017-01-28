@@ -50,7 +50,7 @@ class EcpayApi extends Api
         $this->options = $options;
         $this->client = $client;
         $this->messageFactory = $messageFactory;
-        $this->api = is_null($api) === true ? new AllInOne() : $api;
+        $this->api = $api ?: new AllInOne();
         $this->api->HashKey = $this->options['HashKey'];
         $this->api->HashIV = $this->options['HashIV'];
         $this->api->MerchantID = $this->options['MerchantID'];
