@@ -15,7 +15,7 @@ class GetTransactionDataActionTest extends TestCase
         m::close();
     }
 
-    public function testGetTransactionData()
+    public function testExecute()
     {
         $action = new GetTransactionDataAction();
         $request = new GetTransactionData(new ArrayObject([]));

@@ -15,7 +15,7 @@ class CancelTransactionActionTest extends TestCase
         m::close();
     }
 
-    public function testGetTransactionData()
+    public function testExecute()
     {
         $action = new CancelTransactionAction();
         $request = new CancelTransaction(new ArrayObject([]));

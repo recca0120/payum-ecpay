@@ -60,33 +60,33 @@ class StatusLogisticsActionTest extends TestCase
             'CVSValidationNo' => '驗證碼',
             'BookingNote' => '托運單號',
             'CheckMacValue' => '檢查碼',
-         ], 'markCaptured');
+        ], 'markCaptured');
 
-         $this->validate([
-             'MerchantID' => '123456789',
-             'MerchantTradeNo' => 'Ecpay_1234',
-             'MerchantTradeDate' => '2012/03/21 15:40:18',
-             'LogisticsType' => 'CVS',
-             'LogisticsSubType' => 'FAMI',
-             'GoodsAmount' => '5000',
-             'SenderName' => 'foo',
-             'ReceiverName' => '',
-             'ServerReplyURL' => '',
+        $this->validate([
+            'MerchantID' => '123456789',
+            'MerchantTradeNo' => 'Ecpay_1234',
+            'MerchantTradeDate' => '2012/03/21 15:40:18',
+            'LogisticsType' => 'CVS',
+            'LogisticsSubType' => 'FAMI',
+            'GoodsAmount' => '5000',
+            'SenderName' => 'foo',
+            'ReceiverName' => '',
+            'ServerReplyURL' => '',
 
-             'RtnCode' => '1',
-             'RtnMsg' => 'paid',
-             'AllPayLogisticsID' => '10035',
-             'UpdateStatusDate' => 'yyyy/MM/dd HH:mm:ss',
-             'ReceiverName' => '收件人姓名',
-             'ReceiverPhone' => '收件人電話',
-             'ReceiverCellPhone' => '0987654321',
-             'ReceiverEmail' => '收件人 email',
-             'ReceiverAddress' => '收件人地址',
-             'CVSPaymentNo' => '寄貨編號',
-             'CVSValidationNo' => '驗證碼',
-             'BookingNote' => '托運單號',
-             'CheckMacValue' => '檢查碼',
-          ], 'markCaptured');
+            'RtnCode' => '1',
+            'RtnMsg' => 'paid',
+            'AllPayLogisticsID' => '10035',
+            'UpdateStatusDate' => 'yyyy/MM/dd HH:mm:ss',
+            'ReceiverName' => '收件人姓名',
+            'ReceiverPhone' => '收件人電話',
+            'ReceiverCellPhone' => '0987654321',
+            'ReceiverEmail' => '收件人 email',
+            'ReceiverAddress' => '收件人地址',
+            'CVSPaymentNo' => '寄貨編號',
+            'CVSValidationNo' => '驗證碼',
+            'BookingNote' => '托運單號',
+            'CheckMacValue' => '檢查碼',
+        ], 'markCaptured');
     }
 
     public function testMarkFailed()

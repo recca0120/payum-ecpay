@@ -5,12 +5,7 @@ namespace PayumTW\Ecpay\Tests;
 use Mockery as m;
 use PayumTW\Ecpay\EcpayApi;
 use PHPUnit\Framework\TestCase;
-use PayumTW\Ecpay\Bridge\Ecpay\ActionType;
-use PayumTW\Ecpay\Bridge\Ecpay\EncryptType;
-use PayumTW\Ecpay\Bridge\Ecpay\InvoiceState;
 use PayumTW\Ecpay\Bridge\Ecpay\PaymentMethod;
-use PayumTW\Ecpay\Bridge\Ecpay\ExtraPaymentInfo;
-use PayumTW\Ecpay\Bridge\Ecpay\PaymentMethodItem;
 
 class EcpayApiTest extends TestCase
 {

@@ -5,7 +5,6 @@ namespace PayumTW\Ecpay\Tests\Action;
 use Mockery as m;
 use Payum\Core\Request\Convert;
 use PHPUnit\Framework\TestCase;
-use Payum\Core\Bridge\Spl\ArrayObject;
 use PayumTW\Ecpay\Action\ConvertPaymentLogisticsAction;
 
 class ConvertPaymentLogisticsActionTest extends TestCase

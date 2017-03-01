@@ -27,7 +27,7 @@ class CaptureLogisticsActionTest extends TestCase
             $gateway = m::mock('Payum\Core\GatewayInterface')
         );
 
-        $gateway->shouldReceive('execute')->once()->with(m::on(function($getHttpRequest) {
+        $gateway->shouldReceive('execute')->once()->with(m::on(function ($getHttpRequest) {
             return $getHttpRequest instanceof GetHttpRequest;
         }));
 
@@ -72,7 +72,7 @@ class CaptureLogisticsActionTest extends TestCase
             $gateway = m::mock('Payum\Core\GatewayInterface')
         );
 
-        $gateway->shouldReceive('execute')->once()->with(m::on(function($getHttpRequest) {
+        $gateway->shouldReceive('execute')->once()->with(m::on(function ($getHttpRequest) {
             return $getHttpRequest instanceof GetHttpRequest;
         }));
 
@@ -102,7 +102,7 @@ class CaptureLogisticsActionTest extends TestCase
         $response = [
             'CVSStoreID' => 'foo',
         ];
-        $gateway->shouldReceive('execute')->once()->with(m::on(function($getHttpRequest) use ($response) {
+        $gateway->shouldReceive('execute')->once()->with(m::on(function ($getHttpRequest) use ($response) {
             $getHttpRequest->request = $response;
 
             return $getHttpRequest instanceof GetHttpRequest;

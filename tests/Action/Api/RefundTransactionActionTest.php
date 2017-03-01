@@ -15,7 +15,7 @@ class RefundTransactionActionTest extends TestCase
         m::close();
     }
 
-    public function testGetTransactionData()
+    public function testExecute()
     {
         $action = new RefundTransactionAction();
         $request = new RefundTransaction(new ArrayObject([]));
