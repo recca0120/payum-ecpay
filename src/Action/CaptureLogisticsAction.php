@@ -33,7 +33,13 @@ class CaptureLogisticsAction extends BaseApiAwareAction implements ActionInterfa
         $this->gateway->execute($httpRequest);
 
         // CVS
-        if (isset($httpRequest->request['CVSStoreID']) === true) {
+        if (isset($httpRequest->request['CVSStoreID']) === true ||
+            isset($result['RtnCode']) === true ||
+            isset($result['ResCode']) === true ||
+            isset($result['RtnMerchantTradeNo']) === true && isset($result['RtnOrderNo']) === true ||
+            isset($result['CVSStoreID']) === true ||
+            isset($result['ErrorMessage']) === true
+        ) {
             $details->replace($httpRequest->request);
 
             return;
@@ -46,7 +52,6 @@ class CaptureLogisticsAction extends BaseApiAwareAction implements ActionInterfa
             if (empty($details['ServerReplyURL']) === true) {
                 $details['ServerReplyURL'] = $targetUrl;
             }
-
             $this->gateway->execute(new CreateTransaction($details));
 
             return;
@@ -54,10 +59,8 @@ class CaptureLogisticsAction extends BaseApiAwareAction implements ActionInterfa
 
         if (empty($details['ServerReplyURL']) === true) {
             $notifyToken = $this->tokenFactory->createNotifyToken(
-                $token->getGatewayName(),
-                $token->getDetails()
+                $token->getGatewayName(), $token->getDetails()
             );
-
             $details['ServerReplyURL'] = $notifyToken->getTargetUrl();
         }
 

@@ -1,155 +1,94 @@
 <?php
 
+namespace PayumTW\Ecpay\Tests\Action\Api;
+
 use Mockery as m;
+use PHPUnit\Framework\TestCase;
 use Payum\Core\Reply\HttpResponse;
 use Payum\Core\Bridge\Spl\ArrayObject;
+use PayumTW\Ecpay\Request\Api\CreateTransaction;
 use PayumTW\Ecpay\Action\Api\CreateTransactionAction;
 
-class CreateTransactionActionTest extends PHPUnit_Framework_TestCase
+class CreateTransactionActionTest extends TestCase
 {
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }
 
-    public function test_api_http_post_redirect()
+    public function testExecute()
     {
-        /*
-        |------------------------------------------------------------
-        | Arrange
-        |------------------------------------------------------------
-        */
-
-        $api = m::spy('PayumTW\Ecpay\Api');
-        $request = m::spy('PayumTW\Ecpay\Request\Api\CreateTransaction');
-        $details = new ArrayObject([
-            'foo' => 'bar',
-            'GoodsAmount' => 1,
-        ]);
-        $endpoint = 'foo.endpoint';
-
-        /*
-        |------------------------------------------------------------
-        | Act
-        |------------------------------------------------------------
-        */
-
-        $request
-            ->shouldReceive('getModel')->andReturn($details);
-
-        $api
-            ->shouldReceive('createTransaction')->andReturn((array) $details)
-            ->shouldReceive('getApiEndpoint')->andReturn($endpoint);
-
         $action = new CreateTransactionAction();
-        $action->setApi($api);
+        $request = new CreateTransaction(new ArrayObject([
+            'GoodsAmount' => 100,
+        ]));
 
-        /*
-        |------------------------------------------------------------
-        | Assert
-        |------------------------------------------------------------
-        */
+        $action->setApi(
+            $api = m::mock('PayumTW\Ecpay\Api')
+        );
+
+        $api->shouldReceive('createTransaction')->once()->with((array) $request->getModel())->andReturn($result = ['foo' => 'bar']);
+        $api->shouldReceive('getApiEndpoint')->once()->andReturn($apiEndpoint = 'foo');
 
         try {
             $action->execute($request);
-        } catch (HttpResponse $response) {
-            $this->assertSame((array) $details, $response->getFields());
+        } catch (HttpResponse $e) {
+            $this->assertSame($apiEndpoint, $e->getUrl());
+            $this->assertSame($result, $e->getFields());
         }
-
-        $request->shouldHaveReceived('getModel')->twice();
-        $api->shouldHaveReceived('createTransaction')->with((array) $details)->once();
     }
 
-    public function test_logistics_api_http_post_redirect()
+    public function testCaptured()
     {
-        /*
-        |------------------------------------------------------------
-        | Arrange
-        |------------------------------------------------------------
-        */
-
-        $api = m::spy('PayumTW\Ecpay\Api');
-        $request = m::spy('PayumTW\Ecpay\Request\Api\CreateTransaction');
-        $details = new ArrayObject([
-            'foo' => 'bar',
-        ]);
-        $endpoint = 'foo.endpoint';
-
-        /*
-        |------------------------------------------------------------
-        | Act
-        |------------------------------------------------------------
-        */
-
-        $request
-            ->shouldReceive('getModel')->andReturn($details);
-
-        $api
-            ->shouldReceive('createCvsMapTransaction')->andReturn((array) $details)
-            ->shouldReceive('getApiEndpoint')->andReturn($endpoint);
-
         $action = new CreateTransactionAction();
-        $action->setApi($api);
+        $request = new CreateTransaction(new ArrayObject([
+            'GoodsAmount' => 100,
+        ]));
 
-        /*
-        |------------------------------------------------------------
-        | Assert
-        |------------------------------------------------------------
-        */
+        $action->setApi(
+            $api = m::mock('PayumTW\Ecpay\Api')
+        );
 
-        try {
-            $action->execute($request);
-        } catch (HttpResponse $response) {
-            $this->assertSame((array) $details, $response->getFields());
-        }
+        $api->shouldReceive('createTransaction')->once()->with((array) $request->getModel())->andReturn($params = ['RtnCode' => 'foo']);
+        $action->execute($request);
+        $this->assertSame(array_merge((array) $request->getModel(), $params), (array) $request->getModel());
 
-        $request->shouldHaveReceived('getModel')->twice();
-        $api->shouldHaveReceived('createCvsMapTransaction')->with((array) $details)->once();
-        $api->shouldHaveReceived('getApiEndpoint')->once();
+        $api->shouldReceive('createTransaction')->once()->with((array) $request->getModel())->andReturn($params = ['ResCode' => 'foo']);
+        $action->execute($request);
+        $this->assertSame(array_merge((array) $request->getModel(), $params), (array) $request->getModel());
+
+        $api->shouldReceive('createTransaction')->once()->with((array) $request->getModel())->andReturn($params = ['RtnMerchantTradeNo' => 'foo', 'RtnOrderNo' => 'foo']);
+        $action->execute($request);
+        $this->assertSame(array_merge((array) $request->getModel(), $params), (array) $request->getModel());
+
+        $api->shouldReceive('createTransaction')->once()->with((array) $request->getModel())->andReturn($params = ['CVSStoreID' => 'foo']);
+        $action->execute($request);
+        $this->assertSame(array_merge((array) $request->getModel(), $params), (array) $request->getModel());
+
+        $api->shouldReceive('createTransaction')->once()->with((array) $request->getModel())->andReturn($params = ['ErrorMessage' => 'foo']);
+        $action->execute($request);
+        $this->assertSame(array_merge((array) $request->getModel(), $params), (array) $request->getModel());
     }
 
-    public function test_logistics_api_when_isset_rtn_code()
+    public function testExecuteCVS()
     {
-        /*
-        |------------------------------------------------------------
-        | Arrange
-        |------------------------------------------------------------
-        */
-
-        $api = m::spy('PayumTW\Ecpay\Api');
-        $request = m::spy('PayumTW\Ecpay\Request\Api\CreateTransaction');
-        $details = new ArrayObject([
-            'RtnCode' => '300',
-            'GoodsAmount' => 1,
-        ]);
-
-        /*
-        |------------------------------------------------------------
-        | Act
-        |------------------------------------------------------------
-        */
-
-        $request
-            ->shouldReceive('getModel')->andReturn($details);
-
-        $api
-            ->shouldReceive('createTransaction')->andReturn((array) $details);
-
         $action = new CreateTransactionAction();
-        $action->setApi($api);
+        $request = new CreateTransaction(new ArrayObject([
+            'GoodsAmount' => 0,
+        ]));
 
-        /*
-        |------------------------------------------------------------
-        | Assert
-        |------------------------------------------------------------
-        */
+        $action->setApi(
+            $api = m::mock('PayumTW\Ecpay\Api')
+        );
+
+        $api->shouldReceive('createCvsMapTransaction')->once()->with((array) $request->getModel())->andReturn($result = ['foo' => 'bar']);
+        $api->shouldReceive('getApiEndpoint')->once()->andReturn($apiEndpoint = 'foo');
 
         try {
             $action->execute($request);
-        } catch (HttpResponse $response) {
+        } catch (HttpResponse $e) {
+            $this->assertSame($apiEndpoint, $e->getUrl());
+            $this->assertSame($result, $e->getFields());
         }
-
-        $request->shouldHaveReceived('getModel')->twice();
-        $api->shouldHaveReceived('createTransaction')->with((array) $details)->once();
     }
 }

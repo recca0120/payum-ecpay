@@ -1,95 +1,33 @@
 <?php
 
+namespace PayumTW\Ecpay\Tests\Action\Api;
+
 use Mockery as m;
+use PHPUnit\Framework\TestCase;
 use Payum\Core\Bridge\Spl\ArrayObject;
+use PayumTW\Ecpay\Request\Api\GetTransactionData;
 use PayumTW\Ecpay\Action\Api\GetTransactionDataAction;
 
-class GetTransactionDataActionTest extends PHPUnit_Framework_TestCase
+class GetTransactionDataActionTest extends TestCase
 {
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }
 
-    public function test_get_transaction_data()
+    public function testGetTransactionData()
     {
-        /*
-        |------------------------------------------------------------
-        | Arrange
-        |------------------------------------------------------------
-        */
-
-        $api = m::spy('PayumTW\Ecpay\Api');
-        $request = m::spy('PayumTW\Ecpay\Request\Api\GetTransactionData');
-        $details = m::mock(new ArrayObject([]));
-
-        /*
-        |------------------------------------------------------------
-        | Act
-        |------------------------------------------------------------
-        */
-
-        $request
-            ->shouldReceive('getModel')->andReturn($details);
-
-        $api
-            ->shouldReceive('getTransactionData')->andReturn([
-                'RtnCode' => '1',
-            ]);
-
         $action = new GetTransactionDataAction();
-        $action->setApi($api);
+        $request = new GetTransactionData(new ArrayObject([]));
+
+        $action->setApi(
+            $api = m::mock('PayumTW\Ecpay\Api')
+        );
+
+        $api->shouldReceive('getTransactionData')->once()->with((array) $request->getModel())->andReturn($params = ['RepCode' => '1']);
+
         $action->execute($request);
 
-        /*
-        |------------------------------------------------------------
-        | Assert
-        |------------------------------------------------------------
-        */
-
-        $request->shouldHaveReceived('getModel')->twice();
-        $api->shouldHaveReceived('getTransactionData')->once();
-        $details->shouldHaveReceived('replace')->once();
-    }
-
-    public function test_get_transaction_data_when_verify_hash_fail()
-    {
-        /*
-        |------------------------------------------------------------
-        | Arrange
-        |------------------------------------------------------------
-        */
-
-        $api = m::spy('PayumTW\Ecpay\Api');
-        $request = m::spy('PayumTW\Ecpay\Request\Api\GetTransactionData');
-        $details = m::mock(new ArrayObject([]));
-
-        /*
-        |------------------------------------------------------------
-        | Act
-        |------------------------------------------------------------
-        */
-
-        $request
-            ->shouldReceive('getModel')->andReturn($details);
-
-        $api
-            ->shouldReceive('getTransactionData')->andReturn([
-                'RtnCode' => '10400002',
-            ]);
-
-        $action = new GetTransactionDataAction();
-        $action->setApi($api);
-        $action->execute($request);
-
-        /*
-        |------------------------------------------------------------
-        | Assert
-        |------------------------------------------------------------
-        */
-
-        $request->shouldHaveReceived('getModel')->twice();
-        $api->shouldHaveReceived('getTransactionData')->once();
-        $details->shouldHaveReceived('replace');
+        $this->assertSame($params, (array) $request->getModel());
     }
 }

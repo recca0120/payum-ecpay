@@ -1,22 +1,25 @@
 <?php
 
+namespace PayumTW\Ecpay\Tests\Action;
+
 use Mockery as m;
+use PHPUnit\Framework\TestCase;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use PayumTW\Ecpay\Action\StatusAction;
 
-class StatusActionTest extends PHPUnit_Framework_TestCase
+class StatusActionTest extends TestCase
 {
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }
 
-    public function test_mark_new()
+    public function testMarkNew()
     {
         $this->validate([], 'markNew');
     }
 
-    public function test_mark_captured_when_creditcard_created_and_success()
+    public function testMarkCaptured()
     {
         $this->validate([
             'MerchantID' => '2000132',
@@ -38,9 +41,20 @@ class StatusActionTest extends PHPUnit_Framework_TestCase
             'TradeDate' => '2012/03/15 17:40:58',
             'SimulatePaid' => '0',
         ], 'markCaptured');
+
+        $this->validate([
+            'MerchantID' => '2000132',
+            'MerchantTradeNo' => '123456abc',
+            'TradeNo' => '201203151740582564',
+            'Action' => 'C',
+            'TotalAmount' => '22000',
+
+            'RtnCode' => '1',
+            'RtnMsg' => '',
+        ], 'markCaptured');
     }
 
-    public function test_mark_fail_when_rtn_code_is_0()
+    public function testMarkFail()
     {
         $this->validate([
             'MerchantID' => '2000132',
@@ -64,7 +78,7 @@ class StatusActionTest extends PHPUnit_Framework_TestCase
         ], 'markFailed');
     }
 
-    public function test_mark_pending_when_atm_created_and_success()
+    public function testMarkPending()
     {
         $this->validate([
             'MerchantID' => '2000132',
@@ -98,21 +112,7 @@ class StatusActionTest extends PHPUnit_Framework_TestCase
         ], 'markPending');
     }
 
-    public function test_mark_captured_when_action_is_c()
-    {
-        $this->validate([
-            'MerchantID' => '2000132',
-            'MerchantTradeNo' => '123456abc',
-            'TradeNo' => '201203151740582564',
-            'Action' => 'C',
-            'TotalAmount' => '22000',
-
-            'RtnCode' => '1',
-            'RtnMsg' => '',
-        ], 'markCaptured');
-    }
-
-    public function test_mark_refunded_when_action_is_r()
+    public function testMarkRefunded()
     {
         $this->validate([
             'MerchantID' => '2000132',
@@ -126,7 +126,7 @@ class StatusActionTest extends PHPUnit_Framework_TestCase
         ], 'markRefunded');
     }
 
-    public function test_mark_canceled_when_action_is_e()
+    public function testMarkCanceled()
     {
         $this->validate([
             'MerchantID' => '2000132',
@@ -138,10 +138,7 @@ class StatusActionTest extends PHPUnit_Framework_TestCase
             'RtnCode' => '1',
             'RtnMsg' => '',
         ], 'markCanceled');
-    }
 
-    public function test_mark_canceled_when_action_is_n()
-    {
         $this->validate([
             'MerchantID' => '2000132',
             'MerchantTradeNo' => '123456abc',
@@ -156,33 +153,11 @@ class StatusActionTest extends PHPUnit_Framework_TestCase
 
     protected function validate($input, $type)
     {
-        /*
-        |------------------------------------------------------------
-        | Arrange
-        |------------------------------------------------------------
-        */
-
-        $request = m::spy('Payum\Core\Request\GetStatusInterface');
-        $details = new ArrayObject($input);
-
-        /*
-        |------------------------------------------------------------
-        | Act
-        |------------------------------------------------------------
-        */
-
-        $request->shouldReceive('getModel')->andReturn($details);
-
         $action = new StatusAction();
+        $request = m::mock('Payum\Core\Request\GetStatusInterface');
+        $request->shouldReceive('getModel')->andReturn($details = new ArrayObject($input));
+        $request->shouldReceive($type)->once();
+
         $action->execute($request);
-
-        /*
-        |------------------------------------------------------------
-        | Assert
-        |------------------------------------------------------------
-        */
-
-        $request->shouldHaveReceived('getModel')->twice();
-        $request->shouldHaveReceived($type)->once();
     }
 }

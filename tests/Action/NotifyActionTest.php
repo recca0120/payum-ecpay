@@ -1,61 +1,46 @@
 <?php
 
+namespace PayumTW\Ecpay\Tests\Action;
+
 use Mockery as m;
+use Payum\Core\Request\Notify;
+use PHPUnit\Framework\TestCase;
 use Payum\Core\Reply\ReplyInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
+use Payum\Core\Request\GetHttpRequest;
 use PayumTW\Ecpay\Action\NotifyAction;
 
-class NotifyActionTest extends PHPUnit_Framework_TestCase
+class NotifyActionTest extends TestCase
 {
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }
 
-    public function test_notify_success()
+    public function testExecute()
     {
-        /*
-        |------------------------------------------------------------
-        | Arrange
-        |------------------------------------------------------------
-        */
-
-        $request = m::spy('Payum\Core\Request\Notify');
-        $gateway = m::spy('Payum\Core\GatewayInterface');
-        $api = m::spy('PayumTW\Ecpay\Api');
-
-        $response = [];
-
-        $details = new ArrayObject($response);
-
-        /*
-        |------------------------------------------------------------
-        | Act
-        |------------------------------------------------------------
-        */
-
-        $request
-            ->shouldReceive('getModel')->andReturn($details);
-
-        $gateway
-            ->shouldReceive('execute')->with(m::type('Payum\Core\Request\GetHttpRequest'))->andReturnUsing(function ($getHttpRequest) use ($response) {
-                $getHttpRequest->request = $response;
-
-                return $getHttpRequest;
-            });
-
-        $api
-            ->shouldReceive('verifyHash')->with($response)->andReturn(true);
-
         $action = new NotifyAction();
-        $action->setGateway($gateway);
-        $action->setApi($api);
+        $request = new Notify(new ArrayObject([]));
 
-        /*
-        |------------------------------------------------------------
-        | Assert
-        |------------------------------------------------------------
-        */
+        $action->setGateway(
+            $gateway = m::mock('Payum\Core\GatewayInterface')
+        );
+
+        $params = [
+            'foo' => 'bar',
+        ];
+
+        $gateway->shouldReceive('execute')->once()->with(m::on(function ($httpRequest) use ($params) {
+            $httpRequest->request = $params;
+
+            return $httpRequest instanceof GetHttpRequest;
+        }));
+
+        $action->setApi(
+            $api = m::mock('PayumTW\Ecpay\Api')
+        );
+
+        $api->shouldReceive('verifyHash')->once()->with($params)->andReturn(true);
 
         try {
             $action->execute($request);
@@ -64,55 +49,33 @@ class NotifyActionTest extends PHPUnit_Framework_TestCase
             $this->assertSame('1|OK', $e->getContent());
         }
 
-        $request->shouldHaveReceived('getModel')->twice();
-        $gateway->shouldHaveReceived('execute')->with(m::type('Payum\Core\Request\GetHttpRequest'))->once();
-        $api->shouldHaveReceived('verifyHash')->with($response)->once();
+        $this->assertSame($params, (array) $request->getModel());
     }
 
-    public function test_notify_when_checksum_fail()
+    public function testExecuteFail()
     {
-        /*
-        |------------------------------------------------------------
-        | Arrange
-        |------------------------------------------------------------
-        */
-
-        $request = m::spy('Payum\Core\Request\Notify');
-        $gateway = m::spy('Payum\Core\GatewayInterface');
-        $api = m::spy('PayumTW\Ecpay\Api');
-
-        $response = [];
-
-        $details = new ArrayObject($response);
-
-        /*
-        |------------------------------------------------------------
-        | Act
-        |------------------------------------------------------------
-        */
-
-        $request
-            ->shouldReceive('getModel')->andReturn($details);
-
-        $gateway
-            ->shouldReceive('execute')->with(m::type('Payum\Core\Request\GetHttpRequest'))->andReturnUsing(function ($getHttpRequest) use ($response) {
-                $getHttpRequest->request = $response;
-
-                return $getHttpRequest;
-            });
-
-        $api
-            ->shouldReceive('verifyHash')->with($response)->andReturn(false);
-
         $action = new NotifyAction();
-        $action->setGateway($gateway);
-        $action->setApi($api);
+        $request = new Notify(new ArrayObject([]));
 
-        /*
-        |------------------------------------------------------------
-        | Assert
-        |------------------------------------------------------------
-        */
+        $action->setGateway(
+            $gateway = m::mock('Payum\Core\GatewayInterface')
+        );
+
+        $params = [
+            'foo' => 'bar',
+        ];
+
+        $gateway->shouldReceive('execute')->once()->with(m::on(function ($httpRequest) use ($params) {
+            $httpRequest->request = $params;
+
+            return $httpRequest instanceof GetHttpRequest;
+        }));
+
+        $action->setApi(
+            $api = m::mock('PayumTW\Ecpay\Api')
+        );
+
+        $api->shouldReceive('verifyHash')->once()->with($params)->andReturn(false);
 
         try {
             $action->execute($request);
@@ -120,9 +83,5 @@ class NotifyActionTest extends PHPUnit_Framework_TestCase
             $this->assertSame(400, $e->getStatusCode());
             $this->assertSame('0|CheckMacValue verify fail.', $e->getContent());
         }
-
-        $request->shouldHaveReceived('getModel')->twice();
-        $gateway->shouldHaveReceived('execute')->with(m::type('Payum\Core\Request\GetHttpRequest'))->once();
-        $api->shouldHaveReceived('verifyHash')->with($response)->once();
     }
 }

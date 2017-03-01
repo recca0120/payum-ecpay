@@ -1,130 +1,133 @@
 <?php
 
-use Mockery as m;
+namespace PayumTW\Ecpay\Tests;
 
-class ClassAliasTest extends PHPUnit_Framework_TestCase
+use Mockery as m;
+use PHPUnit\Framework\TestCase;
+
+class ClassAliasTest extends TestCase
 {
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }
 
-    public function test_ActionType_exists()
+    public function testActionTypeExists()
     {
         $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\ActionType'));
     }
 
-    public function test_CarruerType_exists()
+    public function testCarruerTypeExists()
     {
         $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\CarruerType'));
     }
 
-    public function test_ClearanceMark_exists()
+    public function testClearanceMarkExists()
     {
         $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\ClearanceMark'));
     }
 
-    public function test_DeviceType_exists()
+    public function testDeviceTypeExists()
     {
         $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\DeviceType'));
     }
 
-    public function test_Donation_exists()
+    public function testDonationExists()
     {
         $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\Donation'));
     }
 
-    public function test_EncryptType_exists()
+    public function testEncryptTypeExists()
     {
         $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\EncryptType'));
     }
 
-    public function test_ExtraPaymentInfo_exists()
+    public function testExtraPaymentInfoExists()
     {
         $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\ExtraPaymentInfo'));
     }
 
-    public function test_InvoiceState_exists()
+    public function testInvoiceStateExists()
     {
         $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\InvoiceState'));
     }
 
-    public function test_InvType_exists()
+    public function testInvTypeExists()
     {
         $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\InvType'));
     }
 
-    public function test_PaymentMethod_exists()
+    public function testPaymentMethodExists()
     {
         $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\PaymentMethod'));
     }
 
-    public function test_PaymentMethodItem_exists()
+    public function testPaymentMethodItemExists()
     {
         $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\PaymentMethodItem'));
     }
 
-    public function test_PeriodType_exists()
+    public function testPeriodTypeExists()
     {
         $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\PeriodType'));
     }
 
-    public function test_PrintMark_exists()
+    public function testPrintMarkExists()
     {
         $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\PrintMark'));
     }
 
-    public function test_TaxType_exists()
+    public function testTaxTypeExists()
     {
         $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\TaxType'));
     }
 
-    public function test_ScheduledDeliveryTime_exists()
+    public function testScheduledDeliveryTimeExists()
     {
         $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\ScheduledDeliveryTime'));
     }
 
-    public function test_IsCollection_exists()
+    public function testIsCollectionExists()
     {
         $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\IsCollection'));
     }
 
-    public function test_LogisticsSubType_exists()
+    public function testLogisticsSubTypeExists()
     {
         $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\LogisticsSubType'));
     }
 
-    public function test_LogisticsType_exists()
+    public function testLogisticsTypeExists()
     {
         $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\LogisticsType'));
     }
 
-    public function test_Device_exists()
+    public function testDeviceExists()
     {
         $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\Device'));
     }
 
-    public function test_Distance_exists()
+    public function testDistanceExists()
     {
         $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\Distance'));
     }
 
-    public function test_ScheduledPickupTime_exists()
+    public function testScheduledPickupTimeExists()
     {
         $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\ScheduledPickupTime'));
     }
 
-    public function test_Specification_exists()
+    public function testSpecificationExists()
     {
         $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\Specification'));
     }
 
-    public function test_StoreType_exists()
+    public function testStoreTypeExists()
     {
         $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\StoreType'));
     }
 
-    public function test_Temperature_exists()
+    public function testTemperatureExists()
     {
         $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\Temperature'));
     }

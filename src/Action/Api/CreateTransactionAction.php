@@ -21,15 +21,30 @@ class CreateTransactionAction extends BaseApiAwareAction
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
         if (empty($details['GoodsAmount']) === true) {
-            $result = $this->api->createCvsMapTransaction((array) $details);
+            $params = $this->api->createCvsMapTransaction((array) $details);
             $endpoint = $this->api->getApiEndpoint();
 
             throw new HttpPostRedirect(
-                $endpoint,
-                $result
+                $endpoint, $params
             );
         }
-        $details->replace($this->api->createTransaction((array) $details));
+
+        $params = $this->api->createTransaction((array) $details);
+
+        if (isset($params['RtnCode']) === true ||
+            isset($params['ResCode']) === true ||
+            isset($params['RtnMerchantTradeNo']) === true && isset($params['RtnOrderNo']) === true ||
+            isset($params['CVSStoreID']) === true ||
+            isset($params['ErrorMessage']) === true
+        ) {
+            $details->replace($params);
+        } else {
+            $endpoint = $this->api->getApiEndpoint();
+
+            throw new HttpPostRedirect(
+                $endpoint, $params
+            );
+        }
     }
 
     /**

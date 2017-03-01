@@ -43,5 +43,14 @@
         "psr-4": {
             "PayumTW\\Ecpay\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PayumTW\\Esunbank\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
     }
 }

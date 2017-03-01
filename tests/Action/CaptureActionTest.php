@@ -1,124 +1,87 @@
 <?php
 
+namespace PayumTW\Ecpay\Tests\Action;
+
 use Mockery as m;
+use PHPUnit\Framework\TestCase;
+use Payum\Core\Request\Capture;
+use Payum\Core\Request\GetHttpRequest;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use PayumTW\Ecpay\Action\CaptureAction;
 
-class CaptureActionTest extends PHPUnit_Framework_TestCase
+class CaptureActionTest extends TestCase
 {
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }
 
-    public function test_execute_get_transcation()
+    public function testExecute()
     {
-        /*
-        |------------------------------------------------------------
-        | Arrange
-        |------------------------------------------------------------
-        */
-
-        $gateway = m::spy('Payum\Core\GatewayInterface');
-        $tokenFactory = m::spy('Payum\Core\Security\GenericTokenFactoryInterface');
-        $request = m::spy('Payum\Core\Request\Capture');
-        $details = new ArrayObject([]);
-        $token = m::spy('Payum\Core\Security\TokenInterface');
-        $targetUrl = 'foo.target_url';
-        $gatewayName = 'foo.gateway';
-        $notifyToken = m::spy('Payum\Core\Security\TokenInterface');
-
-        /*
-        |------------------------------------------------------------
-        | Act
-        |------------------------------------------------------------
-        */
-
-        $request
-            ->shouldReceive('getModel')->andReturn($details)
-            ->shouldReceive('getToken')->andReturn($token);
-
-        $token
-            ->shouldReceive('getTargetUrl')->andReturn($targetUrl)
-            ->shouldReceive('getGatewayName')->andReturn($gatewayName)
-            ->shouldReceive('getDetails')->andReturn($details);
-
-        $tokenFactory
-            ->shouldReceive('createNotifyToken')->andReturn($notifyToken);
-
-        $notifyToken
-            ->shouldReceive('getTargetUrl')->andReturn($targetUrl);
-
         $action = new CaptureAction();
-        $action->setGateway($gateway);
-        $action->setGenericTokenFactory($tokenFactory);
+        $request = m::mock(new Capture(new ArrayObject([])));
+
+        $action->setGateway(
+            $gateway = m::mock('Payum\Core\GatewayInterface')
+        );
+        $gateway->shouldReceive('execute')->once()->with(m::on(function($getHttpRequest) {
+            return $getHttpRequest instanceof GetHttpRequest;
+        }));
+
+        $request->shouldReceive('getToken')->once()->andReturn(
+            $token = m::mock('Payum\Core\Security\TokenInterface')
+        );
+        $token->shouldReceive('getTargetUrl')->once()->andReturn($targetUrl = 'targetUrl');
+
+        $action->setGenericTokenFactory(
+            $tokenFactory = m::mock('Payum\Core\Security\GenericTokenFactoryInterface')
+        );
+        $token->shouldReceive('getGatewayName')->once()->andReturn(
+            $gatewayName = 'gatewayName'
+        );
+        $token->shouldReceive('getDetails')->once()->andReturn(
+            $details = ['foo' => 'bar']
+        );
+        $tokenFactory->shouldReceive('createNotifyToken')->once()->with($gatewayName, $details)->andReturn(
+            $notifyToken = m::mock('Payum\Core\Security\TokenInterface')
+        );
+        $notifyToken->shouldReceive('getTargetUrl')->once()->andReturn($notifyTargetUrl = 'notifyTargetUrl');
+
+        $gateway->shouldReceive('execute')->once()->with(m::type('PayumTW\Ecpay\Request\Api\CreateTransaction'));
+
         $action->execute($request);
 
-        /*
-        |------------------------------------------------------------
-        | Assert
-        |------------------------------------------------------------
-        */
-
-        $request->shouldHaveReceived('getModel')->twice();
-        $gateway->shouldHaveReceived('execute')->with(m::type('Payum\Core\Request\GetHttpRequest'))->once();
-        $request->shouldHaveReceived('getToken')->once();
-        $token->shouldHaveReceived('getTargetUrl')->once();
-        $token->shouldHaveReceived('getGatewayName')->once();
-        $token->shouldHaveReceived('getDetails')->once();
-        $tokenFactory->shouldHaveReceived('createNotifyToken')->with($gatewayName, $details)->once();
-        $notifyToken->shouldHaveReceived('getTargetUrl')->once();
-        $gateway->shouldHaveReceived('execute')->with(m::type('PayumTW\Ecpay\Request\Api\CreateTransaction'))->once();
+        $this->assertSame([
+            'OrderResultURL' => $targetUrl,
+            'ReturnURL' => $notifyTargetUrl,
+        ], (array) $request->getModel());
     }
 
-    public function test_execute_when_rtn_code_exists()
+    public function testCaptured()
     {
-        /*
-        |------------------------------------------------------------
-        | Arrange
-        |------------------------------------------------------------
-        */
-
-        $api = m::spy('PayumTW\Ecpay\Api');
-        $gateway = m::spy('Payum\Core\GatewayInterface');
-        $tokenFactory = m::spy('Payum\Core\Security\GenericTokenFactoryInterface');
-        $request = m::spy('Payum\Core\Request\Capture');
-        $details = new ArrayObject(['RtnCode' => '1']);
-        $token = m::spy('Payum\Core\Security\TokenInterface');
-        $targetUrl = 'foo.target_url';
-        $gatewayName = 'foo.gateway';
-        $notifyToken = m::spy('Payum\Core\Security\TokenInterface');
-
-        /*
-        |------------------------------------------------------------
-        | Act
-        |------------------------------------------------------------
-        */
-
-        $request
-            ->shouldReceive('getModel')->andReturn($details)
-            ->shouldReceive('getToken')->andReturn($token);
-
-        $gateway
-            ->shouldReceive('execute')->with(m::type('Payum\Core\Request\GetHttpRequest'))->andReturnUsing(function ($GetHttpRequest) use ($details) {
-                $GetHttpRequest->request = (array) $details;
-
-                return $GetHttpRequest;
-            });
-
         $action = new CaptureAction();
-        $action->setApi($api);
-        $action->setGateway($gateway);
-        $action->setGenericTokenFactory($tokenFactory);
+        $request = m::mock(new Capture(new ArrayObject([])));
+
+        $action->setGateway(
+            $gateway = m::mock('Payum\Core\GatewayInterface')
+        );
+        $response = [
+            'RtnCode' => '1',
+        ];
+        $gateway->shouldReceive('execute')->once()->with(m::on(function($getHttpRequest) use ($response) {
+            $getHttpRequest->request = $response;
+            return $getHttpRequest instanceof GetHttpRequest;
+        }));
+
+        $action->setApi(
+            $api = m::mock('PayumTW\Ecpay\Api')
+        );
+        $api->shouldReceive('verifyHash')->once()->with($response)->andReturn(false);
+
         $action->execute($request);
 
-        /*
-        |------------------------------------------------------------
-        | Assert
-        |------------------------------------------------------------
-        */
-
-        $request->shouldHaveReceived('getModel')->twice();
-        $gateway->shouldHaveReceived('execute')->with(m::type('Payum\Core\Request\GetHttpRequest'))->once();
+        $this->assertSame([
+            'RtnCode' => '10400002',
+        ], (array) $request->getModel());
     }
 }

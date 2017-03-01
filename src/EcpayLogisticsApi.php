@@ -38,11 +38,11 @@ class EcpayLogisticsApi extends Api
     protected $options = [];
 
     /**
-     * $api.
+     * $sdk.
      *
      * @var \PayumTW\Ecpay\Bridge\Ecpay\EcpayLogistics
      */
-    protected $api;
+    protected $sdk;
 
     /**
      * @var array
@@ -56,15 +56,15 @@ class EcpayLogisticsApi extends Api
      *
      * @throws \Payum\Core\Exception\InvalidArgumentException if an option is invalid
      */
-    public function __construct(array $options, HttpClientInterface $client, MessageFactory $messageFactory, EcpayLogistics $api = null)
+    public function __construct(array $options, HttpClientInterface $client, MessageFactory $messageFactory, EcpayLogistics $sdk = null)
     {
         $this->options = $options;
         $this->client = $client;
         $this->messageFactory = $messageFactory;
-        $this->api = is_null($api) === true ? new EcpayLogistics() : $api;
-        $this->api->HashKey = $this->options['HashKey'];
-        $this->api->HashIV = $this->options['HashIV'];
-        $this->api->Send['MerchantID'] = $this->options['MerchantID'];
+        $this->sdk = $sdk ?: new EcpayLogistics();
+        $this->sdk->HashKey = $this->options['HashKey'];
+        $this->sdk->HashIV = $this->options['HashIV'];
+        $this->sdk->Send['MerchantID'] = $this->options['MerchantID'];
     }
 
     /**
@@ -74,7 +74,7 @@ class EcpayLogisticsApi extends Api
      */
     public function getApiEndpoint($name = 'AioCheckOut')
     {
-        return $this->api->ServiceURL;
+        return $this->sdk->ServiceURL;
     }
 
     /**
@@ -87,7 +87,7 @@ class EcpayLogisticsApi extends Api
      */
     public function createCvsMapTransaction(array $params)
     {
-        $this->api->Send = array_merge($this->api->Send, [
+        $this->sdk->Send = array_merge($this->sdk->Send, [
             'MerchantTradeNo' => '',
             'LogisticsSubType' => LogisticsSubType::UNIMART,
             'IsCollection' => IsCollection::NO,
@@ -96,12 +96,14 @@ class EcpayLogisticsApi extends Api
             'Device' => $this->isMobile() ? Device::MOBILE : Device::PC,
         ]);
 
-        $this->api->Send = array_replace(
-            $this->api->Send,
-            array_intersect_key($params, $this->api->Send)
+        $this->sdk->Send = array_replace(
+            $this->sdk->Send,
+            array_intersect_key($params, $this->sdk->Send)
         );
 
-        return $this->api->formToArray($this->api->CvsMap());
+        return $this->sdk->formToArray(
+            $this->sdk->CvsMap()
+        );
     }
 
     /**
@@ -113,17 +115,19 @@ class EcpayLogisticsApi extends Api
     public function createPrintTradeTransaction(array $params)
     {
         // 參數初始化
-        $this->api->Send = array_merge($this->api->Send, [
+        $this->sdk->Send = array_merge($this->sdk->Send, [
             'AllPayLogisticsID' => '',
             'PlatformID'        => '',
         ]);
 
-        $this->api->Send = array_replace(
-            $this->api->Send,
-            array_intersect_key($params, $this->api->Send)
+        $this->sdk->Send = array_replace(
+            $this->sdk->Send,
+            array_intersect_key($params, $this->sdk->Send)
         );
 
-        return $this->api->formToArray($this->api->PrintTradeDoc());
+        return $this->sdk->formToArray(
+            $this->sdk->PrintTradeDoc()
+        );
     }
 
     /**
@@ -135,19 +139,21 @@ class EcpayLogisticsApi extends Api
     public function createPrintUnimartC2CBillTransaction(array $params)
     {
         // 參數初始化
-        $this->api->Send = array_merge($this->api->Send, [
+        $this->sdk->Send = array_merge($this->sdk->Send, [
             'AllPayLogisticsID' => '',
             'CVSPaymentNo'      => '',
             'CVSValidationNo'   => '',
             'PlatformID'        => '',
         ]);
 
-        $this->api->Send = array_replace(
-            $this->api->Send,
-            array_intersect_key($params, $this->api->Send)
+        $this->sdk->Send = array_replace(
+            $this->sdk->Send,
+            array_intersect_key($params, $this->sdk->Send)
         );
 
-        return $this->api->formToArray($this->api->PrintUnimartC2CBill());
+        return $this->sdk->formToArray(
+            $this->sdk->PrintUnimartC2CBill()
+        );
     }
 
     /**
@@ -159,18 +165,20 @@ class EcpayLogisticsApi extends Api
     public function createPrintFamilyC2CBillTransaction(array $params)
     {
         // 參數初始化
-        $this->api->Send = array_merge($this->api->Send, [
+        $this->sdk->Send = array_merge($this->sdk->Send, [
             'AllPayLogisticsID' => '',
             'CVSPaymentNo'      => '',
             'PlatformID'        => '',
         ]);
 
-        $this->api->Send = array_replace(
-            $this->api->Send,
-            array_intersect_key($params, $this->api->Send)
+        $this->sdk->Send = array_replace(
+            $this->sdk->Send,
+            array_intersect_key($params, $this->sdk->Send)
         );
 
-        return $this->api->formToArray($this->api->PrintUnimartC2CBill());
+        return $this->sdk->formToArray(
+            $this->sdk->PrintUnimartC2CBill()
+        );
     }
 
     /**
@@ -183,7 +191,7 @@ class EcpayLogisticsApi extends Api
      */
     public function createTransaction(array $params)
     {
-        $this->api->Send = array_merge($this->api->Send, [
+        $this->sdk->Send = array_merge($this->sdk->Send, [
             'MerchantTradeNo' => '',
             'MerchantTradeDate' => date('Y/m/d H:i:s'),
             'LogisticsType' => '',
@@ -206,34 +214,34 @@ class EcpayLogisticsApi extends Api
             'PlatformID' => '',
         ]);
 
-        $this->api->SendExtend = [];
+        $this->sdk->SendExtend = [];
 
-        $this->api->Send = array_replace(
-            $this->api->Send,
-            array_intersect_key($params, $this->api->Send)
+        $this->sdk->Send = array_replace(
+            $this->sdk->Send,
+            array_intersect_key($params, $this->sdk->Send)
         );
 
-        $this->api->Send['GoodsAmount'] = (int) $this->api->Send['GoodsAmount'];
-        $this->api->Send['CollectionAmount'] = (int) $this->api->Send['CollectionAmount'];
+        $this->sdk->Send['GoodsAmount'] = (int) $this->sdk->Send['GoodsAmount'];
+        $this->sdk->Send['CollectionAmount'] = (int) $this->sdk->Send['CollectionAmount'];
 
-        if (empty($this->api->Send['LogisticsType']) === true) {
-            $this->api->Send['LogisticsType'] = LogisticsType::CVS;
-            switch ($this->api->Send['LogisticsSubType']) {
+        if (empty($this->sdk->Send['LogisticsType']) === true) {
+            $this->sdk->Send['LogisticsType'] = LogisticsType::CVS;
+            switch ($this->sdk->Send['LogisticsSubType']) {
                 case LogisticsSubType::TCAT:
-                    $this->api->Send['LogisticsType'] = LogisticsType::HOME;
+                    $this->sdk->Send['LogisticsType'] = LogisticsType::HOME;
                     break;
             }
         }
 
-        if ($this->api->Send['IsCollection'] === IsCollection::NO) {
-            $this->api->Send['CollectionAmount'] = 0;
-        } elseif (isset($this->api->Send['CollectionAmount']) === false) {
-            $this->api->Send['CollectionAmount'] = (int) $this->api->Send['GoodsAmount'];
+        if ($this->sdk->Send['IsCollection'] === IsCollection::NO) {
+            $this->sdk->Send['CollectionAmount'] = 0;
+        } elseif (isset($this->sdk->Send['CollectionAmount']) === false) {
+            $this->sdk->Send['CollectionAmount'] = (int) $this->sdk->Send['GoodsAmount'];
         }
 
-        switch ($this->api->Send['LogisticsType']) {
+        switch ($this->sdk->Send['LogisticsType']) {
             case LogisticsType::HOME:
-                $this->api->SendExtend = array_merge($this->api->SendExtend, [
+                $this->sdk->SendExtend = array_merge($this->sdk->SendExtend, [
                     'SenderZipCode' => '',
                     'SenderAddress' => '',
                     'ReceiverZipCode' => '',
@@ -245,19 +253,19 @@ class EcpayLogisticsApi extends Api
                 ]);
                 break;
             case LogisticsType::CVS:
-                $this->api->SendExtend = array_merge($this->api->SendExtend, [
+                $this->sdk->SendExtend = array_merge($this->sdk->SendExtend, [
                     'ReceiverStoreID' => '',
                     'ReturnStoreID' => '',
                 ]);
                 break;
         }
 
-        $this->api->SendExtend = array_replace(
-            $this->api->SendExtend,
-            array_intersect_key($params, $this->api->SendExtend)
+        $this->sdk->SendExtend = array_replace(
+            $this->sdk->SendExtend,
+            array_intersect_key($params, $this->sdk->SendExtend)
         );
 
-        return $this->api->BGCreateShippingOrder();
+        return $this->sdk->BGCreateShippingOrder();
     }
 
     /**
@@ -325,14 +333,14 @@ class EcpayLogisticsApi extends Api
             ];
         }
 
-        $this->api->Send = array_merge($this->api->Send, $supportedParams);
+        $this->sdk->Send = array_merge($this->sdk->Send, $supportedParams);
 
-        $this->api->Send = array_replace(
-            $this->api->Send,
-            array_intersect_key($params, $this->api->Send)
+        $this->sdk->Send = array_replace(
+            $this->sdk->Send,
+            array_intersect_key($params, $this->sdk->Send)
         );
 
-        return call_user_func_array([$this->api, $method]);
+        return call_user_func_array([$this->sdk, $method]);
     }
 
     /**
@@ -360,14 +368,14 @@ class EcpayLogisticsApi extends Api
             ];
         }
 
-        $this->api->Send = array_merge($this->api->Send, $supportedParams);
+        $this->sdk->Send = array_merge($this->sdk->Send, $supportedParams);
 
-        $this->api->Send = array_replace(
-            $this->api->Send,
-            array_intersect_key($params, $this->api->Send)
+        $this->sdk->Send = array_replace(
+            $this->sdk->Send,
+            array_intersect_key($params, $this->sdk->Send)
         );
 
-        return call_user_func_array([$this->api, $method]);
+        return call_user_func_array([$this->sdk, $method]);
     }
 
     /**
@@ -384,13 +392,13 @@ class EcpayLogisticsApi extends Api
             'PlatformID' => '',
         ];
 
-        $this->api->Send = array_merge($this->api->Send, $supportedParams);
+        $this->sdk->Send = array_merge($this->sdk->Send, $supportedParams);
 
-        $this->api->Send = array_replace(
-            $this->api->Send,
-            array_intersect_key($params, $this->api->Send)
+        $this->sdk->Send = array_replace(
+            $this->sdk->Send,
+            array_intersect_key($params, $this->sdk->Send)
         );
 
-        return $this->api->QueryLogisticsInfo();
+        return $this->sdk->QueryLogisticsInfo();
     }
 }

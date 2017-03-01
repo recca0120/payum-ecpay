@@ -1,18 +1,21 @@
 <?php
 
+namespace PayumTW\Ecpay\Tests\Bridge\Ecpay;
+
 use Mockery as m;
+use PHPUnit\Framework\TestCase;
 use PayumTW\Ecpay\Bridge\Ecpay\FormToArrayTrait;
 
-class FormToArrayTraitTest extends PHPUnit_Framework_TestCase
+class FormToArrayTraitTest extends TestCase
 {
     use FormToArrayTrait;
 
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }
 
-    public function test_all_in_one_form()
+    public function testAllInOne()
     {
         /*
         |------------------------------------------------------------
@@ -94,7 +97,7 @@ class FormToArrayTraitTest extends PHPUnit_Framework_TestCase
         ], $this->formToArray($form));
     }
 
-    public function test_logistics_form()
+    public function testlogistics()
     {
         /*
         |------------------------------------------------------------

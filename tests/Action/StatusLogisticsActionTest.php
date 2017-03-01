@@ -1,27 +1,25 @@
 <?php
 
+namespace PayumTW\Ecpay\Tests\Action;
+
 use Mockery as m;
+use PHPUnit\Framework\TestCase;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use PayumTW\Ecpay\Action\StatusLogisticsAction;
 
-class StatusLogisticsActionTest extends PHPUnit_Framework_TestCase
+class StatusLogisticsActionTest extends TestCase
 {
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }
 
-    public function test_mark_new()
+    public function testMarkNew()
     {
         $this->validate([], 'markNew');
     }
 
-    public function test_mark_failed_when_error_message_exists()
-    {
-        $this->validate(['ErrorMessage' => '1'], 'markFailed');
-    }
-
-    public function test_mark_captured_when_cvs_is_success()
+    public function testMarkCaptured()
     {
         $this->validate([
             'MerchantID' => '123456789',
@@ -36,10 +34,7 @@ class StatusLogisticsActionTest extends PHPUnit_Framework_TestCase
             'CVSTelephone' => 'foo',
             'ExtraData' => 'foo',
         ], 'markCaptured');
-    }
 
-    public function test_mark_captured_when_order_create_success()
-    {
         $this->validate([
             'MerchantID' => '123456789',
             'MerchantTradeNo' => 'Ecpay_1234',
@@ -66,10 +61,38 @@ class StatusLogisticsActionTest extends PHPUnit_Framework_TestCase
             'BookingNote' => '托運單號',
             'CheckMacValue' => '檢查碼',
          ], 'markCaptured');
+
+         $this->validate([
+             'MerchantID' => '123456789',
+             'MerchantTradeNo' => 'Ecpay_1234',
+             'MerchantTradeDate' => '2012/03/21 15:40:18',
+             'LogisticsType' => 'CVS',
+             'LogisticsSubType' => 'FAMI',
+             'GoodsAmount' => '5000',
+             'SenderName' => 'foo',
+             'ReceiverName' => '',
+             'ServerReplyURL' => '',
+
+             'RtnCode' => '1',
+             'RtnMsg' => 'paid',
+             'AllPayLogisticsID' => '10035',
+             'UpdateStatusDate' => 'yyyy/MM/dd HH:mm:ss',
+             'ReceiverName' => '收件人姓名',
+             'ReceiverPhone' => '收件人電話',
+             'ReceiverCellPhone' => '0987654321',
+             'ReceiverEmail' => '收件人 email',
+             'ReceiverAddress' => '收件人地址',
+             'CVSPaymentNo' => '寄貨編號',
+             'CVSValidationNo' => '驗證碼',
+             'BookingNote' => '托運單號',
+             'CheckMacValue' => '檢查碼',
+          ], 'markCaptured');
     }
 
-    public function test_mark_failed_when_order_create_fail()
+    public function testMarkFailed()
     {
+        $this->validate(['ErrorMessage' => '1'], 'markFailed');
+
         $this->validate([
             'MerchantID' => '123456789',
             'MerchantTradeNo' => 'Ecpay_1234',
@@ -96,39 +119,7 @@ class StatusLogisticsActionTest extends PHPUnit_Framework_TestCase
             'BookingNote' => '托運單號',
             'CheckMacValue' => '檢查碼',
         ], 'markFailed');
-    }
 
-    public function test_mark_captured_when_order_create_success_and_without_res_code()
-    {
-        $this->validate([
-            'MerchantID' => '123456789',
-            'MerchantTradeNo' => 'Ecpay_1234',
-            'MerchantTradeDate' => '2012/03/21 15:40:18',
-            'LogisticsType' => 'CVS',
-            'LogisticsSubType' => 'FAMI',
-            'GoodsAmount' => '5000',
-            'SenderName' => 'foo',
-            'ReceiverName' => '',
-            'ServerReplyURL' => '',
-
-            'RtnCode' => '1',
-            'RtnMsg' => 'paid',
-            'AllPayLogisticsID' => '10035',
-            'UpdateStatusDate' => 'yyyy/MM/dd HH:mm:ss',
-            'ReceiverName' => '收件人姓名',
-            'ReceiverPhone' => '收件人電話',
-            'ReceiverCellPhone' => '0987654321',
-            'ReceiverEmail' => '收件人 email',
-            'ReceiverAddress' => '收件人地址',
-            'CVSPaymentNo' => '寄貨編號',
-            'CVSValidationNo' => '驗證碼',
-            'BookingNote' => '托運單號',
-            'CheckMacValue' => '檢查碼',
-         ], 'markCaptured');
-    }
-
-    public function test_mark_failed_when_order_create_fail_and_without_res_code()
-    {
         $this->validate([
             'MerchantID' => '123456789',
             'MerchantTradeNo' => 'Ecpay_1234',
@@ -156,7 +147,7 @@ class StatusLogisticsActionTest extends PHPUnit_Framework_TestCase
         ], 'markFailed');
     }
 
-    public function test_mark_refunded_when_return_home()
+    public function testMarkRefunded()
     {
         $this->validate([
             'MerchantID' => '123456789',
@@ -170,10 +161,7 @@ class StatusLogisticsActionTest extends PHPUnit_Framework_TestCase
             'RtnCode' => '1',
             'RtnMsg' => 'OK',
         ], 'markRefunded');
-    }
 
-    public function test_mark_refunded_when_return_cvs()
-    {
         $this->validate([
             'MerchantID' => '123456789',
             'AllPayLogisticsID' => 'Ecpay_1234',
@@ -184,10 +172,7 @@ class StatusLogisticsActionTest extends PHPUnit_Framework_TestCase
             'RtnMerchantTradeNo' => '1',
             'RtnOrderNo' => 'OK',
         ], 'markRefunded');
-    }
 
-    public function test_mark_refunded_when_check_account()
-    {
         $this->validate([
             'MerchantID' => '123456789',
             'RtnMerchantTradeNo' => '1',
@@ -197,7 +182,7 @@ class StatusLogisticsActionTest extends PHPUnit_Framework_TestCase
         ], 'markRefunded');
     }
 
-    public function test_mark_cancel_when_cancel_c2c_order()
+    public function testMarkCancel()
     {
         $this->validate([
             'MerchantID' => '123456789',
@@ -210,7 +195,7 @@ class StatusLogisticsActionTest extends PHPUnit_Framework_TestCase
         ], 'markCanceled');
     }
 
-    public function test_mark_unknown_when_status_changed()
+    public function testMarkUnknown()
     {
         $this->validate([
             'MerchantID' => '廠商編號',
@@ -236,33 +221,11 @@ class StatusLogisticsActionTest extends PHPUnit_Framework_TestCase
 
     protected function validate($input, $type)
     {
-        /*
-        |------------------------------------------------------------
-        | Arrange
-        |------------------------------------------------------------
-        */
-
-        $request = m::spy('Payum\Core\Request\GetStatusInterface');
-        $details = new ArrayObject($input);
-
-        /*
-        |------------------------------------------------------------
-        | Act
-        |------------------------------------------------------------
-        */
-
-        $request->shouldReceive('getModel')->andReturn($details);
-
         $action = new StatusLogisticsAction();
+        $request = m::mock('Payum\Core\Request\GetStatusInterface');
+        $request->shouldReceive('getModel')->andReturn($details = new ArrayObject($input));
+        $request->shouldReceive($type)->once();
+
         $action->execute($request);
-
-        /*
-        |------------------------------------------------------------
-        | Assert
-        |------------------------------------------------------------
-        */
-
-        $request->shouldHaveReceived('getModel')->twice();
-        $request->shouldHaveReceived($type)->once();
     }
 }

@@ -50,13 +50,10 @@ class CaptureAction extends BaseApiAwareAction implements ActionInterface, Gatew
 
         if (empty($details['ReturnURL']) === true) {
             $notifyToken = $this->tokenFactory->createNotifyToken(
-                $token->getGatewayName(),
-                $token->getDetails()
+                $token->getGatewayName(), $token->getDetails()
             );
-
             $details['ReturnURL'] = $notifyToken->getTargetUrl();
         }
-
         $this->gateway->execute(new CreateTransaction($details));
     }
 
