@@ -46,7 +46,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "PayumTW\\Esunbank\\Tests\\": "tests/"
+            "PayumTW\\Ecpay\\Tests\\": "tests/"
         }
     },
     "config": {
