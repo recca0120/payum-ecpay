@@ -5,6 +5,7 @@ namespace PayumTW\Ecpay\Tests;
 use Mockery as m;
 use PayumTW\Ecpay\EcpayApi;
 use PHPUnit\Framework\TestCase;
+use PayumTW\Ecpay\Bridge\Ecpay\ActionType;
 use PayumTW\Ecpay\Bridge\Ecpay\PaymentMethod;
 
 class EcpayApiTest extends TestCase
