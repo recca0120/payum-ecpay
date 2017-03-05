@@ -89,7 +89,6 @@ class EcpayApi extends Api
      * createTransaction.
      *
      * @param array $params
-     * @param mixed $request
      * @return array
      */
     public function createTransaction(array $params)

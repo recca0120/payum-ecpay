@@ -54,6 +54,7 @@ class EcpayLogisticsApi extends Api
      * @param \Payum\Core\HttpClientInterface $client
      * @param MessageFactory $messageFactory
      * @param \PayumTW\Ecpay\Bridge\Ecpay\EcpayLogistics $sdk
+     *
      * @throws \Payum\Core\Exception\InvalidArgumentException if an option is invalid
      */
     public function __construct(array $options, HttpClientInterface $client, MessageFactory $messageFactory, EcpayLogistics $sdk = null)
@@ -81,8 +82,6 @@ class EcpayLogisticsApi extends Api
      * createTransaction.
      *
      * @param array $params
-     * @param mixed $request
-     *
      * @return array
      */
     public function createCvsMapTransaction(array $params)
@@ -110,7 +109,7 @@ class EcpayLogisticsApi extends Api
      * 產生托運單(宅配)/一段標(超商取貨).
      *
      * @param array $params
-     * @return [type]         [description]
+     * @return array
      */
     public function createPrintTradeTransaction(array $params)
     {
@@ -185,8 +184,6 @@ class EcpayLogisticsApi extends Api
      * createTransaction.
      *
      * @param array $params
-     * @param mixed $request
-     *
      * @return array
      */
     public function createTransaction(array $params)
@@ -272,7 +269,6 @@ class EcpayLogisticsApi extends Api
      * refundTransaction.
      *
      * @param array $params
-     *
      * @return array
      */
     public function refundTransaction($params)
@@ -347,7 +343,6 @@ class EcpayLogisticsApi extends Api
      * cancelTransaction.
      *
      * @param array $params
-     *
      * @return array
      */
     public function cancelTransaction($params)
@@ -382,7 +377,6 @@ class EcpayLogisticsApi extends Api
      * getTransactionData.
      *
      * @param mixed $params
-     *
      * @return array
      */
     public function getTransactionData($params)
