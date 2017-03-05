@@ -19,7 +19,7 @@ class EcpayLogisticsApi extends Api
     /**
      * $client.
      *
-     * @var HttpClientInterface
+     * @var \Payum\Core\HttpClientInterface
      */
     protected $client;
 
@@ -51,7 +51,7 @@ class EcpayLogisticsApi extends Api
 
     /**
      * @param array $options
-     * @param HttpClientInterface $client
+     * @param \Payum\Core\HttpClientInterface $client
      * @param MessageFactory $messageFactory
      * @param \PayumTW\Ecpay\Bridge\Ecpay\EcpayLogistics $sdk
      * @throws \Payum\Core\Exception\InvalidArgumentException if an option is invalid
