@@ -8,6 +8,13 @@ use Detection\MobileDetect;
 abstract class Api
 {
     /**
+     * $sdk.
+     *
+     * @var mixed
+     */
+    protected $sdk;
+
+    /**
      * Verify if the hash of the given parameter is correct.
      *
      * @param array $params
