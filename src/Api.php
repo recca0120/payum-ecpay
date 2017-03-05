@@ -11,7 +11,6 @@ abstract class Api
      * Verify if the hash of the given parameter is correct.
      *
      * @param array $params
-     *
      * @return bool
      */
     public function verifyHash(array $params)

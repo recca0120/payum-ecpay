@@ -42,6 +42,7 @@ class EcpayApi extends Api
      * @param array $options
      * @param HttpClientInterface $client
      * @param MessageFactory $messageFactory
+     * @param \PayumTW\Ecpay\Bridge\Ecpay\AllInOne $sdk
      *
      * @throws \Payum\Core\Exception\InvalidArgumentException if an option is invalid
      */
@@ -89,7 +90,6 @@ class EcpayApi extends Api
      *
      * @param array $params
      * @param mixed $request
-     *
      * @return array
      */
     public function createTransaction(array $params)
@@ -102,24 +102,28 @@ class EcpayApi extends Api
             array_intersect_key($params, $this->sdk->Send)
         );
 
-        // 電子發票參數
+        /**
+         * 電子發票參數
+         * $sdk->Send['InvoiceMark'] = InvoiceState::Yes;
+         * $sdk->SendExtend['RelateNumber'] = $MerchantTradeNo;
+         * $sdk->SendExtend['CustomerEmail'] = 'test@ecpay.com.tw';
+         * $sdk->SendExtend['CustomerPhone'] = '0911222333';
+         * $sdk->SendExtend['TaxType'] = TaxType::Dutiable;
+         * $sdk->SendExtend['CustomerAddr'] = '台北市南港區三重路19-2號5樓D棟';
+         * $sdk->SendExtend['InvoiceItems'] = array();
+         * 將商品加入電子發票商品列表陣列
+         * foreach ($sdk->Send['Items'] as $info) {
+         *     array_push($sdk->SendExtend['InvoiceItems'],array('Name' => $info['Name'],'Count' =>
+         *         $info['Quantity'],'Word' => '個','Price' => $info['Price'],'TaxType' => TaxType::Dutiable));
+         * }
+         * $sdk->SendExtend['InvoiceRemark'] = '測試發票備註';
+         * $sdk->SendExtend['DelayDay'] = '0';
+         * $sdk->SendExtend['InvType'] = InvType::General;
+         */
+
+        //
         /*
-        $sdk->Send['InvoiceMark'] = InvoiceState::Yes;
-        $sdk->SendExtend['RelateNumber'] = $MerchantTradeNo;
-        $sdk->SendExtend['CustomerEmail'] = 'test@ecpay.com.tw';
-        $sdk->SendExtend['CustomerPhone'] = '0911222333';
-        $sdk->SendExtend['TaxType'] = TaxType::Dutiable;
-        $sdk->SendExtend['CustomerAddr'] = '台北市南港區三重路19-2號5樓D棟';
-        $sdk->SendExtend['InvoiceItems'] = array();
-        // 將商品加入電子發票商品列表陣列
-        foreach ($sdk->Send['Items'] as $info)
-        {
-            array_push($sdk->SendExtend['InvoiceItems'],array('Name' => $info['Name'],'Count' =>
-                $info['Quantity'],'Word' => '個','Price' => $info['Price'],'TaxType' => TaxType::Dutiable));
-        }
-        $sdk->SendExtend['InvoiceRemark'] = '測試發票備註';
-        $sdk->SendExtend['DelayDay'] = '0';
-        $sdk->SendExtend['InvType'] = InvType::General;
+
         */
 
         return $this->sdk->formToArray(
@@ -131,7 +135,6 @@ class EcpayApi extends Api
      * cancelTransaction.
      *
      * @param array $params
-     *
      * @return array
      */
     public function cancelTransaction($params)
@@ -149,7 +152,6 @@ class EcpayApi extends Api
      * refundTransaction.
      *
      * @param array $params
-     *
      * @return array
      */
     public function refundTransaction($params)
@@ -167,7 +169,6 @@ class EcpayApi extends Api
      * getTransactionData.
      *
      * @param mixed $params
-     *
      * @return array
      */
     public function getTransactionData($params)

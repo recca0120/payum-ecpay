@@ -8,6 +8,7 @@ trait FormToArrayTrait
      * formTOArray.
      *
      * @param string $form
+     * @return array
      */
     public function formToArray($form)
     {
