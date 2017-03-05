@@ -101,7 +101,7 @@ class EcpayApi extends Api
             array_intersect_key($params, $this->sdk->Send)
         );
 
-        /**
+        /*
          * 電子發票參數
          * $sdk->Send['InvoiceMark'] = InvoiceState::Yes;
          * $sdk->SendExtend['RelateNumber'] = $MerchantTradeNo;
@@ -119,11 +119,6 @@ class EcpayApi extends Api
          * $sdk->SendExtend['DelayDay'] = '0';
          * $sdk->SendExtend['InvType'] = InvType::General;
          */
-
-        //
-        /*
-
-        */
 
         return $this->sdk->formToArray(
             $this->sdk->CheckOutString()
