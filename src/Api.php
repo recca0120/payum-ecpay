@@ -17,7 +17,7 @@ abstract class Api
     {
         $result = false;
         try {
-            $this->api->CheckOutFeedback($params);
+            $this->sdk->CheckOutFeedback($params);
             $result = true;
         } catch (Exception $e) {
         }

@@ -34,11 +34,11 @@ class CaptureLogisticsAction extends BaseApiAwareAction implements ActionInterfa
 
         // CVS
         if (isset($httpRequest->request['CVSStoreID']) === true ||
-            isset($result['RtnCode']) === true ||
-            isset($result['ResCode']) === true ||
-            isset($result['RtnMerchantTradeNo']) === true && isset($result['RtnOrderNo']) === true ||
-            isset($result['CVSStoreID']) === true ||
-            isset($result['ErrorMessage']) === true
+            isset($httpRequest->request['RtnCode']) === true ||
+            isset($httpRequest->request['ResCode']) === true ||
+            isset($httpRequest->request['RtnMerchantTradeNo']) === true && isset($httpRequest->request['RtnOrderNo']) === true ||
+            isset($httpRequest->request['CVSStoreID']) === true ||
+            isset($httpRequest->request['ErrorMessage']) === true
         ) {
             $details->replace($httpRequest->request);
 
