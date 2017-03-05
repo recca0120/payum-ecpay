@@ -73,7 +73,7 @@ class EcpayLogisticsApi extends Api
      *
      * @return string
      */
-    public function getApiEndpoint($name = 'AioCheckOut')
+    public function getApiEndpoint()
     {
         return $this->sdk->ServiceURL;
     }
@@ -347,6 +347,8 @@ class EcpayLogisticsApi extends Api
      */
     public function cancelTransaction($params)
     {
+        $supportedParams = [];
+        $method = '';
         if (isset($params['LogisticsSubType']) === true) {
             // LogisticsSubType::FAMILY = 'FAMI'; // 全家
             // LogisticsSubType::UNIMART = 'UNIMART'; // 統一超商
@@ -370,7 +372,8 @@ class EcpayLogisticsApi extends Api
             array_intersect_key($params, $this->sdk->Send)
         );
 
-        return call_user_func_array([$this->sdk, $method]);
+        return empty($method) === true ?
+            [] : call_user_func_array([$this->sdk, $method]);
     }
 
     /**
