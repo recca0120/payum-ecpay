@@ -50,9 +50,9 @@ class EcpayLogisticsApi extends Api
     protected $code = [];
 
     /**
-     * @param array               $options
+     * @param array $options
      * @param HttpClientInterface $client
-     * @param MessageFactory      $messageFactory
+     * @param MessageFactory $messageFactory
      *
      * @throws \Payum\Core\Exception\InvalidArgumentException if an option is invalid
      */
@@ -109,7 +109,7 @@ class EcpayLogisticsApi extends Api
     /**
      * 產生托運單(宅配)/一段標(超商取貨).
      *
-     * @param  array  $params [description]
+     * @param array $params
      * @return [type]         [description]
      */
     public function createPrintTradeTransaction(array $params)
@@ -133,7 +133,7 @@ class EcpayLogisticsApi extends Api
     /**
      * 列印繳款單(統一超商C2C).
      *
-     * @param  array  $params
+     * @param array $params
      * @return array
      */
     public function createPrintUnimartC2CBillTransaction(array $params)
@@ -159,7 +159,7 @@ class EcpayLogisticsApi extends Api
     /**
      * 全家列印小白單(全家超商C2C).
      *
-     * @param  array  $params
+     * @param array $params
      * @return array
      */
     public function createPrintFamilyC2CBillTransaction(array $params)
@@ -271,7 +271,7 @@ class EcpayLogisticsApi extends Api
     /**
      * refundTransaction.
      *
-     * @param  array $params
+     * @param array $params
      *
      * @return array
      */
@@ -346,7 +346,7 @@ class EcpayLogisticsApi extends Api
     /**
      * cancelTransaction.
      *
-     * @param  array $params
+     * @param array $params
      *
      * @return array
      */

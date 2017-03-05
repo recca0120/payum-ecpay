@@ -8,6 +8,8 @@
 [![License](https://poser.pugx.org/payum-tw/ecpay/license.svg)](https://packagist.org/packages/payum-tw/ecpay)
 [![Monthly Downloads](https://poser.pugx.org/payum-tw/ecpay/d/monthly)](https://packagist.org/packages/payum-tw/ecpay)
 [![Daily Downloads](https://poser.pugx.org/payum-tw/ecpay/d/daily)](https://packagist.org/packages/payum-tw/ecpay)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/recca0120/payum-ecpay/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/recca0120/payum-ecpay/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/recca0120/payum-ecpay/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/recca0120/payum-ecpay/?branch=master)
 
 The Payum extension to rapidly build new extensions.
 

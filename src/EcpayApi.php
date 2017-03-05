@@ -39,9 +39,9 @@ class EcpayApi extends Api
     protected $sdk;
 
     /**
-     * @param array               $options
+     * @param array $options
      * @param HttpClientInterface $client
-     * @param MessageFactory      $messageFactory
+     * @param MessageFactory $messageFactory
      *
      * @throws \Payum\Core\Exception\InvalidArgumentException if an option is invalid
      */
@@ -130,7 +130,7 @@ class EcpayApi extends Api
     /**
      * cancelTransaction.
      *
-     * @param  array $params
+     * @param array $params
      *
      * @return array
      */
@@ -148,7 +148,7 @@ class EcpayApi extends Api
     /**
      * refundTransaction.
      *
-     * @param  array $params
+     * @param array $params
      *
      * @return array
      */

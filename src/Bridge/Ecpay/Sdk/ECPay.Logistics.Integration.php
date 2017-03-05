@@ -264,8 +264,8 @@
          *
          * @category	SDK
          *
-         * @param string $ButtonDesc 按鈕顯示名稱
-         * @param string $Target     表單 action 目標
+         * @param string $ButtonDesc
+         * @param string $Target
          *
          * @return string
          *
@@ -306,8 +306,8 @@
          *
          * @category	SDK
          *
-         * @param string $ButtonDesc 按鈕顯示名稱
-         * @param string $Target     表單 action 目標
+         * @param string $ButtonDesc
+         * @param string $Target
          *
          * @return string
          *
@@ -680,7 +680,7 @@
          *
          * @category	SDK
          *
-         * @param array $Feedback ECPay 回傳資料
+         * @param array $Feedback
          *
          * @version		1.0.1012
          */
@@ -1179,8 +1179,8 @@
          *
          * @category	SDK
          *
-         * @param string $ButtonDesc 按鈕顯示名稱
-         * @param string $Target     表單 action 目標
+         * @param string $ButtonDesc
+         * @param string $Target
          *
          * @return string
          *
@@ -1218,8 +1218,8 @@
          *
          * @category	SDK
          *
-         * @param string $ButtonDesc 按鈕顯示名稱
-         * @param string $Target     表單 action 目標
+         * @param string $ButtonDesc
+         * @param string $Target
          *
          * @return string
          *
@@ -1261,8 +1261,8 @@
          *
          * @category	SDK
          *
-         * @param string $ButtonDesc 按鈕顯示名稱
-         * @param string $Target     表單 action 目標
+         * @param string $ButtonDesc
+         * @param string $Target
          *
          * @return string
          *
@@ -1344,10 +1344,10 @@
          *
          * @category	Validate
          *
-         * @param string $Name 參數名稱
-         * @param		string	$Value		參數內容
-         * @param int $MaxLength 參數最大長度
-         * @param		bool	$AllowEmpty	是否允許空值
+         * @param string $Name
+         * @param string $Value
+         * @param int $MaxLength
+         * @param bool $AllowEmpty
          *
          * @version		1.0.1012
          */
@@ -1369,10 +1369,10 @@
          *
          * @category	Validate
          *
-         * @param string $Name 參數名稱
-         * @param		string	$Value		參數內容
-         * @param int $MaxLength 參數最大長度
-         * @param		bool	$AllowEmpty	是否允許空值
+         * @param string $Name
+         * @param string $Value
+         * @param int $MaxLength
+         * @param bool $AllowEmpty
          *
          * @version		1.0.1012
          */
@@ -1397,10 +1397,10 @@
          *
          * @category	Validate
          *
-         * @param string $Name 參數名稱
-         * @param		string	$Value		參數內容
-         * @param int $MaxLength 參數最大長度
-         * @param		bool	$AllowEmpty	是否允許空值
+         * @param string $Name
+         * @param string $Value
+         * @param int $MaxLength
+         * @param bool $AllowEmpty
          *
          * @version		1.0.1012
          */
@@ -1422,10 +1422,10 @@
          *
          * @category	Validate
          *
-         * @param string $Name 參數名稱
-         * @param		string	$Value		參數內容
-         * @param int $MaxLength 參數最大長度
-         * @param		bool	$AllowEmpty	是否允許空值
+         * @param string $Name
+         * @param string $Value
+         * @param int $MaxLength
+         * @param bool $AllowEmpty
          *
          * @version		1.0.1012
          */
@@ -1450,9 +1450,9 @@
          *
          * @category	Validate
          *
-         * @param string $Name 參數名稱
-         * @param		string	$Value		參數內容
-         * @param		bool	$AllowEmpty	是否允許空值
+         * @param string $Name
+         * @param string $Value
+         * @param bool $AllowEmpty
          *
          * @version		1.0.1012
          */
@@ -1474,10 +1474,10 @@
          *
          * @category	Validate
          *
-         * @param string $Name 參數名稱
-         * @param		string	$Value		參數內容
-         * @param int $MaxLength 參數最大長度
-         * @param		bool	$AllowEmpty	是否允許空值
+         * @param string $Name
+         * @param string $Value
+         * @param int $MaxLength
+         * @param bool $AllowEmpty
          *
          * @version		1.0.1012
          */
@@ -1502,9 +1502,9 @@
          *
          * @category	Validate
          *
-         * @param string $Name 參數名稱
-         * @param		string	$Value		參數內容
-         * @param		bool	$AllowEmpty	是否允許空值
+         * @param string $Name
+         * @param string $Value
+         * @param bool $AllowEmpty
          *
          * @version		1.0.1012
          */
@@ -1526,9 +1526,9 @@
          *
          * @category	Validate
          *
-         * @param string $Name 參數名稱
-         * @param		string	$Value		參數內容
-         * @param		bool	$AllowEmpty	是否允許空值
+         * @param string $Name
+         * @param string $Value
+         * @param bool $AllowEmpty
          *
          * @version		1.0.1012
          */
@@ -1624,7 +1624,7 @@
          *
          * @category	Validate
          *
-         * @param		bool	$AllowEmpty	是否允許空值
+         * @param bool $AllowEmpty
          *
          * @version		1.0.1012
          */
@@ -1672,7 +1672,7 @@
          *
          * @category	Validate
          *
-         * @param		bool	$AllowEmpty	是否允許空值
+         * @param bool $AllowEmpty
          *
          * @version		1.0.1012
          */
@@ -1703,7 +1703,7 @@
          *
          * @category	Validate
          *
-         * @param		bool	$AllowEmpty	是否允許空值
+         * @param bool $AllowEmpty
          *
          * @version		1.0.1012
          */
@@ -1832,7 +1832,7 @@
          *
          * @category	Validate
          *
-         * @param		bool	$AllowEmpty	是否允許空值
+         * @param bool $AllowEmpty
          *
          * @version		1.0.1012
          */
@@ -1858,7 +1858,7 @@
          *
          * @category	Validate
          *
-         * @param		bool	$AllowEmpty	是否允許空值
+         * @param bool $AllowEmpty
          *
          * @version		1.0.1012
          */
@@ -1884,8 +1884,8 @@
          *
          * @category	Validate
          *
-         * @param string $Name 參數名稱
-         * @param		bool	$AllowEmpty	是否允許空值
+         * @param string $Name
+         * @param bool $AllowEmpty
          *
          * @return bool
          *
@@ -1905,9 +1905,9 @@
          *
          * @category	Validate
          *
-         * @param string $Name 參數名稱
-         * @param		int	$MaxLength		參數內容
-         * @param		bool	$AllowEmpty	是否允許空值
+         * @param string $Name
+         * @param int $MaxLength
+         * @param bool $AllowEmpty
          *
          * @version		1.0.1012
          */
@@ -1925,9 +1925,9 @@
          *
          * @category	Validate
          *
-         * @param string $Name    參數名稱
-         * @param string $Pattern 格式檢查用正規表示法
-         * @param		string	$Value		參數內容
+         * @param string $Name
+         * @param string $Pattern
+         * @param string $Value
          *
          * @version		1.0.1012
          */
@@ -1947,8 +1947,8 @@
          *
          * @category	Validate
          *
-         * @param string $Name 參數名稱
-         * @param		string	$Value		參數內容
+         * @param string $Name
+         * @param string $Value
          *
          * @version		1.0.1012
          */
@@ -1966,9 +1966,9 @@
          *
          * @category	Validate
          *
-         * @param string $Name      參數名稱
-         * @param string $ClassName 合法資料 Class 名稱
-         * @param		string	$Value			參數內容
+         * @param string $Name
+         * @param string $ClassName
+         * @param string $Value
          *
          * @version		1.0.1012
          */
@@ -1992,9 +1992,9 @@
          *
          * @category	Validate
          *
-         * @param string $Name   參數名稱
-         * @param string $Format 日期格式
-         * @param		string	$Value			參數內容
+         * @param string $Name
+         * @param string $Format
+         * @param string $Value
          *
          * @version		1.0.1012
          */
@@ -2012,9 +2012,9 @@
          *
          * @category	SDK_Misc
          *
-         * @param array $Source    $_POST 參數來源
-         * @param array $ParamList 合法參數與預設值
-         * @param		array	$MergeParams	其他待合併參數
+         * @param array $Source
+         * @param array $ParamList
+         * @param array $MergeParams
          *
          * @return array
          *
@@ -2043,7 +2043,7 @@
          *
          * @category	SDK_Misc
          *
-         * @param string $FunctionType 功能名稱
+         * @param string $FunctionType
          *
          * @return string
          *
@@ -2097,7 +2097,7 @@
          *
          * @category	Misc
          *
-         * @param		string	$Content	內容
+         * @param string $Content
          *
          * @return string
          *
@@ -2115,8 +2115,8 @@
          *
          * @category	SDK_Misc
          *
-         * @param string $ButtonDesc 按鈕顯示名稱
-         * @param string $Target     表單 action 目標
+         * @param string $ButtonDesc
+         * @param string $Target
          *
          * @return string
          *
@@ -2149,8 +2149,8 @@
          *
          * @category	Misc
          *
-         * @param		string	$RetriveString	字串內容
-         * @param string $Encode 字串編碼
+         * @param string $RetriveString
+         * @param string $Encode
          *
          * @return int
          *
@@ -2168,9 +2168,9 @@
          *
          * @category	SDK_Misc
          *
-         * @param		array	$ParamList	參數內容
-         * @param string $HashKey HashKey
-         * @param string $HashIV  HashIV
+         * @param array $ParamList
+         * @param string $HashKey
+         * @param string $HashIV
          *
          * @return string
          *
@@ -2211,8 +2211,8 @@
          *
          * @category	SDK_Misc
          *
-         * @param string $Value01 值1
-         * @param string $Value02 值2
+         * @param string $Value01
+         * @param string $Value02
          *
          * @return int
          *
@@ -2230,8 +2230,8 @@
          *
          * @category	SDK_Misc
          *
-         * @param		array	$ParamList	參數內容
-         * @param string $URL 提交 URL
+         * @param array $ParamList
+         * @param string $URL
          *
          * @return mixed
          *
@@ -2260,9 +2260,9 @@
          *
          * @category	SDK_Misc
          *
-         * @param string $Feedback     回傳結果
-         * @param array  $FeedbackList 合法回傳參數
-         * @param string $Separator    分隔符號
+         * @param string $Feedback
+         * @param array $FeedbackList
+         * @param string $Separator
          *
          * @return array
          *
