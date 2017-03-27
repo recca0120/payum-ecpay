@@ -275,13 +275,13 @@
         {
             // 參數初始化
             $ParamList = [
-                'MerchantID'       => '',
-                'MerchantTradeNo'  => '',
+                'MerchantID' => '',
+                'MerchantTradeNo' => '',
                 'LogisticsSubType' => '',
-                'IsCollection'     => '',
-                'ServerReplyURL'   => '',
-                'ExtraData'        => '',
-                'Device'           => Device::PC,
+                'IsCollection' => '',
+                'ServerReplyURL' => '',
+                'ExtraData' => '',
+                'Device' => Device::PC,
             ];
             $this->PostParams = $this->GetPostParams($this->Send, $ParamList);
             $this->PostParams['LogisticsType'] = LogisticsType::CVS;
@@ -317,28 +317,28 @@
         {
             // 參數初始化
             $ParamList = [
-                'MerchantID'           => '',
-                'MerchantTradeNo'      => '',
-                'MerchantTradeDate'    => '',
-                'LogisticsType'        => '',
-                'LogisticsSubType'     => '',
-                'GoodsAmount'          => 0,
-                'CollectionAmount'     => 0,
-                'IsCollection'         => IsCollection::NO,
-                'GoodsName'            => '',
-                'SenderName'           => '',
-                'SenderPhone'          => '',
-                'SenderCellPhone'      => '',
-                'ReceiverName'         => '',
-                'ReceiverPhone'        => '',
-                'ReceiverCellPhone'    => '',
-                'ReceiverEmail'        => '',
-                'TradeDesc'            => '',
-                'ServerReplyURL'       => '',
-                'ClientReplyURL'       => '',
+                'MerchantID' => '',
+                'MerchantTradeNo' => '',
+                'MerchantTradeDate' => '',
+                'LogisticsType' => '',
+                'LogisticsSubType' => '',
+                'GoodsAmount' => 0,
+                'CollectionAmount' => 0,
+                'IsCollection' => IsCollection::NO,
+                'GoodsName' => '',
+                'SenderName' => '',
+                'SenderPhone' => '',
+                'SenderCellPhone' => '',
+                'ReceiverName' => '',
+                'ReceiverPhone' => '',
+                'ReceiverCellPhone' => '',
+                'ReceiverEmail' => '',
+                'TradeDesc' => '',
+                'ServerReplyURL' => '',
+                'ClientReplyURL' => '',
                 'LogisticsC2CReplyURL' => '',
-                'Remark'               => '',
-                'PlatformID'           => '',
+                'Remark' => '',
+                'PlatformID' => '',
             ];
             $this->PostParams = $this->GetPostParams($this->Send, $ParamList);
             $MinAmount = 1; // 金額下限
@@ -359,7 +359,7 @@
                 case LogisticsType::CVS:
                     $CvsParamList = [
                         'ReceiverStoreID' => '',
-                        'ReturnStoreID'   => '',
+                        'ReturnStoreID' => '',
                     ];
                     $this->PostParams = $this->GetPostParams($this->SendExtend, $CvsParamList, $this->PostParams);
 
@@ -369,13 +369,13 @@
                     break;
                 case LogisticsType::HOME:
                     $HomeParamList = [
-                        'SenderZipCode'         => '',
-                        'SenderAddress'         => '',
-                        'ReceiverZipCode'       => '',
-                        'ReceiverAddress'       => '',
-                        'Temperature'           => Temperature::ROOM,
-                        'Distance'              => Distance::SAME,
-                        'Specification'         => Specification::CM_60,
+                        'SenderZipCode' => '',
+                        'SenderAddress' => '',
+                        'ReceiverZipCode' => '',
+                        'ReceiverAddress' => '',
+                        'Temperature' => Temperature::ROOM,
+                        'Distance' => Distance::SAME,
+                        'Specification' => Specification::CM_60,
                         'ScheduledDeliveryTime' => '',
                     ];
                     $this->PostParams = $this->GetPostParams($this->SendExtend, $HomeParamList, $this->PostParams);
@@ -493,27 +493,27 @@
         {
             // 參數初始化
             $ParamList = [
-                'MerchantID'           => '',
-                'MerchantTradeNo'      => '',
-                'MerchantTradeDate'    => '',
-                'LogisticsType'        => '',
-                'LogisticsSubType'     => '',
-                'GoodsAmount'          => 0,
-                'CollectionAmount'     => 0,
-                'IsCollection'         => IsCollection::NO,
-                'GoodsName'            => '',
-                'SenderName'           => '',
-                'SenderPhone'          => '',
-                'SenderCellPhone'      => '',
-                'ReceiverName'         => '',
-                'ReceiverPhone'        => '',
-                'ReceiverCellPhone'    => '',
-                'ReceiverEmail'        => '',
-                'TradeDesc'            => '',
-                'ServerReplyURL'       => '',
+                'MerchantID' => '',
+                'MerchantTradeNo' => '',
+                'MerchantTradeDate' => '',
+                'LogisticsType' => '',
+                'LogisticsSubType' => '',
+                'GoodsAmount' => 0,
+                'CollectionAmount' => 0,
+                'IsCollection' => IsCollection::NO,
+                'GoodsName' => '',
+                'SenderName' => '',
+                'SenderPhone' => '',
+                'SenderCellPhone' => '',
+                'ReceiverName' => '',
+                'ReceiverPhone' => '',
+                'ReceiverCellPhone' => '',
+                'ReceiverEmail' => '',
+                'TradeDesc' => '',
+                'ServerReplyURL' => '',
                 'LogisticsC2CReplyURL' => '',
-                'Remark'               => '',
-                'PlatformID'           => '',
+                'Remark' => '',
+                'PlatformID' => '',
             ];
 
             // 幕後物流訂單建立不可設定Client端回覆網址(ClientReplyURL)
@@ -540,7 +540,7 @@
                 case LogisticsType::CVS:
                     $CvsParamList = [
                         'ReceiverStoreID' => '',
-                        'ReturnStoreID'   => '',
+                        'ReturnStoreID' => '',
                     ];
                     $this->PostParams = $this->GetPostParams($this->SendExtend, $CvsParamList, $this->PostParams);
 
@@ -550,13 +550,13 @@
                     break;
                 case LogisticsType::HOME:
                     $HomeParamList = [
-                        'SenderZipCode'         => '',
-                        'SenderAddress'         => '',
-                        'ReceiverZipCode'       => '',
-                        'ReceiverAddress'       => '',
-                        'Temperature'           => Temperature::ROOM,
-                        'Distance'              => Distance::SAME,
-                        'Specification'         => Specification::CM_60,
+                        'SenderZipCode' => '',
+                        'SenderAddress' => '',
+                        'ReceiverZipCode' => '',
+                        'ReceiverAddress' => '',
+                        'Temperature' => Temperature::ROOM,
+                        'Distance' => Distance::SAME,
+                        'Specification' => Specification::CM_60,
                         'ScheduledDeliveryTime' => '',
                     ];
                     $this->PostParams = $this->GetPostParams($this->SendExtend, $HomeParamList, $this->PostParams);
@@ -723,29 +723,29 @@
 
             // 參數初始化
             $ParamList = [
-                'MerchantID'            => '',
-                'AllPayLogisticsID'     => '',
-                'LogisticsSubType'      => '',
-                'ServerReplyURL'        => '',
-                'SenderName'            => '',
-                'SenderPhone'           => '',
-                'SenderCellPhone'       => '',
-                'SenderZipCode'         => '',
-                'SenderAddress'         => '',
-                'ReceiverName'          => '',
-                'ReceiverPhone'         => '',
-                'ReceiverCellPhone'     => '',
-                'ReceiverZipCode'       => '',
-                'ReceiverAddress'       => '',
-                'GoodsAmount'           => '',
-                'GoodsName'             => '',
-                'Temperature'           => Temperature::ROOM,
-                'Distance'              => Distance::SAME,
-                'Specification'         => Specification::CM_60,
-                'ScheduledPickupTime'   => ScheduledPickupTime::UNLIMITED,
+                'MerchantID' => '',
+                'AllPayLogisticsID' => '',
+                'LogisticsSubType' => '',
+                'ServerReplyURL' => '',
+                'SenderName' => '',
+                'SenderPhone' => '',
+                'SenderCellPhone' => '',
+                'SenderZipCode' => '',
+                'SenderAddress' => '',
+                'ReceiverName' => '',
+                'ReceiverPhone' => '',
+                'ReceiverCellPhone' => '',
+                'ReceiverZipCode' => '',
+                'ReceiverAddress' => '',
+                'GoodsAmount' => '',
+                'GoodsName' => '',
+                'Temperature' => Temperature::ROOM,
+                'Distance' => Distance::SAME,
+                'Specification' => Specification::CM_60,
+                'ScheduledPickupTime' => ScheduledPickupTime::UNLIMITED,
                 'ScheduledDeliveryTime' => '',
-                'Remark'                => '',
-                'PlatformID'            => '',
+                'Remark' => '',
+                'PlatformID' => '',
             ];
             $this->PostParams = $this->GetPostParams($this->Send, $ParamList);
             $this->PostParams['ScheduledPickupTime'] = ScheduledPickupTime::UNLIMITED; // 預定取件時段(ScheduledPickupTime)固定為不限時
@@ -853,17 +853,17 @@
 
             // 參數初始化
             $ParamList = [
-                'MerchantID'        => '',
+                'MerchantID' => '',
                 'AllPayLogisticsID' => '',
-                'ServerReplyURL'    => '',
-                'GoodsName'         => '',
-                'GoodsAmount'       => 0,
-                'SenderName'        => '',
-                'SenderPhone'       => '',
-                'Remark'            => '',
-                'Quantity'          => '',
-                'Cost'              => '',
-                'PlatformID'        => '',
+                'ServerReplyURL' => '',
+                'GoodsName' => '',
+                'GoodsAmount' => 0,
+                'SenderName' => '',
+                'SenderPhone' => '',
+                'Remark' => '',
+                'Quantity' => '',
+                'Cost' => '',
+                'PlatformID' => '',
             ];
             $this->PostParams = $this->GetPostParams($this->Send, $ParamList);
             $this->PostParams['CollectionAmount'] = 0;
@@ -943,9 +943,9 @@
 
             // 參數初始化
             $ParamList = [
-                'MerchantID'         => '',
+                'MerchantID' => '',
                 'RtnMerchantTradeNo' => '',
-                'PlatformID'         => '',
+                'PlatformID' => '',
             ];
             $this->PostParams = $this->GetPostParams($this->Send, $ParamList);
 
@@ -985,11 +985,11 @@
 
             // 參數初始化
             $ParamList = [
-                'MerchantID'        => '',
+                'MerchantID' => '',
                 'AllPayLogisticsID' => '',
-                'ShipmentDate'      => '',
-                'ReceiverStoreID'   => '',
-                'PlatformID'        => '',
+                'ShipmentDate' => '',
+                'ReceiverStoreID' => '',
+                'PlatformID' => '',
             ];
             $this->PostParams = $this->GetPostParams($this->Send, $ParamList);
 
@@ -1036,14 +1036,14 @@
 
             // 參數初始化
             $ParamList = [
-                'MerchantID'        => '',
+                'MerchantID' => '',
                 'AllPayLogisticsID' => '',
-                'CVSPaymentNo'      => '',
-                'CVSValidationNo'   => '',
-                'StoreType'         => '',
-                'ReceiverStoreID'   => '',
-                'ReturnStoreID'     => '',
-                'PlatformID'        => '',
+                'CVSPaymentNo' => '',
+                'CVSValidationNo' => '',
+                'StoreType' => '',
+                'ReceiverStoreID' => '',
+                'ReturnStoreID' => '',
+                'PlatformID' => '',
             ];
             $this->PostParams = $this->GetPostParams($this->Send, $ParamList);
 
@@ -1099,11 +1099,11 @@
 
             // 參數初始化
             $ParamList = [
-                'MerchantID'        => '',
+                'MerchantID' => '',
                 'AllPayLogisticsID' => '',
-                'CVSPaymentNo'      => '',
-                'CVSValidationNo'   => '',
-                'PlatformID'        => '',
+                'CVSPaymentNo' => '',
+                'CVSValidationNo' => '',
+                'PlatformID' => '',
             ];
             $this->PostParams = $this->GetPostParams($this->Send, $ParamList);
 
@@ -1145,9 +1145,9 @@
 
             // 參數初始化
             $ParamList = [
-                'MerchantID'        => '',
+                'MerchantID' => '',
                 'AllPayLogisticsID' => '',
-                'PlatformID'        => '',
+                'PlatformID' => '',
             ];
             $this->PostParams = $this->GetPostParams($this->Send, $ParamList);
             $this->PostParams['TimeStamp'] = strtotime('now');
@@ -1191,9 +1191,9 @@
 
             // 參數初始化
             $ParamList = [
-                'MerchantID'        => '',
+                'MerchantID' => '',
                 'AllPayLogisticsID' => '',
-                'PlatformID'        => '',
+                'PlatformID' => '',
             ];
             $this->PostParams = $this->GetPostParams($this->Send, $ParamList);
 
@@ -1230,11 +1230,11 @@
 
             // 參數初始化
             $ParamList = [
-                'MerchantID'        => '',
+                'MerchantID' => '',
                 'AllPayLogisticsID' => '',
-                'CVSPaymentNo'      => '',
-                'CVSValidationNo'   => '',
-                'PlatformID'        => '',
+                'CVSPaymentNo' => '',
+                'CVSValidationNo' => '',
+                'PlatformID' => '',
             ];
             $this->PostParams = $this->GetPostParams($this->Send, $ParamList);
 
@@ -1273,10 +1273,10 @@
 
             // 參數初始化
             $ParamList = [
-                'MerchantID'        => '',
+                'MerchantID' => '',
                 'AllPayLogisticsID' => '',
-                'CVSPaymentNo'      => '',
-                'PlatformID'        => '',
+                'CVSPaymentNo' => '',
+                'PlatformID' => '',
             ];
             $this->PostParams = $this->GetPostParams($this->Send, $ParamList);
 
@@ -2056,34 +2056,34 @@
             if ($MerchantID == ECPayTestMerchantID::B2C or $MerchantID == ECPayTestMerchantID::C2C) {
                 // 測試環境
                 $UrlList = [
-                    'CVS_MAP'                        => ECPayTestURL::CVS_MAP,
-                    'SHIPPING_ORDER'                 => ECPayTestURL::SHIPPING_ORDER,
-                    'HOME_RETURN_ORDER'              => ECPayTestURL::HOME_RETURN_ORDER,
-                    'FAMILY_RETURN_ORDER'            => ECPayTestURL::FAMILY_RETURN_ORDER,
-                    'FAMILY_RETURN_CHECK'            => ECPayTestURL::FAMILY_RETURN_CHECK,
-                    'UNIMART_UPDATE_LOGISTICS_INFO'  => ECPayTestURL::UNIMART_UPDATE_LOGISTICS_INFO,
-                    'UNIMART_UPDATE_STORE_INFO'      => ECPayTestURL::UNIMART_UPDATE_STORE_INFO,
+                    'CVS_MAP' => ECPayTestURL::CVS_MAP,
+                    'SHIPPING_ORDER' => ECPayTestURL::SHIPPING_ORDER,
+                    'HOME_RETURN_ORDER' => ECPayTestURL::HOME_RETURN_ORDER,
+                    'FAMILY_RETURN_ORDER' => ECPayTestURL::FAMILY_RETURN_ORDER,
+                    'FAMILY_RETURN_CHECK' => ECPayTestURL::FAMILY_RETURN_CHECK,
+                    'UNIMART_UPDATE_LOGISTICS_INFO' => ECPayTestURL::UNIMART_UPDATE_LOGISTICS_INFO,
+                    'UNIMART_UPDATE_STORE_INFO' => ECPayTestURL::UNIMART_UPDATE_STORE_INFO,
                     'UNIMART_CANCEL_LOGISTICS_ORDER' => ECPayTestURL::UNIMART_CANCEL_LOGISTICS_ORDER,
-                    'QUERY_LOGISTICS_INFO'           => ECPayTestURL::QUERY_LOGISTICS_INFO,
-                    'PRINT_TRADE_DOC'                => ECPayTestURL::PRINT_TRADE_DOC,
-                    'PRINT_UNIMART_C2C_BILL'         => ECPayTestURL::PRINT_UNIMART_C2C_BILL,
-                    'PRINT_FAMILY_C2C_BILL'          => ECPayTestURL::PRINT_FAMILY_C2C_BILL,
+                    'QUERY_LOGISTICS_INFO' => ECPayTestURL::QUERY_LOGISTICS_INFO,
+                    'PRINT_TRADE_DOC' => ECPayTestURL::PRINT_TRADE_DOC,
+                    'PRINT_UNIMART_C2C_BILL' => ECPayTestURL::PRINT_UNIMART_C2C_BILL,
+                    'PRINT_FAMILY_C2C_BILL' => ECPayTestURL::PRINT_FAMILY_C2C_BILL,
                 ];
             } else {
                 // 正式環境
                 $UrlList = [
-                    'CVS_MAP'                        => ECPayURL::CVS_MAP,
-                    'SHIPPING_ORDER'                 => ECPayURL::SHIPPING_ORDER,
-                    'HOME_RETURN_ORDER'              => ECPayURL::HOME_RETURN_ORDER,
-                    'FAMILY_RETURN_ORDER'            => ECPayURL::FAMILY_RETURN_ORDER,
-                    'FAMILY_RETURN_CHECK'            => ECPayURL::FAMILY_RETURN_CHECK,
-                    'UNIMART_UPDATE_LOGISTICS_INFO'  => ECPayURL::UNIMART_UPDATE_LOGISTICS_INFO,
-                    'UNIMART_UPDATE_STORE_INFO'      => ECPayURL::UNIMART_UPDATE_STORE_INFO,
+                    'CVS_MAP' => ECPayURL::CVS_MAP,
+                    'SHIPPING_ORDER' => ECPayURL::SHIPPING_ORDER,
+                    'HOME_RETURN_ORDER' => ECPayURL::HOME_RETURN_ORDER,
+                    'FAMILY_RETURN_ORDER' => ECPayURL::FAMILY_RETURN_ORDER,
+                    'FAMILY_RETURN_CHECK' => ECPayURL::FAMILY_RETURN_CHECK,
+                    'UNIMART_UPDATE_LOGISTICS_INFO' => ECPayURL::UNIMART_UPDATE_LOGISTICS_INFO,
+                    'UNIMART_UPDATE_STORE_INFO' => ECPayURL::UNIMART_UPDATE_STORE_INFO,
                     'UNIMART_CANCEL_LOGISTICS_ORDER' => ECPayURL::UNIMART_CANCEL_LOGISTICS_ORDER,
-                    'QUERY_LOGISTICS_INFO'           => ECPayURL::QUERY_LOGISTICS_INFO,
-                    'PRINT_TRADE_DOC'                => ECPayURL::PRINT_TRADE_DOC,
-                    'PRINT_UNIMART_C2C_BILL'         => ECPayURL::PRINT_UNIMART_C2C_BILL,
-                    'PRINT_FAMILY_C2C_BILL'          => ECPayURL::PRINT_FAMILY_C2C_BILL,
+                    'QUERY_LOGISTICS_INFO' => ECPayURL::QUERY_LOGISTICS_INFO,
+                    'PRINT_TRADE_DOC' => ECPayURL::PRINT_TRADE_DOC,
+                    'PRINT_UNIMART_C2C_BILL' => ECPayURL::PRINT_UNIMART_C2C_BILL,
+                    'PRINT_FAMILY_C2C_BILL' => ECPayURL::PRINT_FAMILY_C2C_BILL,
                 ];
             }
 

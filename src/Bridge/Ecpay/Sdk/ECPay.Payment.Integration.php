@@ -424,24 +424,24 @@ class ECPay_AllInOne
     {
         $this->PaymentType = 'aio';
         $this->Send = [
-            'ReturnURL'         => '',
-            'ClientBackURL'     => '',
-            'OrderResultURL'    => '',
-            'MerchantTradeNo'   => '',
+            'ReturnURL' => '',
+            'ClientBackURL' => '',
+            'OrderResultURL' => '',
+            'MerchantTradeNo' => '',
             'MerchantTradeDate' => '',
-            'PaymentType'       => 'aio',
-            'TotalAmount'       => '',
-            'TradeDesc'         => '',
-            'ChoosePayment'     => ECPay_PaymentMethod::ALL,
-            'Remark'            => '',
-            'ChooseSubPayment'  => ECPay_PaymentMethodItem::None,
+            'PaymentType' => 'aio',
+            'TotalAmount' => '',
+            'TradeDesc' => '',
+            'ChoosePayment' => ECPay_PaymentMethod::ALL,
+            'Remark' => '',
+            'ChooseSubPayment' => ECPay_PaymentMethodItem::None,
             'NeedExtraPaidInfo' => ECPay_ExtraPaymentInfo::No,
-            'DeviceSource'      => '',
-            'IgnorePayment'     => '',
-            'PlatformID'        => '',
-            'InvoiceMark'       => ECPay_InvoiceState::No,
-            'Items'             => [],
-            'EncryptType'       => ECPay_EncryptType::ENC_MD5,
+            'DeviceSource' => '',
+            'IgnorePayment' => '',
+            'PlatformID' => '',
+            'InvoiceMark' => ECPay_InvoiceState::No,
+            'Items' => [],
+            'EncryptType' => ECPay_EncryptType::ENC_MD5,
         ];
 
         $this->SendExtend = [];
@@ -539,28 +539,6 @@ class ECPay_Send extends ECPay_Aio
     //付款方式物件
     public static $PaymentObj;
 
-    protected static function process($arParameters = [], $arExtend = [])
-    {
-        //宣告付款方式物件
-        $PaymentMethod = 'ECPay_'.$arParameters['ChoosePayment'];
-        self::$PaymentObj = new $PaymentMethod();
-
-        //檢查參數
-        $arParameters = self::$PaymentObj->check_string($arParameters);
-
-        //檢查商品
-        $arParameters = self::$PaymentObj->check_goods($arParameters);
-
-        //檢查各付款方式的額外參數&電子發票參數
-        $arExtend = self::$PaymentObj->check_extend_string($arExtend, $arParameters['InvoiceMark']);
-
-        //過濾
-        $arExtend = self::$PaymentObj->filter_string($arExtend, $arParameters['InvoiceMark']);
-
-        //合併共同參數及延伸參數
-        return array_merge($arParameters, $arExtend);
-    }
-
     public static function CheckOut($target = '_self', $arParameters = [], $arExtend = [], $HashKey = '', $HashIV = '', $ServiceURL = '')
     {
         $arParameters = self::process($arParameters, $arExtend);
@@ -615,6 +593,28 @@ class ECPay_Send extends ECPay_Aio
         $szHtml .= '</html>';
 
         return  $szHtml;
+    }
+
+    protected static function process($arParameters = [], $arExtend = [])
+    {
+        //宣告付款方式物件
+        $PaymentMethod = 'ECPay_'.$arParameters['ChoosePayment'];
+        self::$PaymentObj = new $PaymentMethod();
+
+        //檢查參數
+        $arParameters = self::$PaymentObj->check_string($arParameters);
+
+        //檢查商品
+        $arParameters = self::$PaymentObj->check_goods($arParameters);
+
+        //檢查各付款方式的額外參數&電子發票參數
+        $arExtend = self::$PaymentObj->check_extend_string($arExtend, $arParameters['InvoiceMark']);
+
+        //過濾
+        $arExtend = self::$PaymentObj->filter_string($arExtend, $arParameters['InvoiceMark']);
+
+        //合併共同參數及延伸參數
+        return array_merge($arParameters, $arExtend);
     }
 }
 
@@ -801,12 +801,6 @@ class ECPay_AioCapture extends ECPay_Aio
 
 abstract class ECPay_Verification
 {
-    abstract public function check_goods($arParameters = []);
-
-    abstract public function filter_string($arExtend = [], $InvoiceMark = '');
-
-    abstract public function check_extend_string($arExtend = [], $InvoiceMark = '');
-
     // 電子發票延伸參數。
     public $arInvoice = [
             'RelateNumber',
@@ -832,6 +826,12 @@ abstract class ECPay_Verification
             'InvoiceItemTaxType',
             'InvType',
         ];
+
+    abstract public function check_goods($arParameters = []);
+
+    abstract public function filter_string($arExtend = [], $InvoiceMark = '');
+
+    abstract public function check_extend_string($arExtend = [], $InvoiceMark = '');
 
     //檢查共同參數
     public function check_string($arParameters = [])
@@ -1163,13 +1163,13 @@ abstract class ECPay_Verification
 class ECPay_CVS extends ECPay_Verification
 {
     public $arPayMentExtend = [
-                            'Desc_1'           => '',
-                            'Desc_2'           => '',
-                            'Desc_3'           => '',
-                            'Desc_4'           => '',
-                            'PaymentInfoURL'   => '',
+                            'Desc_1' => '',
+                            'Desc_2' => '',
+                            'Desc_3' => '',
+                            'Desc_4' => '',
+                            'PaymentInfoURL' => '',
                             'ClientRedirectURL' => '',
-                            'StoreExpireDate'  => '',
+                            'StoreExpireDate' => '',
                         ];
 
     //檢查共同參數
@@ -1253,13 +1253,13 @@ class ECPay_CVS extends ECPay_Verification
 class ECPay_BARCODE extends ECPay_Verification
 {
     public $arPayMentExtend = [
-                            'Desc_1'           => '',
-                            'Desc_2'           => '',
-                            'Desc_3'           => '',
-                            'Desc_4'           => '',
-                            'PaymentInfoURL'   => '',
+                            'Desc_1' => '',
+                            'Desc_2' => '',
+                            'Desc_3' => '',
+                            'Desc_4' => '',
+                            'PaymentInfoURL' => '',
                             'ClientRedirectURL' => '',
-                            'StoreExpireDate'  => '',
+                            'StoreExpireDate' => '',
                         ];
 
     //檢查共同參數
@@ -1343,8 +1343,8 @@ class ECPay_BARCODE extends ECPay_Verification
 class ECPay_ATM extends ECPay_Verification
 {
     public $arPayMentExtend = [
-                            'ExpireDate'       => 3,
-                            'PaymentInfoURL'   => '',
+                            'ExpireDate' => 3,
+                            'PaymentInfoURL' => '',
                             'ClientRedirectURL' => '',
                         ];
 
@@ -1511,14 +1511,14 @@ class ECPay_Credit extends ECPay_Verification
     public $arPayMentExtend = [
                                     'CreditInstallment' => 0,
                                     'InstallmentAmount' => 0,
-                                    'Redeem'            => false,
-                                    'UnionPay'          => false,
-                                    'Language'          => '',
-                                    'PeriodAmount'      => '',
-                                    'PeriodType'        => '',
-                                    'Frequency'         => '',
-                                    'ExecTimes'         => '',
-                                    'PeriodReturnURL'   => '',
+                                    'Redeem' => false,
+                                    'UnionPay' => false,
+                                    'Language' => '',
+                                    'PeriodAmount' => '',
+                                    'PeriodType' => '',
+                                    'Frequency' => '',
+                                    'ExecTimes' => '',
+                                    'PeriodReturnURL' => '',
                                 ];
 
     //檢查共同參數
