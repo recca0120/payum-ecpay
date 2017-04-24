@@ -2,7 +2,6 @@
 
 $classes = [
     'ECPay_ActionType',
-    'ECPay_CarruerType',
     'ECPay_CheckMacValue',
     'ECPay_ClearanceMark',
     'ECPay_DeviceType',
