@@ -20,7 +20,7 @@ class CreateTransactionAction extends BaseApiAwareAction
 
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
-        if (empty($details['GoodsAmount']) === true) {
+        if (isset($details['GoodsAmount']) === true && empty($details['GoodsAmount']) === true) {
             $params = $this->api->createCvsMapTransaction((array) $details);
             $endpoint = $this->api->getApiEndpoint();
 
