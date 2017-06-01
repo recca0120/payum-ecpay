@@ -494,10 +494,10 @@ class ECPay_AllInOne
     }
 
     //合作特店申請撥款
-	public function AioCapture()
-	{
-	    return $arFeedback = ECPay_AioCapture::Capture(array_merge($this->Capture, ['MerchantID' => $this->MerchantID]), $this->HashKey, $this->HashIV, $this->ServiceURL);
-	}
+    public function AioCapture()
+    {
+        return $arFeedback = ECPay_AioCapture::Capture(array_merge($this->Capture, ['MerchantID' => $this->MerchantID]), $this->HashKey, $this->HashIV, $this->ServiceURL);
+    }
 }
 
 /**
@@ -1702,13 +1702,13 @@ class ECPay_CheckMacValue
 
             // 編碼
             switch ($encType) {
-                case ECPay_EncryptType::ENC_SHA256 :
+                case ECPay_EncryptType::ENC_SHA256:
                     // SHA256 編碼
                     $sMacValue = hash('sha256', $sMacValue);
                 break;
 
-                case ECPay_EncryptType::ENC_MD5 :
-                default :
+                case ECPay_EncryptType::ENC_MD5:
+                default:
                 // MD5 編碼
                     $sMacValue = md5($sMacValue);
             }
