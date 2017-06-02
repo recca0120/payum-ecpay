@@ -43,7 +43,6 @@ $classes = [
     'ScheduledPickupTime',
     'ScheduledDeliveryTime',
     'StoreType',
-    'ECPayLogistics',
 ];
 
 foreach ($classes as $class) {
