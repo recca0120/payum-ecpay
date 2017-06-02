@@ -116,7 +116,7 @@ class EcpayLogisticsApi extends Api
         // 參數初始化
         $this->sdk->Send = array_merge($this->sdk->Send, [
             'AllPayLogisticsID' => '',
-            'PlatformID'        => '',
+            'PlatformID' => '',
         ]);
 
         $this->sdk->Send = array_replace(
@@ -140,9 +140,9 @@ class EcpayLogisticsApi extends Api
         // 參數初始化
         $this->sdk->Send = array_merge($this->sdk->Send, [
             'AllPayLogisticsID' => '',
-            'CVSPaymentNo'      => '',
-            'CVSValidationNo'   => '',
-            'PlatformID'        => '',
+            'CVSPaymentNo' => '',
+            'CVSValidationNo' => '',
+            'PlatformID' => '',
         ]);
 
         $this->sdk->Send = array_replace(
@@ -166,8 +166,8 @@ class EcpayLogisticsApi extends Api
         // 參數初始化
         $this->sdk->Send = array_merge($this->sdk->Send, [
             'AllPayLogisticsID' => '',
-            'CVSPaymentNo'      => '',
-            'PlatformID'        => '',
+            'CVSPaymentNo' => '',
+            'PlatformID' => '',
         ]);
 
         $this->sdk->Send = array_replace(
@@ -277,28 +277,28 @@ class EcpayLogisticsApi extends Api
             // 宅配逆物流訂單產生
             $method = 'CreateHomeReturnOrder';
             $supportedParams = [
-                'AllPayLogisticsID'     => '',
-                'LogisticsSubType'      => '',
-                'ServerReplyURL'        => '',
-                'SenderName'            => '',
-                'SenderPhone'           => '',
-                'SenderCellPhone'       => '',
-                'SenderZipCode'         => '',
-                'SenderAddress'         => '',
-                'ReceiverName'          => '',
-                'ReceiverPhone'         => '',
-                'ReceiverCellPhone'     => '',
-                'ReceiverZipCode'       => '',
-                'ReceiverAddress'       => '',
-                'GoodsAmount'           => '',
-                'GoodsName'             => '',
-                'Temperature'           => Temperature::ROOM,
-                'Distance'              => Distance::SAME,
-                'Specification'         => Specification::CM_60,
-                'ScheduledPickupTime'   => ScheduledPickupTime::UNLIMITED,
+                'AllPayLogisticsID' => '',
+                'LogisticsSubType' => '',
+                'ServerReplyURL' => '',
+                'SenderName' => '',
+                'SenderPhone' => '',
+                'SenderCellPhone' => '',
+                'SenderZipCode' => '',
+                'SenderAddress' => '',
+                'ReceiverName' => '',
+                'ReceiverPhone' => '',
+                'ReceiverCellPhone' => '',
+                'ReceiverZipCode' => '',
+                'ReceiverAddress' => '',
+                'GoodsAmount' => '',
+                'GoodsName' => '',
+                'Temperature' => Temperature::ROOM,
+                'Distance' => Distance::SAME,
+                'Specification' => Specification::CM_60,
+                'ScheduledPickupTime' => ScheduledPickupTime::UNLIMITED,
                 'ScheduledDeliveryTime' => '',
-                'Remark'                => '',
-                'PlatformID'            => '',
+                'Remark' => '',
+                'PlatformID' => '',
             ];
         } elseif (isset($params['LogisticsSubType']) === true) {
             // LogisticsSubType::FAMILY = 'FAMI'; // 全家
@@ -310,22 +310,22 @@ class EcpayLogisticsApi extends Api
             $method = 'CreateFamilyB2CReturnOrder';
             $supportedParams = [
                 'AllPayLogisticsID' => '',
-                'ServerReplyURL'    => '',
-                'GoodsName'         => '',
-                'GoodsAmount'       => 0,
-                'SenderName'        => '',
-                'SenderPhone'       => '',
-                'Remark'            => '',
-                'Quantity'          => '',
-                'Cost'              => '',
-                'PlatformID'        => '',
+                'ServerReplyURL' => '',
+                'GoodsName' => '',
+                'GoodsAmount' => 0,
+                'SenderName' => '',
+                'SenderPhone' => '',
+                'Remark' => '',
+                'Quantity' => '',
+                'Cost' => '',
+                'PlatformID' => '',
             ];
         } else {
             // 全家逆物流核帳(全家超商B2C).
             $method = 'CheckFamilyB2CLogistics';
             $supportedParams = [
                 'RtnMerchantTradeNo' => '',
-                'PlatformID'         => '',
+                'PlatformID' => '',
             ];
         }
 
@@ -359,9 +359,9 @@ class EcpayLogisticsApi extends Api
             $method = 'CancelUnimartLogisticsOrder';
             $supportedParams = [
                 'AllPayLogisticsID' => '',
-                'CVSPaymentNo'      => '',
-                'CVSValidationNo'   => '',
-                'PlatformID'        => '',
+                'CVSPaymentNo' => '',
+                'CVSValidationNo' => '',
+                'PlatformID' => '',
             ];
         }
 

@@ -3,7 +3,6 @@
      * ECPay 物流 SDK.
      *
      * @author		https://www.ecpay.com.tw
-     *
      * @version		1.0.1012
      */
 
@@ -11,9 +10,7 @@
      *  物流類型.
      *
      * @author		https://www.ecpay.com.tw
-     *
      * @category	Options
-     *
      * @version		1.0.1012
      */
     abstract class LogisticsType
@@ -26,9 +23,7 @@
      *  物流子類型.
      *
      * @author		https://www.ecpay.com.tw
-     *
      * @category	Options
-     *
      * @version		1.0.1012
      */
     abstract class LogisticsSubType
@@ -44,9 +39,7 @@
      *  是否代收貨款.
      *
      * @author		https://www.ecpay.com.tw
-     *
      * @category	Options
-     *
      * @version		1.0.1012
      */
     abstract class IsCollection
@@ -59,9 +52,7 @@
      *  使用設備.
      *
      * @author		https://www.ecpay.com.tw
-     *
      * @category	Options
-     *
      * @version		1.0.1012
      */
     abstract class Device
@@ -74,9 +65,7 @@
      *  測試廠商編號
      *
      * @author		https://www.ecpay.com.tw
-     *
      * @category	Options
-     *
      * @version		1.0.1012
      */
     abstract class ECPayTestMerchantID
@@ -89,9 +78,7 @@
      *  正式環境網址
      *
      * @author		https://www.ecpay.com.tw
-     *
      * @category	Options
-     *
      * @version		1.0.1012
      */
     abstract class ECPayURL
@@ -114,9 +101,7 @@
      *  正式測試環境網址
      *
      * @author		https://www.ecpay.com.tw
-     *
      * @category	Options
-     *
      * @version		1.0.1012
      */
     abstract class ECPayTestURL
@@ -139,9 +124,7 @@
      *  溫層.
      *
      * @author		https://www.ecpay.com.tw
-     *
      * @category	Options
-     *
      * @version		1.0.1012
      */
     abstract class Temperature
@@ -155,9 +138,7 @@
      *  距離.
      *
      * @author		https://www.ecpay.com.tw
-     *
      * @category	Options
-     *
      * @version		1.0.1012
      */
     abstract class Distance
@@ -171,9 +152,7 @@
      *  規格
      *
      * @author		https://www.ecpay.com.tw
-     *
      * @category	Options
-     *
      * @version		1.0.1012
      */
     abstract class Specification
@@ -188,9 +167,7 @@
      *  預計取件時段.
      *
      * @author		https://www.ecpay.com.tw
-     *
      * @category	Options
-     *
      * @version		1.0.1012
      */
     abstract class ScheduledPickupTime
@@ -205,9 +182,7 @@
      *  預定送達時段.
      *
      * @author		https://www.ecpay.com.tw
-     *
      * @category	Options
-     *
      * @version		1.0.1012
      */
     abstract class ScheduledDeliveryTime
@@ -223,9 +198,7 @@
      *  門市類型.
      *
      * @author		https://www.ecpay.com.tw
-     *
      * @category	Options
-     *
      * @version		1.0.1012
      */
     abstract class StoreType
@@ -238,9 +211,7 @@
      *  物流 SDK.
      *
      * @author		https://www.ecpay.com.tw
-     *
      * @category	Options
-     *
      * @version		1.0.1012
      */
     class ECPayLogistics
@@ -261,27 +232,23 @@
          *  電子地圖.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	SDK
-         *
-         * @param string $ButtonDesc
-         * @param string $Target
-         *
-         * @return string
-         *
+         * @param		string $ButtonDesc 按鈕顯示名稱
+         * @param		string $Target 表單 action 目標
+         * @return		string
          * @version		1.0.1012
          */
         public function CvsMap($ButtonDesc = '電子地圖', $Target = '_self')
         {
             // 參數初始化
             $ParamList = [
-                'MerchantID'       => '',
-                'MerchantTradeNo'  => '',
+                'MerchantID' => '',
+                'MerchantTradeNo' => '',
                 'LogisticsSubType' => '',
-                'IsCollection'     => '',
-                'ServerReplyURL'   => '',
-                'ExtraData'        => '',
-                'Device'           => Device::PC,
+                'IsCollection' => '',
+                'ServerReplyURL' => '',
+                'ExtraData' => '',
+                'Device' => Device::PC,
             ];
             $this->PostParams = $this->GetPostParams($this->Send, $ParamList);
             $this->PostParams['LogisticsType'] = LogisticsType::CVS;
@@ -303,42 +270,38 @@
          *  物流訂單建立.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	SDK
-         *
-         * @param string $ButtonDesc
-         * @param string $Target
-         *
-         * @return string
-         *
+         * @param		string $ButtonDesc 按鈕顯示名稱
+         * @param		string $Target 表單 action 目標
+         * @return		string
          * @version		1.0.1012
          */
         public function CreateShippingOrder($ButtonDesc = '物流訂單建立', $Target = '_self')
         {
             // 參數初始化
             $ParamList = [
-                'MerchantID'           => '',
-                'MerchantTradeNo'      => '',
-                'MerchantTradeDate'    => '',
-                'LogisticsType'        => '',
-                'LogisticsSubType'     => '',
-                'GoodsAmount'          => 0,
-                'CollectionAmount'     => 0,
-                'IsCollection'         => IsCollection::NO,
-                'GoodsName'            => '',
-                'SenderName'           => '',
-                'SenderPhone'          => '',
-                'SenderCellPhone'      => '',
-                'ReceiverName'         => '',
-                'ReceiverPhone'        => '',
-                'ReceiverCellPhone'    => '',
-                'ReceiverEmail'        => '',
-                'TradeDesc'            => '',
-                'ServerReplyURL'       => '',
-                'ClientReplyURL'       => '',
+                'MerchantID' => '',
+                'MerchantTradeNo' => '',
+                'MerchantTradeDate' => '',
+                'LogisticsType' => '',
+                'LogisticsSubType' => '',
+                'GoodsAmount' => 0,
+                'CollectionAmount' => 0,
+                'IsCollection' => IsCollection::NO,
+                'GoodsName' => '',
+                'SenderName' => '',
+                'SenderPhone' => '',
+                'SenderCellPhone' => '',
+                'ReceiverName' => '',
+                'ReceiverPhone' => '',
+                'ReceiverCellPhone' => '',
+                'ReceiverEmail' => '',
+                'TradeDesc' => '',
+                'ServerReplyURL' => '',
+                'ClientReplyURL' => '',
                 'LogisticsC2CReplyURL' => '',
-                'Remark'               => '',
-                'PlatformID'           => '',
+                'Remark' => '',
+                'PlatformID' => '',
             ];
             $this->PostParams = $this->GetPostParams($this->Send, $ParamList);
             $MinAmount = 1; // 金額下限
@@ -359,7 +322,7 @@
                 case LogisticsType::CVS:
                     $CvsParamList = [
                         'ReceiverStoreID' => '',
-                        'ReturnStoreID'   => '',
+                        'ReturnStoreID' => '',
                     ];
                     $this->PostParams = $this->GetPostParams($this->SendExtend, $CvsParamList, $this->PostParams);
 
@@ -369,13 +332,13 @@
                     break;
                 case LogisticsType::HOME:
                     $HomeParamList = [
-                        'SenderZipCode'         => '',
-                        'SenderAddress'         => '',
-                        'ReceiverZipCode'       => '',
-                        'ReceiverAddress'       => '',
-                        'Temperature'           => Temperature::ROOM,
-                        'Distance'              => Distance::SAME,
-                        'Specification'         => Specification::CM_60,
+                        'SenderZipCode' => '',
+                        'SenderAddress' => '',
+                        'ReceiverZipCode' => '',
+                        'ReceiverAddress' => '',
+                        'Temperature' => Temperature::ROOM,
+                        'Distance' => Distance::SAME,
+                        'Specification' => Specification::CM_60,
                         'ScheduledDeliveryTime' => '',
                     ];
                     $this->PostParams = $this->GetPostParams($this->SendExtend, $HomeParamList, $this->PostParams);
@@ -482,38 +445,35 @@
          *  幕後物流訂單建立.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	SDK
-         *
-         * @return array
-         *
+         * @return		array
          * @version		1.0.1012
          */
         public function BGCreateShippingOrder()
         {
             // 參數初始化
             $ParamList = [
-                'MerchantID'           => '',
-                'MerchantTradeNo'      => '',
-                'MerchantTradeDate'    => '',
-                'LogisticsType'        => '',
-                'LogisticsSubType'     => '',
-                'GoodsAmount'          => 0,
-                'CollectionAmount'     => 0,
-                'IsCollection'         => IsCollection::NO,
-                'GoodsName'            => '',
-                'SenderName'           => '',
-                'SenderPhone'          => '',
-                'SenderCellPhone'      => '',
-                'ReceiverName'         => '',
-                'ReceiverPhone'        => '',
-                'ReceiverCellPhone'    => '',
-                'ReceiverEmail'        => '',
-                'TradeDesc'            => '',
-                'ServerReplyURL'       => '',
+                'MerchantID' => '',
+                'MerchantTradeNo' => '',
+                'MerchantTradeDate' => '',
+                'LogisticsType' => '',
+                'LogisticsSubType' => '',
+                'GoodsAmount' => 0,
+                'CollectionAmount' => 0,
+                'IsCollection' => IsCollection::NO,
+                'GoodsName' => '',
+                'SenderName' => '',
+                'SenderPhone' => '',
+                'SenderCellPhone' => '',
+                'ReceiverName' => '',
+                'ReceiverPhone' => '',
+                'ReceiverCellPhone' => '',
+                'ReceiverEmail' => '',
+                'TradeDesc' => '',
+                'ServerReplyURL' => '',
                 'LogisticsC2CReplyURL' => '',
-                'Remark'               => '',
-                'PlatformID'           => '',
+                'Remark' => '',
+                'PlatformID' => '',
             ];
 
             // 幕後物流訂單建立不可設定Client端回覆網址(ClientReplyURL)
@@ -540,7 +500,7 @@
                 case LogisticsType::CVS:
                     $CvsParamList = [
                         'ReceiverStoreID' => '',
-                        'ReturnStoreID'   => '',
+                        'ReturnStoreID' => '',
                     ];
                     $this->PostParams = $this->GetPostParams($this->SendExtend, $CvsParamList, $this->PostParams);
 
@@ -550,13 +510,13 @@
                     break;
                 case LogisticsType::HOME:
                     $HomeParamList = [
-                        'SenderZipCode'         => '',
-                        'SenderAddress'         => '',
-                        'ReceiverZipCode'       => '',
-                        'ReceiverAddress'       => '',
-                        'Temperature'           => Temperature::ROOM,
-                        'Distance'              => Distance::SAME,
-                        'Specification'         => Specification::CM_60,
+                        'SenderZipCode' => '',
+                        'SenderAddress' => '',
+                        'ReceiverZipCode' => '',
+                        'ReceiverAddress' => '',
+                        'Temperature' => Temperature::ROOM,
+                        'Distance' => Distance::SAME,
+                        'Specification' => Specification::CM_60,
                         'ScheduledDeliveryTime' => '',
                     ];
                     $this->PostParams = $this->GetPostParams($this->SendExtend, $HomeParamList, $this->PostParams);
@@ -677,11 +637,8 @@
          *  回傳 CheckMacValue 檢查.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	SDK
-         *
-         * @param array $Feedback
-         *
+         * @param		array $Feedback ECPay 回傳資料
          * @version		1.0.1012
          */
         public function CheckOutFeedback($Feedback = [])
@@ -711,11 +668,8 @@
          *  宅配逆物流訂單產生
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	SDK
-         *
-         * @return array
-         *
+         * @return		array
          * @version		1.0.1012
          */
         public function CreateHomeReturnOrder()
@@ -723,29 +677,29 @@
 
             // 參數初始化
             $ParamList = [
-                'MerchantID'            => '',
-                'AllPayLogisticsID'     => '',
-                'LogisticsSubType'      => '',
-                'ServerReplyURL'        => '',
-                'SenderName'            => '',
-                'SenderPhone'           => '',
-                'SenderCellPhone'       => '',
-                'SenderZipCode'         => '',
-                'SenderAddress'         => '',
-                'ReceiverName'          => '',
-                'ReceiverPhone'         => '',
-                'ReceiverCellPhone'     => '',
-                'ReceiverZipCode'       => '',
-                'ReceiverAddress'       => '',
-                'GoodsAmount'           => '',
-                'GoodsName'             => '',
-                'Temperature'           => Temperature::ROOM,
-                'Distance'              => Distance::SAME,
-                'Specification'         => Specification::CM_60,
-                'ScheduledPickupTime'   => ScheduledPickupTime::UNLIMITED,
+                'MerchantID' => '',
+                'AllPayLogisticsID' => '',
+                'LogisticsSubType' => '',
+                'ServerReplyURL' => '',
+                'SenderName' => '',
+                'SenderPhone' => '',
+                'SenderCellPhone' => '',
+                'SenderZipCode' => '',
+                'SenderAddress' => '',
+                'ReceiverName' => '',
+                'ReceiverPhone' => '',
+                'ReceiverCellPhone' => '',
+                'ReceiverZipCode' => '',
+                'ReceiverAddress' => '',
+                'GoodsAmount' => '',
+                'GoodsName' => '',
+                'Temperature' => Temperature::ROOM,
+                'Distance' => Distance::SAME,
+                'Specification' => Specification::CM_60,
+                'ScheduledPickupTime' => ScheduledPickupTime::UNLIMITED,
                 'ScheduledDeliveryTime' => '',
-                'Remark'                => '',
-                'PlatformID'            => '',
+                'Remark' => '',
+                'PlatformID' => '',
             ];
             $this->PostParams = $this->GetPostParams($this->Send, $ParamList);
             $this->PostParams['ScheduledPickupTime'] = ScheduledPickupTime::UNLIMITED; // 預定取件時段(ScheduledPickupTime)固定為不限時
@@ -841,11 +795,8 @@
          *  超商取貨逆物流訂單(全家超商B2C).
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	SDK
-         *
-         * @return array
-         *
+         * @return		array
          * @version		1.0.1012
          */
         public function CreateFamilyB2CReturnOrder()
@@ -853,17 +804,17 @@
 
             // 參數初始化
             $ParamList = [
-                'MerchantID'        => '',
+                'MerchantID' => '',
                 'AllPayLogisticsID' => '',
-                'ServerReplyURL'    => '',
-                'GoodsName'         => '',
-                'GoodsAmount'       => 0,
-                'SenderName'        => '',
-                'SenderPhone'       => '',
-                'Remark'            => '',
-                'Quantity'          => '',
-                'Cost'              => '',
-                'PlatformID'        => '',
+                'ServerReplyURL' => '',
+                'GoodsName' => '',
+                'GoodsAmount' => 0,
+                'SenderName' => '',
+                'SenderPhone' => '',
+                'Remark' => '',
+                'Quantity' => '',
+                'Cost' => '',
+                'PlatformID' => '',
             ];
             $this->PostParams = $this->GetPostParams($this->Send, $ParamList);
             $this->PostParams['CollectionAmount'] = 0;
@@ -931,11 +882,8 @@
          *  全家逆物流核帳(全家超商B2C).
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	SDK
-         *
-         * @return array
-         *
+         * @return		array
          * @version		1.0.1012
          */
         public function CheckFamilyB2CLogistics()
@@ -943,9 +891,9 @@
 
             // 參數初始化
             $ParamList = [
-                'MerchantID'         => '',
+                'MerchantID' => '',
                 'RtnMerchantTradeNo' => '',
-                'PlatformID'         => '',
+                'PlatformID' => '',
             ];
             $this->PostParams = $this->GetPostParams($this->Send, $ParamList);
 
@@ -973,11 +921,8 @@
          *  廠商修改出貨日期、取貨門市(統一超商B2C).
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	SDK
-         *
-         * @return array
-         *
+         * @return		array
          * @version		1.0.1012
          */
         public function UpdateUnimartLogisticsInfo()
@@ -985,11 +930,11 @@
 
             // 參數初始化
             $ParamList = [
-                'MerchantID'        => '',
+                'MerchantID' => '',
                 'AllPayLogisticsID' => '',
-                'ShipmentDate'      => '',
-                'ReceiverStoreID'   => '',
-                'PlatformID'        => '',
+                'ShipmentDate' => '',
+                'ReceiverStoreID' => '',
+                'PlatformID' => '',
             ];
             $this->PostParams = $this->GetPostParams($this->Send, $ParamList);
 
@@ -1024,11 +969,8 @@
          *  更新門市(統一超商C2C).
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	SDK
-         *
-         * @return array
-         *
+         * @return		array
          * @version		1.0.1012
          */
         public function UpdateUnimartStore()
@@ -1036,14 +978,14 @@
 
             // 參數初始化
             $ParamList = [
-                'MerchantID'        => '',
+                'MerchantID' => '',
                 'AllPayLogisticsID' => '',
-                'CVSPaymentNo'      => '',
-                'CVSValidationNo'   => '',
-                'StoreType'         => '',
-                'ReceiverStoreID'   => '',
-                'ReturnStoreID'     => '',
-                'PlatformID'        => '',
+                'CVSPaymentNo' => '',
+                'CVSValidationNo' => '',
+                'StoreType' => '',
+                'ReceiverStoreID' => '',
+                'ReturnStoreID' => '',
+                'PlatformID' => '',
             ];
             $this->PostParams = $this->GetPostParams($this->Send, $ParamList);
 
@@ -1087,11 +1029,8 @@
          *  取消訂單(統一超商C2C).
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	SDK
-         *
-         * @return array
-         *
+         * @return		array
          * @version		1.0.1012
          */
         public function CancelUnimartLogisticsOrder()
@@ -1099,11 +1038,11 @@
 
             // 參數初始化
             $ParamList = [
-                'MerchantID'        => '',
+                'MerchantID' => '',
                 'AllPayLogisticsID' => '',
-                'CVSPaymentNo'      => '',
-                'CVSValidationNo'   => '',
-                'PlatformID'        => '',
+                'CVSPaymentNo' => '',
+                'CVSValidationNo' => '',
+                'PlatformID' => '',
             ];
             $this->PostParams = $this->GetPostParams($this->Send, $ParamList);
 
@@ -1133,11 +1072,8 @@
          *  物流訂單查詢.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	SDK
-         *
-         * @return array
-         *
+         * @return		array
          * @version		1.0.1012
          */
         public function QueryLogisticsInfo()
@@ -1145,9 +1081,9 @@
 
             // 參數初始化
             $ParamList = [
-                'MerchantID'        => '',
+                'MerchantID' => '',
                 'AllPayLogisticsID' => '',
-                'PlatformID'        => '',
+                'PlatformID' => '',
             ];
             $this->PostParams = $this->GetPostParams($this->Send, $ParamList);
             $this->PostParams['TimeStamp'] = strtotime('now');
@@ -1176,14 +1112,10 @@
          *  產生托運單(宅配)/一段標(超商取貨).
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	SDK
-         *
-         * @param string $ButtonDesc
-         * @param string $Target
-         *
-         * @return string
-         *
+         * @param		string $ButtonDesc 按鈕顯示名稱
+         * @param		string $Target 表單 action 目標
+         * @return		string
          * @version		1.0.1012
          */
         public function PrintTradeDoc($ButtonDesc = '產生托運單/一段標', $Target = '_blank')
@@ -1191,9 +1123,9 @@
 
             // 參數初始化
             $ParamList = [
-                'MerchantID'        => '',
+                'MerchantID' => '',
                 'AllPayLogisticsID' => '',
-                'PlatformID'        => '',
+                'PlatformID' => '',
             ];
             $this->PostParams = $this->GetPostParams($this->Send, $ParamList);
 
@@ -1215,14 +1147,10 @@
          *  列印繳款單(統一超商C2C).
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	SDK
-         *
-         * @param string $ButtonDesc
-         * @param string $Target
-         *
-         * @return string
-         *
+         * @param		string $ButtonDesc 按鈕顯示名稱
+         * @param		string $Target 表單 action 目標
+         * @return		string
          * @version		1.0.1012
          */
         public function PrintUnimartC2CBill($ButtonDesc = '列印繳款單(統一超商C2C)', $Target = '_blank')
@@ -1230,11 +1158,11 @@
 
             // 參數初始化
             $ParamList = [
-                'MerchantID'        => '',
+                'MerchantID' => '',
                 'AllPayLogisticsID' => '',
-                'CVSPaymentNo'      => '',
-                'CVSValidationNo'   => '',
-                'PlatformID'        => '',
+                'CVSPaymentNo' => '',
+                'CVSValidationNo' => '',
+                'PlatformID' => '',
             ];
             $this->PostParams = $this->GetPostParams($this->Send, $ParamList);
 
@@ -1258,14 +1186,10 @@
          *  全家列印小白單(全家超商C2C).
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	SDK
-         *
-         * @param string $ButtonDesc
-         * @param string $Target
-         *
-         * @return string
-         *
+         * @param		string $ButtonDesc 按鈕顯示名稱
+         * @param		string $Target 表單 action 目標
+         * @return		string
          * @version		1.0.1012
          */
         public function PrintFamilyC2CBill($ButtonDesc = '全家列印小白單(全家超商C2C)', $Target = '_blank')
@@ -1273,10 +1197,10 @@
 
             // 參數初始化
             $ParamList = [
-                'MerchantID'        => '',
+                'MerchantID' => '',
                 'AllPayLogisticsID' => '',
-                'CVSPaymentNo'      => '',
-                'PlatformID'        => '',
+                'CVSPaymentNo' => '',
+                'PlatformID' => '',
             ];
             $this->PostParams = $this->GetPostParams($this->Send, $ParamList);
 
@@ -1299,9 +1223,7 @@
          *  Hash Key 檢查.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
          * @version		1.0.1012
          */
         private function ValidateHashKey()
@@ -1320,9 +1242,7 @@
          *  Hash IV 檢查.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
          * @version		1.0.1012
          */
         private function ValidateHashIV()
@@ -1341,14 +1261,11 @@
          *  ID 檢查.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
-         * @param string $Name
-         * @param string $Value
-         * @param int $MaxLength
-         * @param bool $AllowEmpty
-         *
+         * @param		string	$Name		參數名稱
+         * @param		string	$Value		參數內容
+         * @param		int	$MaxLength	參數最大長度
+         * @param		bool	$AllowEmpty	是否允許空值
          * @version		1.0.1012
          */
         private function ValidateID($Name, $Value, $MaxLength = 1, $AllowEmpty = false)
@@ -1366,14 +1283,11 @@
          *  URL 檢查.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
-         * @param string $Name
-         * @param string $Value
-         * @param int $MaxLength
-         * @param bool $AllowEmpty
-         *
+         * @param		string	$Name		參數名稱
+         * @param		string	$Value		參數內容
+         * @param		int	$MaxLength	參數最大長度
+         * @param		bool	$AllowEmpty	是否允許空值
          * @version		1.0.1012
          */
         private function ValidateURL($Name, $Value, $MaxLength = 200, $AllowEmpty = false)
@@ -1394,14 +1308,11 @@
          *  字串檢查.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
-         * @param string $Name
-         * @param string $Value
-         * @param int $MaxLength
-         * @param bool $AllowEmpty
-         *
+         * @param		string	$Name		參數名稱
+         * @param		string	$Value		參數內容
+         * @param		int	$MaxLength	參數最大長度
+         * @param		bool	$AllowEmpty	是否允許空值
          * @version		1.0.1012
          */
         private function ValidateString($Name, $Value, $MaxLength = 1, $AllowEmpty = false)
@@ -1419,14 +1330,11 @@
          *  金額檢查.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
-         * @param string $Name
-         * @param string $Value
-         * @param int $MaxLength
-         * @param bool $AllowEmpty
-         *
+         * @param		string	$Name		參數名稱
+         * @param		string	$Value		參數內容
+         * @param		int	$MaxLength	參數最大長度
+         * @param		bool	$AllowEmpty	是否允許空值
          * @version		1.0.1012
          */
         private function ValidateAmount($Name, $Value, $AllowEmpty = false)
@@ -1447,13 +1355,10 @@
          *  電話號碼檢查.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
-         * @param string $Name
-         * @param string $Value
-         * @param bool $AllowEmpty
-         *
+         * @param		string	$Name		參數名稱
+         * @param		string	$Value		參數內容
+         * @param		bool	$AllowEmpty	是否允許空值
          * @version		1.0.1012
          */
         private function ValidatePhoneNumber($Name, $Value, $AllowEmpty = false)
@@ -1471,14 +1376,11 @@
          *  電子郵件檢查.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
-         * @param string $Name
-         * @param string $Value
-         * @param int $MaxLength
-         * @param bool $AllowEmpty
-         *
+         * @param		string	$Name		參數名稱
+         * @param		string	$Value		參數內容
+         * @param		int	$MaxLength	參數最大長度
+         * @param		bool	$AllowEmpty	是否允許空值
          * @version		1.0.1012
          */
         private function ValidateEmail($Name, $Value, $MaxLength = 100, $AllowEmpty = false)
@@ -1499,13 +1401,10 @@
          *  郵遞區號檢查.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
-         * @param string $Name
-         * @param string $Value
-         * @param bool $AllowEmpty
-         *
+         * @param		string	$Name		參數名稱
+         * @param		string	$Value		參數內容
+         * @param		bool	$AllowEmpty	是否允許空值
          * @version		1.0.1012
          */
         private function ValidateZipCode($Name, $Value, $AllowEmpty = false)
@@ -1523,13 +1422,10 @@
          *  混合型態 ID 檢查.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
-         * @param string $Name
-         * @param string $Value
-         * @param bool $AllowEmpty
-         *
+         * @param		string	$Name		參數名稱
+         * @param		string	$Value		參數內容
+         * @param		bool	$AllowEmpty	是否允許空值
          * @version		1.0.1012
          */
         private function ValidateMixTypeID($Name, $Value, $MaxLength = 1, $AllowEmpty = false)
@@ -1547,9 +1443,7 @@
          *  門市類型檢查.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
          * @version		1.0.1012
          */
         private function ValidateStoreType()
@@ -1572,9 +1466,7 @@
          *  廠商交易編號檢查.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
          * @version		1.0.1012
          */
         private function ValidateMerchantTradeNo()
@@ -1596,9 +1488,7 @@
          *  物流類型檢查.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
          * @version		1.0.1012
          */
         private function ValidateLogisticsType()
@@ -1621,11 +1511,8 @@
          *  物流子類型檢查.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
-         * @param bool $AllowEmpty
-         *
+         * @param		bool	$AllowEmpty	是否允許空值
          * @version		1.0.1012
          */
         private function ValidateLogisticsSubType($AllowEmpty = false)
@@ -1669,11 +1556,8 @@
          *  是否代收貨款檢查.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
-         * @param bool $AllowEmpty
-         *
+         * @param		bool	$AllowEmpty	是否允許空值
          * @version		1.0.1012
          */
         private function ValidateIsCollection($AllowEmpty = false)
@@ -1700,11 +1584,8 @@
          *  使用設備檢查.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
-         * @param bool $AllowEmpty
-         *
+         * @param		bool	$AllowEmpty	是否允許空值
          * @version		1.0.1012
          */
         private function ValidateDevice($AllowEmpty = false)
@@ -1729,9 +1610,7 @@
          *  廠商交易時間檢查.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
          * @version		1.0.1012
          */
         private function ValidateMerchantTradeDate()
@@ -1754,9 +1633,7 @@
          *  溫層檢查.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
          * @version		1.0.1012
          */
         private function ValidateTemperature()
@@ -1779,9 +1656,7 @@
          *  距離檢查.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
          * @version		1.0.1012
          */
         private function ValidateDistance()
@@ -1804,9 +1679,7 @@
          *  規格檢查.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
          * @version		1.0.1012
          */
         private function ValidateSpecification()
@@ -1829,11 +1702,8 @@
          *  預定送達時段檢查.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
-         * @param bool $AllowEmpty
-         *
+         * @param		bool	$AllowEmpty	是否允許空值
          * @version		1.0.1012
          */
         private function ValidateScheduledDeliveryTime($AllowEmpty = false)
@@ -1855,11 +1725,8 @@
          *  物流訂單出貨日期檢查.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
-         * @param bool $AllowEmpty
-         *
+         * @param		bool	$AllowEmpty	是否允許空值
          * @version		1.0.1012
          */
         private function ValidateShipmentDate($AllowEmpty = false)
@@ -1881,14 +1748,10 @@
          *  是否允許空值
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
-         * @param string $Name
-         * @param bool $AllowEmpty
-         *
-         * @return bool
-         *
+         * @param		string	$Name		參數名稱
+         * @param		bool	$AllowEmpty	是否允許空值
+         * @return		bool
          * @version		1.0.1012
          */
         private function IsAllowEmpty($Name, $AllowEmpty)
@@ -1902,13 +1765,10 @@
          *  是否超過長度限制.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
-         * @param string $Name
-         * @param int $MaxLength
-         * @param bool $AllowEmpty
-         *
+         * @param		string	$Name			參數名稱
+         * @param		int	$MaxLength		參數內容
+         * @param		bool	$AllowEmpty	是否允許空值
          * @version		1.0.1012
          */
         private function IsOverLength($Name, $Length, $MaxLength)
@@ -1922,13 +1782,10 @@
          *  是否為指定格式.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
-         * @param string $Name
-         * @param string $Pattern
-         * @param string $Value
-         *
+         * @param		string	$Name		參數名稱
+         * @param		string	$Pattern	格式檢查用正規表示法
+         * @param		string	$Value		參數內容
          * @version		1.0.1012
          */
         private function IsValidFormat($Name, $Pattern, $Value)
@@ -1944,12 +1801,9 @@
          *  是否為數值
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
-         * @param string $Name
-         * @param string $Value
-         *
+         * @param		string	$Name		參數名稱
+         * @param		string	$Value		參數內容
          * @version		1.0.1012
          */
         private function IsInteger($Name, $Value)
@@ -1963,13 +1817,10 @@
          *  是否為數值
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
-         * @param string $Name
-         * @param string $ClassName
-         * @param string $Value
-         *
+         * @param		string	$Name			參數名稱
+         * @param		string	$ClassName		合法資料 Class 名稱
+         * @param		string	$Value			參數內容
          * @version		1.0.1012
          */
         private function IsLegalValue($Name, $ClassName, $Value)
@@ -1989,13 +1840,10 @@
          *  是否為正確日期
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Validate
-         *
-         * @param string $Name
-         * @param string $Format
-         * @param string $Value
-         *
+         * @param		string	$Name			參數名稱
+         * @param		string	$Format			日期格式
+         * @param		string	$Value			參數內容
          * @version		1.0.1012
          */
         private function IsDate($Name, $Format, $Value)
@@ -2009,15 +1857,11 @@
          *  取得並過濾 $_POST 參數.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	SDK_Misc
-         *
-         * @param array $Source
-         * @param array $ParamList
-         * @param array $MergeParams
-         *
-         * @return array
-         *
+         * @param		array	$Source			$_POST 參數來源
+         * @param		array	$ParamList		合法參數與預設值
+         * @param		array	$MergeParams	其他待合併參數
+         * @return		array
          * @version		1.0.1012
          */
         private function GetPostParams($Source, $ParamList, $MergeParams = [])
@@ -2040,13 +1884,9 @@
          *  取得 ECPay URL.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	SDK_Misc
-         *
-         * @param string $FunctionType
-         *
-         * @return string
-         *
+         * @param		string	$FunctionType	功能名稱
+         * @return		string
          * @version		1.0.1012
          */
         private function GetURL($FunctionType)
@@ -2056,34 +1896,34 @@
             if ($MerchantID == ECPayTestMerchantID::B2C or $MerchantID == ECPayTestMerchantID::C2C) {
                 // 測試環境
                 $UrlList = [
-                    'CVS_MAP'                        => ECPayTestURL::CVS_MAP,
-                    'SHIPPING_ORDER'                 => ECPayTestURL::SHIPPING_ORDER,
-                    'HOME_RETURN_ORDER'              => ECPayTestURL::HOME_RETURN_ORDER,
-                    'FAMILY_RETURN_ORDER'            => ECPayTestURL::FAMILY_RETURN_ORDER,
-                    'FAMILY_RETURN_CHECK'            => ECPayTestURL::FAMILY_RETURN_CHECK,
-                    'UNIMART_UPDATE_LOGISTICS_INFO'  => ECPayTestURL::UNIMART_UPDATE_LOGISTICS_INFO,
-                    'UNIMART_UPDATE_STORE_INFO'      => ECPayTestURL::UNIMART_UPDATE_STORE_INFO,
+                    'CVS_MAP' => ECPayTestURL::CVS_MAP,
+                    'SHIPPING_ORDER' => ECPayTestURL::SHIPPING_ORDER,
+                    'HOME_RETURN_ORDER' => ECPayTestURL::HOME_RETURN_ORDER,
+                    'FAMILY_RETURN_ORDER' => ECPayTestURL::FAMILY_RETURN_ORDER,
+                    'FAMILY_RETURN_CHECK' => ECPayTestURL::FAMILY_RETURN_CHECK,
+                    'UNIMART_UPDATE_LOGISTICS_INFO' => ECPayTestURL::UNIMART_UPDATE_LOGISTICS_INFO,
+                    'UNIMART_UPDATE_STORE_INFO' => ECPayTestURL::UNIMART_UPDATE_STORE_INFO,
                     'UNIMART_CANCEL_LOGISTICS_ORDER' => ECPayTestURL::UNIMART_CANCEL_LOGISTICS_ORDER,
-                    'QUERY_LOGISTICS_INFO'           => ECPayTestURL::QUERY_LOGISTICS_INFO,
-                    'PRINT_TRADE_DOC'                => ECPayTestURL::PRINT_TRADE_DOC,
-                    'PRINT_UNIMART_C2C_BILL'         => ECPayTestURL::PRINT_UNIMART_C2C_BILL,
-                    'PRINT_FAMILY_C2C_BILL'          => ECPayTestURL::PRINT_FAMILY_C2C_BILL,
+                    'QUERY_LOGISTICS_INFO' => ECPayTestURL::QUERY_LOGISTICS_INFO,
+                    'PRINT_TRADE_DOC' => ECPayTestURL::PRINT_TRADE_DOC,
+                    'PRINT_UNIMART_C2C_BILL' => ECPayTestURL::PRINT_UNIMART_C2C_BILL,
+                    'PRINT_FAMILY_C2C_BILL' => ECPayTestURL::PRINT_FAMILY_C2C_BILL,
                 ];
             } else {
                 // 正式環境
                 $UrlList = [
-                    'CVS_MAP'                        => ECPayURL::CVS_MAP,
-                    'SHIPPING_ORDER'                 => ECPayURL::SHIPPING_ORDER,
-                    'HOME_RETURN_ORDER'              => ECPayURL::HOME_RETURN_ORDER,
-                    'FAMILY_RETURN_ORDER'            => ECPayURL::FAMILY_RETURN_ORDER,
-                    'FAMILY_RETURN_CHECK'            => ECPayURL::FAMILY_RETURN_CHECK,
-                    'UNIMART_UPDATE_LOGISTICS_INFO'  => ECPayURL::UNIMART_UPDATE_LOGISTICS_INFO,
-                    'UNIMART_UPDATE_STORE_INFO'      => ECPayURL::UNIMART_UPDATE_STORE_INFO,
+                    'CVS_MAP' => ECPayURL::CVS_MAP,
+                    'SHIPPING_ORDER' => ECPayURL::SHIPPING_ORDER,
+                    'HOME_RETURN_ORDER' => ECPayURL::HOME_RETURN_ORDER,
+                    'FAMILY_RETURN_ORDER' => ECPayURL::FAMILY_RETURN_ORDER,
+                    'FAMILY_RETURN_CHECK' => ECPayURL::FAMILY_RETURN_CHECK,
+                    'UNIMART_UPDATE_LOGISTICS_INFO' => ECPayURL::UNIMART_UPDATE_LOGISTICS_INFO,
+                    'UNIMART_UPDATE_STORE_INFO' => ECPayURL::UNIMART_UPDATE_STORE_INFO,
                     'UNIMART_CANCEL_LOGISTICS_ORDER' => ECPayURL::UNIMART_CANCEL_LOGISTICS_ORDER,
-                    'QUERY_LOGISTICS_INFO'           => ECPayURL::QUERY_LOGISTICS_INFO,
-                    'PRINT_TRADE_DOC'                => ECPayURL::PRINT_TRADE_DOC,
-                    'PRINT_UNIMART_C2C_BILL'         => ECPayURL::PRINT_UNIMART_C2C_BILL,
-                    'PRINT_FAMILY_C2C_BILL'          => ECPayURL::PRINT_FAMILY_C2C_BILL,
+                    'QUERY_LOGISTICS_INFO' => ECPayURL::QUERY_LOGISTICS_INFO,
+                    'PRINT_TRADE_DOC' => ECPayURL::PRINT_TRADE_DOC,
+                    'PRINT_UNIMART_C2C_BILL' => ECPayURL::PRINT_UNIMART_C2C_BILL,
+                    'PRINT_FAMILY_C2C_BILL' => ECPayURL::PRINT_FAMILY_C2C_BILL,
                 ];
             }
 
@@ -2094,13 +1934,9 @@
          *  加入換行字元.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Misc
-         *
-         * @param string $Content
-         *
-         * @return string
-         *
+         * @param		string	$Content	內容
+         * @return		string
          * @version		1.0.1012
          */
         private function AddNextLine($Content)
@@ -2112,14 +1948,10 @@
          *  產生自動/手動 POST 提交表單.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	SDK_Misc
-         *
-         * @param string $ButtonDesc
-         * @param string $Target
-         *
-         * @return string
-         *
+         * @param		string	$ButtonDesc	按鈕顯示名稱
+         * @param		string	$Target		表單 action 目標
+         * @return		string
          * @version		1.0.1012
          */
         private function GenPostHTML($ButtonDesc = '', $Target = '_self')
@@ -2146,14 +1978,10 @@
          *  依編碼方式取得字串長度.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	Misc
-         *
-         * @param string $RetriveString
-         * @param string $Encode
-         *
-         * @return int
-         *
+         * @param		string	$RetriveString	字串內容
+         * @param		string	$Encode 		字串編碼
+         * @return		int
          * @version		1.0.1012
          */
         private function StringLength($RetriveString, $Encode)
@@ -2165,15 +1993,11 @@
          *  產生 CheckMacValue.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	SDK_Misc
-         *
-         * @param array $ParamList
-         * @param string $HashKey
-         * @param string $HashIV
-         *
-         * @return string
-         *
+         * @param		array	$ParamList	參數內容
+         * @param		string	$HashKey	HashKey
+         * @param		string	$HashIV 	HashIV
+         * @return		string
          * @version		1.0.1012
          */
         private function GenCheckMacValue($ParamList, $HashKey, $HashIV)
@@ -2208,14 +2032,10 @@
          *  自定義排序方式.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	SDK_Misc
-         *
-         * @param string $Value01
-         * @param string $Value02
-         *
-         * @return int
-         *
+         * @param		string	$Value01	值1
+         * @param		string	$Value02	值2
+         * @return		int
          * @version		1.0.1012
          */
         private static function MerchantSort($Value01, $Value02)
@@ -2227,14 +2047,10 @@
          *  幕後提交.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	SDK_Misc
-         *
-         * @param array $ParamList
-         * @param string $URL
-         *
-         * @return mixed
-         *
+         * @param		array	$ParamList	參數內容
+         * @param		string	$URL		提交 URL
+         * @return		mixed
          * @version		1.0.1012
          */
         private function ServerPost($ParamList, $URL)
@@ -2257,15 +2073,11 @@
          *  解析 ECPay 回傳結果.
          *
          * @author		https://www.ecpay.com.tw
-         *
          * @category	SDK_Misc
-         *
-         * @param string $Feedback
-         * @param array $FeedbackList
-         * @param string $Separator
-         *
-         * @return array
-         *
+         * @param		string	$Feedback		回傳結果
+         * @param		array	$FeedbackList	合法回傳參數
+         * @param		string	$Separator		分隔符號
+         * @return		array
          * @version		1.0.1012
          */
         private function ParseFeedback($Feedback, $FeedbackList = ['RtnCode', 'RtnMsg'], $Separator = '|')

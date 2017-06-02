@@ -2,6 +2,8 @@
 
 namespace PayumTW\Ecpay\Bridge\Ecpay;
 
+use ECPay_CheckOutFeedback;
+
 class AllInOne extends \ECPay_AllInOne
 {
     use FormToArrayTrait;
@@ -13,6 +15,6 @@ class AllInOne extends \ECPay_AllInOne
     {
         $params = func_get_arg(0);
 
-        return CheckOutFeedback::CheckOut($params, $this->HashKey, $this->HashIV, 0);
+        return ECPay_CheckOutFeedback::CheckOut($params, $this->HashKey, $this->HashIV, 0);
     }
 }

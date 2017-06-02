@@ -17,11 +17,6 @@ class ClassAliasTest extends TestCase
         $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\ActionType'));
     }
 
-    public function testCarruerTypeExists()
-    {
-        $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\CarruerType'));
-    }
-
     public function testClearanceMarkExists()
     {
         $this->assertTrue(class_exists('PayumTW\Ecpay\Bridge\Ecpay\ClearanceMark'));
