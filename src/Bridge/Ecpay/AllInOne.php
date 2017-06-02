@@ -2,9 +2,10 @@
 
 namespace PayumTW\Ecpay\Bridge\Ecpay;
 
+use ECPay_AllInOne;
 use ECPay_CheckOutFeedback;
 
-class AllInOne extends \ECPay_AllInOne
+class AllInOne extends ECPay_AllInOne
 {
     use FormToArrayTrait;
 

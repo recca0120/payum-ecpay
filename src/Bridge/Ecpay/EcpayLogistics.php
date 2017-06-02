@@ -2,7 +2,9 @@
 
 namespace PayumTW\Ecpay\Bridge\Ecpay;
 
-class EcpayLogistics extends \ECPayLogistics
+use ECPayLogistics as BaseECPayLogistics;
+
+class EcpayLogistics extends BaseECPayLogistics
 {
     use FormToArrayTrait;
 }

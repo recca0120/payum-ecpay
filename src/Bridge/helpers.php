@@ -15,7 +15,6 @@ $classes = [
     'ECPay_TaxType',
     'ECPay_InvType',
     'ECPay_EncryptType',
-    'ECPay_AllInOne',
     'ECPay_Aio',
     'ECPay_Send',
     'ECPay_CheckOutFeedback',
