@@ -38,7 +38,7 @@
             "src/Bridge/Ecpay/Sdk"
         ],
         "files": [
-            "src/Bridge/helpers.php"
+            "src/Bridge/polyfill.php"
         ],
         "psr-4": {
             "PayumTW\\Ecpay\\": "src/"
