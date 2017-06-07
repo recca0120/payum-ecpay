@@ -78,7 +78,7 @@ class CreateTransactionActionTest extends TestCase
         ]));
 
         $action->setApi(
-            $api = m::mock('PayumTW\Ecpay\Api')
+            $api = m::mock('PayumTW\Ecpay\EcpayLogisticsApi')
         );
 
         $api->shouldReceive('createCvsMapTransaction')->once()->with((array) $request->getModel())->andReturn($result = ['foo' => 'bar']);
