@@ -2,6 +2,7 @@
 
 namespace PayumTW\Ecpay\Action\Api;
 
+use PayumTW\Ecpay\EcpayLogisticsApi;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Reply\HttpPostRedirect;
 use PayumTW\Ecpay\Request\Api\CreateTransaction;
@@ -20,7 +21,7 @@ class CreateTransactionAction extends BaseApiAwareAction
 
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
-        if (isset($details['GoodsAmount']) === true && empty($details['GoodsAmount']) === true) {
+        if ($this->api instanceof EcpayLogisticsApi && empty($details['GoodsAmount']) === true) {
             $params = $this->api->createCvsMapTransaction((array) $details);
             $endpoint = $this->api->getApiEndpoint();
 

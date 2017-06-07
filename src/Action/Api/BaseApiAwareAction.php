@@ -10,7 +10,7 @@ use Payum\Core\Exception\UnsupportedApiException;
 abstract class BaseApiAwareAction implements ActionInterface, ApiAwareInterface
 {
     /**
-     * @var \Payum\Ecpay\Api
+     * @var \PayumTW\Ecpay\Api
      */
     protected $api;
 
