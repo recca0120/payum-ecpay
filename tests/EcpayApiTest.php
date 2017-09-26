@@ -5,8 +5,8 @@ namespace PayumTW\Ecpay\Tests;
 use Mockery as m;
 use PayumTW\Ecpay\EcpayApi;
 use PHPUnit\Framework\TestCase;
-use PayumTW\Ecpay\Bridge\Ecpay\ActionType;
-use PayumTW\Ecpay\Bridge\Ecpay\PaymentMethod;
+use ECPay_ActionType;
+use ECPay_PaymentMethod;
 
 class EcpayApiTest extends TestCase
 {
@@ -47,7 +47,7 @@ class EcpayApiTest extends TestCase
             'MerchantTradeDate' => date('Y/m/d H:i:s'),
             'TotalAmount' => 2000,
             'TradeDesc' => 'good to drink',
-            'ChoosePayment' => PaymentMethod::ALL,
+            'ChoosePayment' => ECPay_PaymentMethod::ALL,
             'Items' => [
                 [
                     'Name' => '歐付寶黑芝麻豆漿',
@@ -81,7 +81,7 @@ class EcpayApiTest extends TestCase
         $sdk->Action = [
             'MerchantTradeNo' => '',
             'TradeNo' => '',
-            'Action' => ActionType::C,
+            'Action' => ECPay_ActionType::C,
             'TotalAmount' => 0,
         ];
 

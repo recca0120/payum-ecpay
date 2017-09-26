@@ -5,9 +5,6 @@ namespace PayumTW\Ecpay\Tests;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use PayumTW\Ecpay\EcpayLogisticsApi;
-use PayumTW\Ecpay\Bridge\Ecpay\IsCollection;
-use PayumTW\Ecpay\Bridge\Ecpay\LogisticsType;
-use PayumTW\Ecpay\Bridge\Ecpay\LogisticsSubType;
 
 class EcpayLogisticsApiTest extends TestCase
 {

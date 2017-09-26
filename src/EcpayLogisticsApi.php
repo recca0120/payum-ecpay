@@ -4,15 +4,15 @@ namespace PayumTW\Ecpay;
 
 use Http\Message\MessageFactory;
 use Payum\Core\HttpClientInterface;
-use PayumTW\Ecpay\Bridge\Ecpay\Device;
-use PayumTW\Ecpay\Bridge\Ecpay\Distance;
-use PayumTW\Ecpay\Bridge\Ecpay\Temperature;
-use PayumTW\Ecpay\Bridge\Ecpay\IsCollection;
-use PayumTW\Ecpay\Bridge\Ecpay\LogisticsType;
-use PayumTW\Ecpay\Bridge\Ecpay\Specification;
-use PayumTW\Ecpay\Bridge\Ecpay\EcpayLogistics;
-use PayumTW\Ecpay\Bridge\Ecpay\LogisticsSubType;
-use PayumTW\Ecpay\Bridge\Ecpay\ScheduledPickupTime;
+use Device;
+use Distance;
+use Temperature;
+use IsCollection;
+use LogisticsType;
+use Specification;
+use EcpayLogistics;
+use LogisticsSubType;
+use ScheduledPickupTime;
 
 class EcpayLogisticsApi extends Api
 {
