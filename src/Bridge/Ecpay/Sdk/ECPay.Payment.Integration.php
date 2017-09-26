@@ -310,16 +310,16 @@ abstract class ECPay_InvoiceState
 abstract class ECPay_CarrierType
 {
     // 無載具
-  const None = '';
+    const None = '';
 
-  // 會員載具
-  const Member = '1';
+    // 會員載具
+    const Member = '1';
 
-  // 買受人自然人憑證
-  const Citizen = '2';
+    // 買受人自然人憑證
+    const Citizen = '2';
 
-  // 買受人手機條碼
-  const Cellphone = '3';
+    // 買受人手機條碼
+    const Cellphone = '3';
 }
 
 /**
@@ -328,10 +328,10 @@ abstract class ECPay_CarrierType
 abstract class ECPay_PrintMark
 {
     // 不列印
-  const No = '0';
+    const No = '0';
 
-  // 列印
-  const Yes = '1';
+    // 列印
+    const Yes = '1';
 }
 
 /**
@@ -340,10 +340,10 @@ abstract class ECPay_PrintMark
 abstract class ECPay_Donation
 {
     // 捐贈
-  const Yes = '1';
+    const Yes = '1';
 
-  // 不捐贈
-  const No = '2';
+    // 不捐贈
+    const No = '2';
 }
 
 /**
@@ -352,10 +352,10 @@ abstract class ECPay_Donation
 abstract class ECPay_ClearanceMark
 {
     // 經海關出口
-  const Yes = '1';
+    const Yes = '1';
 
-  // 非經海關出口
-  const No = '2';
+    // 非經海關出口
+    const No = '2';
 }
 
 /**
@@ -364,16 +364,16 @@ abstract class ECPay_ClearanceMark
 abstract class ECPay_TaxType
 {
     // 應稅
-  const Dutiable = '1';
+    const Dutiable = '1';
 
-  // 零稅率
-  const Zero = '2';
+    // 零稅率
+    const Zero = '2';
 
-  // 免稅
-  const Free = '3';
+    // 免稅
+    const Free = '3';
 
-  // 應稅與免稅混合(限收銀機發票無法分辦時使用，且需通過申請核可)
-  const Mix = '9';
+    // 應稅與免稅混合(限收銀機發票無法分辦時使用，且需通過申請核可)
+    const Mix = '9';
 }
 
 /**
@@ -382,10 +382,10 @@ abstract class ECPay_TaxType
 abstract class ECPay_InvType
 {
     // 一般稅額
-  const General = '07';
+    const General = '07';
 
-  // 特種稅額
-  const Special = '08';
+    // 特種稅額
+    const Special = '08';
 }
 
 abstract class ECPay_EncryptType
@@ -1307,7 +1307,7 @@ class ECPay_BARCODE extends ECPay_Verification
         return $arExtend;
     }
 
-        //檢查商品
+    //檢查商品
     public function check_goods($arParameters = [])
     {
         // 檢查產品名稱。
