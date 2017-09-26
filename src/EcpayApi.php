@@ -2,11 +2,11 @@
 
 namespace PayumTW\Ecpay;
 
+use ECPay_DeviceType;
+use ECPay_InvoiceState;
 use Http\Message\MessageFactory;
 use Payum\Core\HttpClientInterface;
 use PayumTW\Ecpay\Bridge\Ecpay\AllInOne;
-use PayumTW\Ecpay\Bridge\Ecpay\DeviceType;
-use PayumTW\Ecpay\Bridge\Ecpay\InvoiceState;
 
 class EcpayApi extends Api
 {
@@ -95,7 +95,7 @@ class EcpayApi extends Api
     {
         $this->sdk->ServiceURL = $this->getApiEndpoint('AioCheckOut');
         $this->sdk->Send['MerchantTradeDate'] = date('Y/m/d H:i:s');
-        $this->sdk->Send['DeviceSource'] = $this->isMobile() ? DeviceType::Mobile : DeviceType::PC;
+        $this->sdk->Send['DeviceSource'] = $this->isMobile() ? ECPay_DeviceType::Mobile : ECPay_DeviceType::PC;
         $this->sdk->Send = array_replace(
             $this->sdk->Send,
             array_intersect_key($params, $this->sdk->Send)
@@ -103,7 +103,7 @@ class EcpayApi extends Api
 
         /*
          * 電子發票參數
-         * $sdk->Send['InvoiceMark'] = InvoiceState::Yes;
+         * $sdk->Send['InvoiceMark'] = ECPay_InvoiceState::Yes;
          * $sdk->SendExtend['RelateNumber'] = $MerchantTradeNo;
          * $sdk->SendExtend['CustomerEmail'] = 'test@ecpay.com.tw';
          * $sdk->SendExtend['CustomerPhone'] = '0911222333';
