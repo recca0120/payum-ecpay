@@ -34,10 +34,9 @@
         "php-http/guzzle6-adapter": "^1.0"
     },
     "autoload": {
-        "classmap": [
-            "src/Bridge/Ecpay/Sdk"
-        ],
         "files": [
+            "src/Bridge/Ecpay/Sdk/ECPay.Payment.Integration.php",
+            "src/Bridge/Ecpay/Sdk/ECPay.Logistics.Integration.php",
             "src/Bridge/polyfill.php"
         ],
         "psr-4": {
