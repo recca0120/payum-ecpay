@@ -8,11 +8,11 @@ use Temperature;
 use IsCollection;
 use LogisticsType;
 use Specification;
-use EcpayLogistics;
 use LogisticsSubType;
 use ScheduledPickupTime;
 use Http\Message\MessageFactory;
 use Payum\Core\HttpClientInterface;
+use PayumTW\Ecpay\Sdk\EcpayLogistics;
 
 class EcpayLogisticsApi extends Api
 {
