@@ -1,6 +1,6 @@
 <?php
 
-namespace PayumTW\Ecpay\Bridge\Ecpay;
+namespace PayumTW\Ecpay\Sdk;
 
 use ECPayLogistics as BaseECPayLogistics;
 

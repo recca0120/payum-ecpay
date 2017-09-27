@@ -4,7 +4,7 @@ namespace PayumTW\Ecpay\Tests\Bridge\Ecpay;
 
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
-use PayumTW\Ecpay\Bridge\Ecpay\FormToArrayTrait;
+use PayumTW\Ecpay\Sdk\FormToArrayTrait;
 
 class FormToArrayTraitTest extends TestCase
 {

@@ -2,8 +2,6 @@
 
 namespace PayumTW\Ecpay;
 
-use Http\Message\MessageFactory;
-use Payum\Core\HttpClientInterface;
 use Device;
 use Distance;
 use Temperature;
@@ -13,6 +11,8 @@ use Specification;
 use EcpayLogistics;
 use LogisticsSubType;
 use ScheduledPickupTime;
+use Http\Message\MessageFactory;
+use Payum\Core\HttpClientInterface;
 
 class EcpayLogisticsApi extends Api
 {
@@ -40,7 +40,7 @@ class EcpayLogisticsApi extends Api
     /**
      * $sdk.
      *
-     * @var \PayumTW\Ecpay\Bridge\Ecpay\EcpayLogistics
+     * @var \PayumTW\Ecpay\Sdk\EcpayLogistics
      */
     protected $sdk;
 
@@ -53,7 +53,7 @@ class EcpayLogisticsApi extends Api
      * @param array $options
      * @param \Payum\Core\HttpClientInterface $client
      * @param MessageFactory $messageFactory
-     * @param \PayumTW\Ecpay\Bridge\Ecpay\EcpayLogistics $sdk
+     * @param \PayumTW\Ecpay\Sdk\EcpayLogistics $sdk
      *
      * @throws \Payum\Core\Exception\InvalidArgumentException if an option is invalid
      */

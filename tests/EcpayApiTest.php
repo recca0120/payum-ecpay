@@ -3,10 +3,10 @@
 namespace PayumTW\Ecpay\Tests;
 
 use Mockery as m;
-use PayumTW\Ecpay\EcpayApi;
-use PHPUnit\Framework\TestCase;
 use ECPay_ActionType;
 use ECPay_PaymentMethod;
+use PayumTW\Ecpay\EcpayApi;
+use PHPUnit\Framework\TestCase;
 
 class EcpayApiTest extends TestCase
 {
@@ -26,7 +26,7 @@ class EcpayApiTest extends TestCase
             ],
             $httpClient = m::mock('Payum\Core\HttpClientInterface'),
             $message = m::mock('Http\Message\MessageFactory'),
-            $sdk = m::mock('PayumTW\Ecpay\Bridge\Ecpay\AllInOne')
+            $sdk = m::mock('PayumTW\Ecpay\Sdk\AllInOne')
         );
 
         $sdk->Send = [
@@ -75,7 +75,7 @@ class EcpayApiTest extends TestCase
             ],
             $httpClient = m::mock('Payum\Core\HttpClientInterface'),
             $message = m::mock('Http\Message\MessageFactory'),
-            $sdk = m::mock('PayumTW\Ecpay\Bridge\Ecpay\AllInOne')
+            $sdk = m::mock('PayumTW\Ecpay\Sdk\AllInOne')
         );
 
         $sdk->Action = [
@@ -107,7 +107,7 @@ class EcpayApiTest extends TestCase
             ],
             $httpClient = m::mock('Payum\Core\HttpClientInterface'),
             $message = m::mock('Http\Message\MessageFactory'),
-            $sdk = m::mock('PayumTW\Ecpay\Bridge\Ecpay\AllInOne')
+            $sdk = m::mock('PayumTW\Ecpay\Sdk\AllInOne')
         );
 
         $sdk->ChargeBack = [
@@ -140,7 +140,7 @@ class EcpayApiTest extends TestCase
             ],
             $httpClient = m::mock('Payum\Core\HttpClientInterface'),
             $message = m::mock('Http\Message\MessageFactory'),
-            $sdk = m::mock('PayumTW\Ecpay\Bridge\Ecpay\AllInOne')
+            $sdk = m::mock('PayumTW\Ecpay\Sdk\AllInOne')
         );
 
         $sdk->Query = [

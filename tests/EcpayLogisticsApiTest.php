@@ -24,7 +24,7 @@ class EcpayLogisticsApiTest extends TestCase
             ],
             $httpClient = m::mock('Payum\Core\HttpClientInterface'),
             $message = m::mock('Http\Message\MessageFactory'),
-            $sdk = m::mock('PayumTW\Ecpay\Bridge\Ecpay\EcpayLogistics')
+            $sdk = m::mock('PayumTW\Ecpay\Sdk\EcpayLogistics')
         );
 
         $sdk->Send = [];
@@ -62,7 +62,7 @@ class EcpayLogisticsApiTest extends TestCase
             ],
             $httpClient = m::mock('Payum\Core\HttpClientInterface'),
             $message = m::mock('Http\Message\MessageFactory'),
-            $sdk = m::mock('PayumTW\Ecpay\Bridge\Ecpay\EcpayLogistics')
+            $sdk = m::mock('PayumTW\Ecpay\Sdk\EcpayLogistics')
         );
 
         $sdk->shouldReceive('BGCreateShippingOrder')->once();

@@ -4,9 +4,9 @@ namespace PayumTW\Ecpay;
 
 use ECPay_DeviceType;
 use ECPay_InvoiceState;
+use PayumTW\Ecpay\Sdk\AllInOne;
 use Http\Message\MessageFactory;
 use Payum\Core\HttpClientInterface;
-use PayumTW\Ecpay\Bridge\Ecpay\AllInOne;
 
 class EcpayApi extends Api
 {
@@ -34,7 +34,7 @@ class EcpayApi extends Api
     /**
      * $sdk.
      *
-     * @var \PayumTW\Ecpay\Bridge\Ecpay\AllInOne
+     * @var \PayumTW\Ecpay\Sdk\AllInOne
      */
     protected $sdk;
 
@@ -42,7 +42,7 @@ class EcpayApi extends Api
      * @param array $options
      * @param \Payum\Core\HttpClientInterface $client
      * @param \Http\Message\MessageFactory $messageFactory
-     * @param \PayumTW\Ecpay\Bridge\Ecpay\AllInOne $sdk
+     * @param \PayumTW\Ecpay\Sdk\AllInOne $sdk
      *
      * @throws \Payum\Core\Exception\InvalidArgumentException if an option is invalid
      */
