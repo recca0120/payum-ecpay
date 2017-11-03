@@ -5,6 +5,9 @@ namespace PayumTW\Ecpay;
 use Payum\Core\GatewayFactory;
 use PayumTW\Ecpay\Action\SyncAction;
 use Payum\Core\Bridge\Spl\ArrayObject;
+use PayumTW\Ecpay\Action\CancelAction;
+use PayumTW\Ecpay\Action\NotifyAction;
+use PayumTW\Ecpay\Action\RefundAction;
 use PayumTW\Ecpay\Action\StatusLogisticsAction;
 use PayumTW\Ecpay\Action\CaptureLogisticsAction;
 use PayumTW\Ecpay\Action\Api\CreateTransactionAction;
@@ -22,6 +25,9 @@ class EcpayLogisticsGatewayFactory extends GatewayFactory
             'payum.factory_name' => 'ecpay_logistics',
             'payum.factory_title' => 'Ecpay Logistics',
             'payum.action.capture' => new CaptureLogisticsAction(),
+            'payum.action.notify' => new NotifyAction(),
+            'payum.action.refund' => new RefundAction(),
+            'payum.action.cancel' => new CancelAction(),
             'payum.action.sync' => new SyncAction(),
             'payum.action.status' => new StatusLogisticsAction(),
             'payum.action.convert_payment' => new ConvertPaymentLogisticsAction(),
