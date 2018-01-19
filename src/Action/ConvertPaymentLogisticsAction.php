@@ -28,6 +28,7 @@ class ConvertPaymentLogisticsAction implements ActionInterface
         $details['ReceiverEmail'] = $payment->getClientEmail();
         $details['GoodsAmount'] = $payment->getTotalAmount();
         $details['TradeDesc'] = $payment->getDescription();
+	$details['Items'] = $payment->getItems();
 
         $details['AllPayLogisticsID'] = $details['MerchantTradeNo'];
 

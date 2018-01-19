@@ -63,6 +63,31 @@ $model = new \ArrayObject([
 $ecpay->execute(new Capture($model));
 ```
 
+6. Your Payment entity must to have the items list
+```php
+<?php
+
+private $items = array();
+
+```
+
+7. In payment action, the $items parameters need to be like this
+```php
+<?php
+
+$payment->setItems(array(
+    array(
+        'Name' => $product->getName(),
+        'Count' => 1,
+        'Word' => '個',
+        'Price' => $product->getPrice(),
+        'TaxType' => 1,
+        'URL' => $this->generateURL('product', array(), UrlGeneratorInterface::ABSOLUTE_URL),
+    ),
+));
+
+```
+
 ## Resources
 
 * [Documentation](https://github.com/Payum/Payum/blob/master/src/Payum/Core/Resources/docs/index.md)
