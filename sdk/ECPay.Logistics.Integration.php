@@ -2340,7 +2340,6 @@
         }
 
         /**
-
          *  解析 ECPay 回傳結果.
          *
          * @author		https://www.ecpay.com.tw
