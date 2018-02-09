@@ -28,8 +28,8 @@
         "mobiledetect/mobiledetectlib": "^2.8"
     },
     "require-dev": {
-        "mockery/mockery": "~0.9.4",
-        "phpunit/phpunit": "^4.8|^5.4|^6.3",
+        "mockery/mockery": "~0.9.4|~1.0",
+        "phpunit/phpunit": "~4.8|~5.4|~6.3|~7.0",
         "nesbot/carbon": "~1.20",
         "php-http/guzzle6-adapter": "^1.0"
     },
@@ -51,5 +51,7 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "optimize-autoloader": true
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
